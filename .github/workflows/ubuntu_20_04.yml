@@ -1,0 +1,24 @@
+name: Noetic ROS build from source
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    # env:
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+        with:
+          repository: ros/catkin
+          ref: noetic-devel
+      - name: Catkin
+        run: |
+          mkdir build/catkin -p
+          cd build/catkin
+          cmake ../../catkin -DCATKIN_BUILD_BINARY_PACKAGE=OFF -DCMAKE_INSTALL_PREFIX=/opt/ros/noetic -DPYTHON_EXECUTABLE=/usr/bin/python -DSETUPTOOLS_DEB_LAYOUT=OFF
+          make
+          make install
+          ls -l /opt/ros/noetic
