@@ -13,6 +13,13 @@ jobs:
         with:
           path: ros
           submodules: recursive
+      - name: deps
+        run: |
+          sudo apt install -y python-nose
+          sudo apt install -y gtest
+          # sudo apt install -y python-catkin-pkg
+          sudo apt install -y python-empy
+          sudo apt install -y gmock
       - name: Catkin
         run: |
           ls -l
