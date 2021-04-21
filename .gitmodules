@@ -1,3 +1,6 @@
 [submodule "core/catkin"]
 	path = core/catkin
 	url = git@github.com:ros/catkin
+[submodule "core/catkin_pkg"]
+	path = core/catkin_pkg
+	url = git@github.com:ros-infrastructure/catkin_pkg
