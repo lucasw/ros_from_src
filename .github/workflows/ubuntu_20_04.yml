@@ -15,11 +15,11 @@ jobs:
           submodules: recursive
       - name: deps
         run: |
-          sudo apt install -y python-nose
-          sudo apt install -y gtest
+          sudo apt install -y python3-nose
+          sudo apt install -y googletest
           # sudo apt install -y python-catkin-pkg
-          sudo apt install -y python-empy
-          sudo apt install -y gmock
+          sudo apt install -y python3-empy
+          sudo apt install -y google-mock
       - name: Catkin
         run: |
           ls -l
