@@ -11,11 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          path: ros
+          path: ros_from_src
           submodules: recursive
       - name: docker build
         run: |
-          ls -l
+          cd ros_from_src
           docker build .
       # - name: deps
       #   run: |
