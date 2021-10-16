@@ -9,14 +9,22 @@ jobs:
     runs-on: ubuntu-20.04
     # env:
     steps:
-      - uses: actions/checkout@v2
+      - name: git clone git@github.com:lucasw/ros_from_src
+        uses: actions/checkout@v2
         with:
           path: ros_from_src
           submodules: recursive
-      - name: docker build
+
+      - name: docker build 20.04
         run: |
           cd ros_from_src
-          docker build .
+          docker build --build-arg IMAGE=ubuntu:20.04 . -t ros2004
+
+      - name: docker build 21.10
+        run: |
+          cd ros_from_src
+          docker build --build-arg IMAGE=ubuntu:21.10 --build-arg PYTHON_MINOR_VERSION=9 . -t ros2110
+
       # - name: deps
       #   run: |
       #     sudo apt install -y python3-nose
