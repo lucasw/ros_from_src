@@ -69,12 +69,12 @@ ENV PYTHONPATH=$DEST/lib/python$PYTHON_MAJOR_VERSION.$PYTHON_MINOR_VERSION/site-
 RUN echo $PYTHONPATH
 
 # console_bridge
-WORKDIR $SRC
+WORKDIR $WS
 RUN git clone https://github.com/ros/console_bridge
 RUN mkdir $BUILD/console_bridge -p
 WORKDIR $BUILD/console_bridge
 # RUN cmake ../../console_bridge -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=lib && make && make install
-RUN cmake $SRC/console_bridge -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$DEST -DCMAKE_INSTALL_LIBDIR=lib
+RUN cmake $WS/console_bridge -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$DEST -DCMAKE_INSTALL_LIBDIR=lib
 RUN make
 RUN make install
 
