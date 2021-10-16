@@ -92,7 +92,7 @@ RUN make install
 WORKDIR $WS
 RUN git clone https://github.com/ros/class_loader
 RUN mkdir $BUILD/class_loader -p
-RUN CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$DEST
+RUN export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$DEST:$DEST/lib/cmake
 RUN ls -l $DEST
 RUN ls -l $DEST/share/cmake_modules/cmake/
 WORKDIR $BUILD/class_loader
@@ -188,6 +188,8 @@ RUN catkin config
 
 # RUN rosdep install --from-paths src --ignore-src -r -s  # do a dry-run first
 # RUN rosdep install --from-paths src --ignore-src -r -y
+ENV CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$DEST:$DEST/lib/cmake
+RUN echo $CMAKE_PREFIX_PATH
 RUN catkin build
 RUN source devel/setup.bash
 # TODO(lucasw) run tests
