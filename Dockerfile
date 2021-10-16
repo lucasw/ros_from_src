@@ -32,11 +32,21 @@ RUN mkdir build/console_bridge -p
 # TODO(lucasw) why not /opt/ros/noetic?
 RUN cd build/console_bridge && cmake ../../console_bridge -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=lib && make && make install
 
-ENV PYTHONPATH=/opt/ros/noetic/lib/python3.8/site-packages
+RUN apt-get install -y mawk coreutils
+RUN python --version | awk  '{print $2}' | cut -d'.' -f1
+# TODO(lucasw) these aren't working
+# RUN export PYTHON_MAJOR_VERSION=`python --version | awk  '{print $2}' | cut -d'.' -f1`
+# RUN export PYTHON_MINOR_VERSION=`python --version | awk  '{print $2}' | cut -d'.' -f2`
+ARG PYTHON_MAJOR_VERSION=3
+ARG PYTHON_MINOR_VERSION=8
+RUN echo $PYTHON_MINOR_VERSION
+ENV PYTHONPATH=/opt/ros/noetic/lib/python$PYTHON_MAJOR_VERSION.$PYTHON_MINOR_VERSION/site-packages
+RUN echo $PYTHONPATH
 RUN python -c "import catkin_pkg; print(catkin_pkg.__version__)"
 
 RUN git clone https://github.com/ros/cmake_modules
 RUN mkdir build/cmake_modules -p
+RUN ls -l /opt/ros/noetic/lib
 RUN cd build/cmake_modules && cmake ../../cmake_modules -DCATKIN_BUILD_BINARY_PACKAGE=ON -DCMAKE_INSTALL_PREFIX=/opt/ros/noetic -DPYTHON_EXECUTABLE=/usr/bin/python -DSETUPTOOLS_DEB_LAYOUT=OFF && make && make install
 
 RUN git clone https://github.com/ros/class_loader
