@@ -1,4 +1,7 @@
-FROM ubuntu:20.04
+ARG IMAGE=ubuntu:20.04
+FROM ${IMAGE}
+ARG IMAGE
+RUN echo ${IMAGE}
 
 ENV DEBIAN_FRONTEND="noninteractive"
 
@@ -6,6 +9,7 @@ ENV DEBIAN_FRONTEND="noninteractive"
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 RUN apt-get update
+RUN apt-get install -y apt-utils
 RUN apt-get install -y build-essential
 RUN apt-get install -y git
 RUN git clone https://github.com/ros-infrastructure/catkin_pkg
@@ -133,7 +137,6 @@ RUN git clone https://github.com/ros/message_runtime
 RUN git clone https://github.com/ros/rosconsole
 RUN git clone https://github.com/ros/ros
 RUN git clone https://github.com/ros/rospack
-RUN git clone https://github.com/ros/cmake_modules
 RUN apt-get install -y libboost-regex-dev
 RUN apt-get install -y liblog4cxx-dev
 RUN git clone https://github.com/ros/pluginlib
@@ -142,6 +145,7 @@ RUN apt-get install -y bzip2 libbz2-dev
 RUN apt-get install -y libgpgme-dev
 # TODO(lucasw) already have a copy of this but needs to be in the workspace
 RUN ln -s /catkin catkin
+RUN ln -s /cmake_modules cmake_modules
 # RUN ls -l /opt/ros/noetic
 # RUN find / | grep setup.bash
 # RUN find / | grep catkin-config.cmake
