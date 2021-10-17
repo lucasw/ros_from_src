@@ -44,19 +44,26 @@ RUN mkdir $WS -p
 
 ENV DEST=/opt/ros/noetic
 
-# catkin_pkg
-WORKDIR $WS
-RUN git clone https://github.com/ros-infrastructure/catkin_pkg
-RUN cd catkin_pkg && python3 setup.py install
-RUN python -c "import catkin_pkg; print(catkin_pkg.__version__)"
-
-# catkin
+# packages that need to be cmake installed, and are ros packages in a catkin workspace
 WORKDIR $WS
 RUN git clone https://github.com/ros/catkin
-RUN mkdir $BUILD/catkin -p
-WORKDIR $BUILD/catkin
-RUN cmake $WS/catkin -DCATKIN_BUILD_BINARY_PACKAGE=ON -DCMAKE_INSTALL_PREFIX=$DEST -DPYTHON_EXECUTABLE=/usr/bin/python -DSETUPTOOLS_DEB_LAYOUT=OFF && make && make install
-RUN python -c "import catkin; print(catkin)"
+RUN git clone https://github.com/ros/console_bridge
+RUN git clone https://github.com/ros/cmake_modules
+RUN git clone https://github.com/ros/class_loader
+RUN git clone https://github.com/ros/rospack
+RUN git clone https://github.com/ros/genmsg
+
+# pure python
+WORKDIR $SRC
+RUN git clone https://github.com/ros-infrastructure/catkin_pkg
+RUN git clone https://github.com/osrf/osrf_pycommon
+RUN git clone https://github.com/catkin/catkin_tools
+
+# cmake installs
+RUN git clone https://github.com/ros/ros_environment
+RUN git clone https://github.com/ros/ros
+
+# python installs
 
 RUN python --version | awk  '{print $2}' | cut -d'.' -f1
 # TODO(lucasw) these aren't working
@@ -65,12 +72,37 @@ RUN python --version | awk  '{print $2}' | cut -d'.' -f1
 ARG PYTHON_MAJOR_VERSION=3
 ARG PYTHON_MINOR_VERSION=8
 RUN echo $PYTHON_MINOR_VERSION
-ENV PYTHONPATH=$DEST/lib/python$PYTHON_MAJOR_VERSION.$PYTHON_MINOR_VERSION/site-packages
+ENV OPT_PYTHONPATH=$DEST/lib/python$PYTHON_MAJOR_VERSION.$PYTHON_MINOR_VERSION/site-packages/
+RUN echo $PYTHONPATH
+ENV PYTHONPATH=$OPT_PYTHONPATH
 RUN echo $PYTHONPATH
 
+# catkin_pkg
+WORKDIR $SRC/catkin_pkg
+RUN python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
+RUN ls -l $OPT_PYTHONPATH
+RUN ls -l $OPT_PYTHONPATH/catkin_pkg
+# RUN python -c "import sys; print(sys.path)"
+RUN python -c "import catkin_pkg; print(catkin_pkg.__version__)"
+RUN apt-get install -y python3-pyparsing
+RUN python -c "from catkin_pkg.package import parse_package"
+
+# osrf pycommon
+WORKDIR $SRC/osrf_pycommon
+# TODO(lucasw) install to $DEST
+RUN python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
+
+# catkin tools
+WORKDIR $SRC/catkin_tools
+RUN python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
+
+# cmake install
+RUN mkdir $BUILD/catkin -p
+WORKDIR $BUILD/catkin
+RUN cmake $WS/catkin -DCATKIN_BUILD_BINARY_PACKAGE=ON -DCMAKE_INSTALL_PREFIX=$DEST -DPYTHON_EXECUTABLE=/usr/bin/python -DSETUPTOOLS_DEB_LAYOUT=OFF && make && make install
+RUN python -c "import catkin; print(catkin)"
+
 # console_bridge
-WORKDIR $WS
-RUN git clone https://github.com/ros/console_bridge
 RUN mkdir $BUILD/console_bridge -p
 WORKDIR $BUILD/console_bridge
 # RUN cmake ../../console_bridge -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=lib && make && make install
@@ -80,7 +112,6 @@ RUN make install
 
 # cmake_modules
 WORKDIR $WS
-RUN git clone https://github.com/ros/cmake_modules
 RUN mkdir $BUILD/cmake_modules -p
 RUN ls -l $DEST/lib
 WORKDIR $BUILD/cmake_modules
@@ -89,8 +120,6 @@ RUN make
 RUN make install
 
 # class_loader
-WORKDIR $WS
-RUN git clone https://github.com/ros/class_loader
 RUN mkdir $BUILD/class_loader -p
 RUN export CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$DEST:$DEST/lib/cmake
 RUN ls -l $DEST
@@ -101,8 +130,6 @@ RUN make
 RUN make install
 
 # ros_environment
-WORKDIR $SRC
-RUN git clone https://github.com/ros/ros_environment.git
 RUN mkdir $BUILD/ros_environment -p
 RUN pwd
 WORKDIR $BUILD/ros_environment
@@ -111,8 +138,6 @@ RUN make
 RUN make install
 
 # ros_pack
-WORKDIR $WS
-RUN git clone https://github.com/ros/rospack.git
 RUN mkdir $BUILD/rospack -p
 WORKDIR $BUILD/rospack
 RUN cmake $WS/rospack -DCATKIN_BUILD_BINARY_PACKAGE=ON -DCMAKE_INSTALL_PREFIX=$DEST -DPYTHON_EXECUTABLE=/usr/bin/python -DSETUPTOOLS_DEB_LAYOUT=OFF -Dcmake_modules_DIR=$DEST/share/cmake_modules/cmake/
@@ -120,17 +145,11 @@ RUN make
 RUN make install
 
 # genmsg
-WORKDIR $WS
-RUN git clone https://github.com/ros/genmsg.git
 RUN mkdir $BUILD/genmsg -p
 WORKDIR $BUILD/genmsg
 RUN cmake $WS/genmsg -DCATKIN_BUILD_BINARY_PACKAGE=ON -DCMAKE_INSTALL_PREFIX=$DEST -DPYTHON_EXECUTABLE=/usr/bin/python -DSETUPTOOLS_DEB_LAYOUT=OFF
 RUN make
 RUN make install
-
-# ros
-WORKDIR $SRC
-RUN git clone https://github.com/ros/ros.git
 
 # roslib
 RUN mkdir $BUILD/roslib -p
@@ -146,23 +165,10 @@ RUN cmake $SRC/ros/core/rosbuild -DCATKIN_BUILD_BINARY_PACKAGE=ON -DCMAKE_INSTAL
 RUN make
 RUN make install
 
-# osrf pycommon
-WORKDIR $SRC
-RUN git clone https://github.com/osrf/osrf_pycommon
-WORKDIR $SRC/osrf_pycommon
-# TODO(lucasw) install to $DEST
-RUN python3 setup.py install --record install_manifest.txt
-
-# catkin tools
-WORKDIR $SRC
-RUN git clone https://github.com/catkin/catkin_tools.git
-WORKDIR $SRC/catkin_tools
-RUN python3 setup.py install --record install_manifest.txt
-
 RUN export PATH=$PATH:/usr/local/bin
 RUN catkin --help
 
-# ros packages
+# ros packages, regular catkin build only for these
 WORKDIR $WS
 RUN git clone https://github.com/ros/ros_comm
 RUN git clone https://github.com/ros/roscpp_core
@@ -176,7 +182,6 @@ RUN git clone https://github.com/ros/genpy
 RUN git clone https://github.com/ros/std_msgs
 RUN git clone https://github.com/ros/message_runtime
 RUN git clone https://github.com/ros/rosconsole
-RUN git clone https://github.com/ros/ros
 RUN git clone https://github.com/ros/pluginlib
 
 # TODO(lucasw) already have a copy of this but needs to be in the workspace
