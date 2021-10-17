@@ -101,6 +101,8 @@ RUN mkdir $BUILD/catkin -p
 WORKDIR $BUILD/catkin
 RUN cmake $WS/catkin -DCATKIN_BUILD_BINARY_PACKAGE=ON -DCMAKE_INSTALL_PREFIX=$DEST -DPYTHON_EXECUTABLE=/usr/bin/python -DSETUPTOOLS_DEB_LAYOUT=OFF && make && make install
 RUN python -c "import catkin; print(catkin)"
+RUN ls -l $DEST/bin
+ENV PATH=$PATH:$DEST/bin
 
 # console_bridge
 RUN mkdir $BUILD/console_bridge -p
@@ -165,6 +167,8 @@ RUN cmake $SRC/ros/core/rosbuild -DCATKIN_BUILD_BINARY_PACKAGE=ON -DCMAKE_INSTAL
 RUN make
 RUN make install
 
+RUN apt-get install -y python3-dateutil
+RUN apt-get install -y python3-docutils
 RUN export PATH=$PATH:/usr/local/bin
 RUN catkin --help
 
@@ -195,6 +199,8 @@ RUN catkin config
 # RUN rosdep install --from-paths src --ignore-src -r -y
 ENV CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$DEST:$DEST/lib/cmake
 RUN echo $CMAKE_PREFIX_PATH
+# TODO(lucasw) put this in WS to begin with
+RUN ln -s $SRC/ros $WS/ros
 RUN catkin build
 RUN source devel/setup.bash
 # TODO(lucasw) run tests
