@@ -48,6 +48,10 @@ python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-v
 cd $SRC/catkin_tools
 python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
 
+# rospkg
+cd $SRC/rospkg
+python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
+
 # cmake install
 mkdir -p $BUILD/catkin
 cd $BUILD/catkin

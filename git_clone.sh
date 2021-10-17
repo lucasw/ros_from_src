@@ -41,3 +41,7 @@ git clone https://github.com/catkin/catkin_tools
 # cmake installs
 git clone https://github.com/ros/ros_environment
 git clone https://github.com/ros/ros
+
+
+# runtime
+git clone https://github.com/ros-infrastructure/rospkg.git

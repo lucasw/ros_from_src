@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# apt installs
+# build apt installs
 apt-get update
 apt-get install -y build-essential
 apt-get install -y bzip2 libbz2-dev
@@ -27,3 +27,6 @@ apt-get install -y python3-empy
 apt-get install -y python3-pyparsing
 apt-get install -y python3-setuptools
 apt-get install -y python3-yaml
+
+# runtime
+apt-get install -y python3-defusedxml
