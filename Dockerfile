@@ -99,7 +99,7 @@ RUN python3 setup.py install --prefix=$DEST --record install_manifest.txt --sing
 # cmake install
 RUN mkdir $BUILD/catkin -p
 WORKDIR $BUILD/catkin
-RUN cmake $WS/catkin -DCATKIN_BUILD_BINARY_PACKAGE=ON -DCMAKE_INSTALL_PREFIX=$DEST -DPYTHON_EXECUTABLE=/usr/bin/python -DSETUPTOOLS_DEB_LAYOUT=OFF && make && make install
+RUN cmake $WS/catkin -DCATKIN_BUILD_BINARY_PACKAGE=ON -DCMAKE_INSTALL_PREFIX=$DEST -DPYTHON_EXECUTABLE=/usr/bin/python -DSETUPTOOLS_DEB_LAYOUT=OFF -DCATKIN_INSTALL_INTO_PREFIX_ROOT=true && make && make install
 RUN python -c "import catkin; print(catkin)"
 RUN ls -l $DEST/bin
 ENV PATH=$PATH:$DEST/bin
@@ -172,6 +172,9 @@ RUN apt-get install -y python3-docutils
 RUN export PATH=$PATH:/usr/local/bin
 RUN catkin --help
 
+RUN apt-get install -y python3-defusedxml
+RUN apt-get install -y python3-distro
+
 # ros packages, regular catkin build only for these
 WORKDIR $WS
 RUN git clone https://github.com/ros/ros_comm
@@ -188,28 +191,49 @@ RUN git clone https://github.com/ros/message_runtime
 RUN git clone https://github.com/ros-o/rosconsole
 RUN git clone https://github.com/ros-o/pluginlib
 
-# TODO(lucasw) already have a copy of this but needs to be in the workspace
-# RUN find / | grep setup.bash
-# RUN find / | grep catkin-config.cmake
-WORKDIR $WS/..
-RUN catkin init
-RUN catkin config
-
-# RUN rosdep install --from-paths src --ignore-src -r -s  # do a dry-run first
-# RUN rosdep install --from-paths src --ignore-src -r -y
-ENV CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$DEST:$DEST/lib/cmake
-RUN echo $CMAKE_PREFIX_PATH
-# TODO(lucasw) put this in WS to begin with
-RUN ln -s $SRC/ros $WS/ros
-RUN catkin build
-RUN source devel/setup.bash
-
-RUN apt-get install -y python3-defusedxml
-
+# runtime dependencies
 # rosbuild
 WORKDIR $SRC
 RUN git clone https://github.com/ros/rospkg
 WORKDIR $SRC/rospkg
 RUN python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
 
+WORKDIR $SRC
+RUN git clone https://github.com/ros-infrastructure/rosdistro
+WORKDIR $SRC/rosdistro
+RUN python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
+
+WORKDIR $SRC
+RUN git clone https://github.com/ros-infrastructure/rosdep
+WORKDIR $SRC/rosdep
+RUN python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
+RUN rosdep init
+# ERROR: unable to process source [https://raw.githubusercontent.com/ros/rosdistro/master/rosdep/base.yaml]:
+RUN rosdep update || true
+
+# TODO(lucasw) already have a copy of this but needs to be in the workspace
+# RUN find / | grep setup.bash
+# RUN find / | grep catkin-config.cmake
+WORKDIR $WS/..
+RUN source $DEST/setup.bash
+RUN catkin init
+RUN source $DEST/setup.bash && catkin config
+# rospack list won't work by itself
+RUN source $DEST/setup.bash && rospack list
+
+# regular catkin build
+# RUN rosdep install --from-paths src --ignore-src -r -s  # do a dry-run first
+# RUN rosdep install --from-paths src --ignore-src -r -y
+ENV CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$DEST:$DEST/lib/cmake
+RUN echo $CMAKE_PREFIX_PATH
+# TODO(lucasw) put this in WS to begin with
+RUN ln -s $SRC/ros $WS/ros
+RUN echo $ROS_PACKAGE_PATH
+RUN catkin build
+# rospack list won't work by itself
+RUN source devel/setup.bash && rospack list
+
+RUN apt install python3-netifaces
+
+WORKDIR $WS/..
 # TODO(lucasw) run tests
