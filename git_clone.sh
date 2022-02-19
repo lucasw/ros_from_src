@@ -44,4 +44,6 @@ git clone https://github.com/ros/ros
 
 
 # runtime
-git clone https://github.com/ros-infrastructure/rospkg.git
+git clone https://github.com/ros-infrastructure/rospkg
+git clone https://github.com/ros-infrastructure/rosdistro
+git clone https://github.com/ros-infrastructure/rosdep
