@@ -19,19 +19,19 @@ jobs:
         run: |
           mkdir staging
           cd staging
-          ../ros_from_src/dependencies.sh
+          sudo ../ros_from_src/dependencies.sh
           ../ros_from_src/git_clone.sh
           ../ros_from_src/build.sh
 
       - name: docker build 20.04
         run: |
           cd ros_from_src
-          docker build --build-arg IMAGE=ubuntu:20.04 . -t ros2004
+          docker build --build-arg IMAGE=ubuntu:20.04 --build-arg PYTHON_MINOR_VERSION=8 . -t ros2004
 
-      - name: docker build 21.10
+      - name: docker build 22.04
         run: |
           cd ros_from_src
-          docker build --build-arg IMAGE=ubuntu:21.10 --build-arg PYTHON_MINOR_VERSION=9 . -t ros2110
+          docker build --build-arg IMAGE=ubuntu:22.04 --build-arg PYTHON_MINOR_VERSION=9 . -t ros2204
 
       # - name: deps
       #   run: |
