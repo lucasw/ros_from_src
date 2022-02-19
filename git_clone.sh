@@ -13,7 +13,7 @@ cd $WS
 git clone https://github.com/ros/catkin
 git clone https://github.com/ros/console_bridge
 git clone https://github.com/ros/cmake_modules
-git clone https://github.com/ros/class_loader
+git clone https://github.com/ros-o/class_loader
 git clone https://github.com/ros/rospack
 git clone https://github.com/ros/genmsg
 
@@ -29,8 +29,8 @@ git clone https://github.com/ros/genlisp
 git clone https://github.com/ros/genpy
 git clone https://github.com/ros/std_msgs
 git clone https://github.com/ros/message_runtime
-git clone https://github.com/ros/rosconsole
-git clone https://github.com/ros/pluginlib
+git clone https://github.com/ros-o/rosconsole
+git clone https://github.com/ros-o/pluginlib
 
 # pure python
 cd $SRC
@@ -39,7 +39,7 @@ git clone https://github.com/osrf/osrf_pycommon
 git clone https://github.com/catkin/catkin_tools
 
 # cmake installs
-git clone https://github.com/ros/ros_environment
+git clone https://github.com/ros-o/ros_environment
 git clone https://github.com/ros/ros
 
 

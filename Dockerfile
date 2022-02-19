@@ -1,4 +1,4 @@
-ARG IMAGE=ubuntu:20.04
+ARG IMAGE=ubuntu:22.04
 FROM ${IMAGE}
 ARG IMAGE
 RUN echo ${IMAGE}
@@ -49,7 +49,7 @@ WORKDIR $WS
 RUN git clone https://github.com/ros/catkin
 RUN git clone https://github.com/ros/console_bridge
 RUN git clone https://github.com/ros/cmake_modules
-RUN git clone https://github.com/ros/class_loader
+RUN git clone https://github.com/ros-o/class_loader
 RUN git clone https://github.com/ros/rospack
 RUN git clone https://github.com/ros/genmsg
 
@@ -60,7 +60,7 @@ RUN git clone https://github.com/osrf/osrf_pycommon
 RUN git clone https://github.com/catkin/catkin_tools
 
 # cmake installs
-RUN git clone https://github.com/ros/ros_environment
+RUN git clone https://github.com/ros-o/ros_environment
 RUN git clone https://github.com/ros/ros
 
 # python installs
@@ -69,9 +69,9 @@ RUN python --version | awk  '{print $2}' | cut -d'.' -f1
 # TODO(lucasw) these aren't working
 # RUN export PYTHON_MAJOR_VERSION=`python --version | awk  '{print $2}' | cut -d'.' -f1`
 # RUN export PYTHON_MINOR_VERSION=`python --version | awk  '{print $2}' | cut -d'.' -f2`
+# RUN PYTHON_MINOR_VERSION=`python --version | awk  '{print $2}' | cut -d'.' -f2`
 ARG PYTHON_MAJOR_VERSION=3
-ARG PYTHON_MINOR_VERSION=8
-RUN echo $PYTHON_MINOR_VERSION
+ARG PYTHON_MINOR_VERSION=9
 ENV OPT_PYTHONPATH=$DEST/lib/python$PYTHON_MAJOR_VERSION.$PYTHON_MINOR_VERSION/site-packages/
 RUN echo $PYTHONPATH
 ENV PYTHONPATH=$OPT_PYTHONPATH
@@ -185,8 +185,8 @@ RUN git clone https://github.com/ros/genlisp
 RUN git clone https://github.com/ros/genpy
 RUN git clone https://github.com/ros/std_msgs
 RUN git clone https://github.com/ros/message_runtime
-RUN git clone https://github.com/ros/rosconsole
-RUN git clone https://github.com/ros/pluginlib
+RUN git clone https://github.com/ros-o/rosconsole
+RUN git clone https://github.com/ros-o/pluginlib
 
 # TODO(lucasw) already have a copy of this but needs to be in the workspace
 # RUN find / | grep setup.bash
@@ -203,4 +203,13 @@ RUN echo $CMAKE_PREFIX_PATH
 RUN ln -s $SRC/ros $WS/ros
 RUN catkin build
 RUN source devel/setup.bash
+
+RUN apt-get install -y python3-defusedxml
+
+# rosbuild
+WORKDIR $SRC
+RUN git clone https://github.com/ros/rospkg
+WORKDIR $SRC/rospkg
+RUN python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
+
 # TODO(lucasw) run tests
