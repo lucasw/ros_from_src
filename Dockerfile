@@ -235,7 +235,6 @@ RUN source $DEST/setup.bash && rospack list
 ENV CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$DEST:$DEST/lib/cmake
 RUN echo $CMAKE_PREFIX_PATH
 # TODO(lucasw) put this in WS to begin with
-RUN ln -s $SRC/ros $WS/ros
 RUN echo $ROS_PACKAGE_PATH
 RUN catkin build
 # rospack list won't work by itself
