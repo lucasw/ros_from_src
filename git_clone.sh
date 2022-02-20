@@ -46,4 +46,4 @@ git clone https://github.com/ros/ros
 # runtime
 git clone https://github.com/ros-infrastructure/rospkg
 git clone https://github.com/ros-infrastructure/rosdistro
-git clone https://github.com/ros-infrastructure/rosdep
+git clone https://github.com/lucasw/rosdep --branch disable_root_etc_ros
