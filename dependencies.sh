@@ -36,3 +36,6 @@ apt-get install -y python3-netifaces
 
 apt-get install -y python3-pycryptodome
 apt-get install -y python3-gnupg
+
+# TODO(lucasw) get this from source later
+apt-get install -y python3-rosunit
