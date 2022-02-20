@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  ubuntu2004and2204:
     runs-on: ubuntu-20.04
     # env:
     steps:
@@ -41,20 +41,3 @@ jobs:
         run: |
           cd ros_from_src
           docker build --build-arg IMAGE=ubuntu:22.04 --build-arg PYTHON_MINOR_VERSION=9 . -t ros2204
-
-      # - name: deps
-      #   run: |
-      #     sudo apt install -y python3-nose
-      #     sudo apt install -y googletest
-      #     # sudo apt install -y python-catkin-pkg
-      #     sudo apt install -y python3-empy
-      #     sudo apt install -y google-mock
-      # - name: Catkin
-      #   run: |
-      #     ls -l
-      #     mkdir build/catkin -p
-      #     cd build/catkin
-      #     cmake ../../ros/core/catkin -DCATKIN_BUILD_BINARY_PACKAGE=OFF -DCMAKE_INSTALL_PREFIX=/opt/ros/noetic -DPYTHON_EXECUTABLE=/usr/bin/python -DSETUPTOOLS_DEB_LAYOUT=OFF
-      #     make
-      #     make install
-      #     ls -l /opt/ros/noetic

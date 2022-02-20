@@ -48,7 +48,7 @@ python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-v
 cd $SRC/catkin_tools
 python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
 
-# cmake install
+# catkin install
 mkdir -p $BUILD/catkin
 cd $BUILD/catkin
 cmake $WS/catkin -DCATKIN_BUILD_BINARY_PACKAGE=ON -DCMAKE_INSTALL_PREFIX=$DEST -DPYTHON_EXECUTABLE=/usr/bin/python -DSETUPTOOLS_DEB_LAYOUT=OFF -DCATKIN_INSTALL_INTO_PREFIX_ROOT=true && make && make install
