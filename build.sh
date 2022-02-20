@@ -147,7 +147,7 @@ echo $CMAKE_PREFIX_PATH
 # TODO(lucasw) put this in WS to begin with
 # TODO(lucasw) was this needed?  Need a bunch of CATKIN_IGNOREs in every package/test dir to make it build
 # ln -s $SRC/ros $WS/ros
-catkin build
+catkin build --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
 source devel/setup.bash
 rospack list
 # TODO(lucasw) run tests

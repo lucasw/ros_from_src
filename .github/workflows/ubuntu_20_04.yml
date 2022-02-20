@@ -15,12 +15,20 @@ jobs:
           path: ros_from_src
           submodules: recursive
 
-      - name: local build
+      - name: local apt dependencies
         run: |
           mkdir staging
           cd staging
           sudo ../ros_from_src/dependencies.sh
+
+      - name: local git dependencies
+        run: |
+          cd staging
           ../ros_from_src/git_clone.sh
+
+      - name: local build
+        run: |
+          cd staging
           ../ros_from_src/build.sh
 
       - name: docker build 20.04
