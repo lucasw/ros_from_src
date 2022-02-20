@@ -30,6 +30,7 @@ git clone https://github.com/ros/genpy
 git clone https://github.com/ros/std_msgs
 git clone https://github.com/ros/message_runtime
 git clone https://github.com/ros-o/pluginlib
+git clone https://github.com/ros/ros
 
 ROSCONSOLE1=${ROSCONSOLE:-https://github.com/ros-o/rosconsole}
 git clone $ROSCONSOLE1
@@ -42,7 +43,6 @@ git clone https://github.com/catkin/catkin_tools
 
 # cmake installs
 git clone https://github.com/ros-o/ros_environment
-git clone https://github.com/ros/ros
 
 
 # runtime

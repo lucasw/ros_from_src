@@ -52,6 +52,7 @@ RUN git clone https://github.com/ros/cmake_modules
 RUN git clone https://github.com/ros-o/class_loader
 RUN git clone https://github.com/ros/rospack
 RUN git clone https://github.com/ros/genmsg
+RUN git clone https://github.com/ros/ros
 
 # pure python
 WORKDIR $SRC
@@ -61,7 +62,6 @@ RUN git clone https://github.com/catkin/catkin_tools
 
 # cmake installs
 RUN git clone https://github.com/ros-o/ros_environment
-RUN git clone https://github.com/ros/ros
 
 # python installs
 
@@ -156,14 +156,14 @@ RUN make install
 # roslib
 RUN mkdir $BUILD/roslib -p
 WORKDIR $BUILD/roslib
-RUN cmake $SRC/ros/core/roslib -DCATKIN_BUILD_BINARY_PACKAGE=ON -DCMAKE_INSTALL_PREFIX=$DEST -DPYTHON_EXECUTABLE=/usr/bin/python -DSETUPTOOLS_DEB_LAYOUT=OFF -Drospack_DIR=$DEST/share/rospack/cmake/
+RUN cmake $WS/ros/core/roslib -DCATKIN_BUILD_BINARY_PACKAGE=ON -DCMAKE_INSTALL_PREFIX=$DEST -DPYTHON_EXECUTABLE=/usr/bin/python -DSETUPTOOLS_DEB_LAYOUT=OFF -Drospack_DIR=$DEST/share/rospack/cmake/
 RUN make
 RUN make install
 
 # rosbuild
 RUN mkdir $BUILD/rosbuild -p
 WORKDIR $BUILD/rosbuild
-RUN cmake $SRC/ros/core/rosbuild -DCATKIN_BUILD_BINARY_PACKAGE=ON -DCMAKE_INSTALL_PREFIX=$DEST -DPYTHON_EXECUTABLE=/usr/bin/python -DSETUPTOOLS_DEB_LAYOUT=OFF # -Drospack_DIR=$DEST/share/rospack/cmake/
+RUN cmake $WS/ros/core/rosbuild -DCATKIN_BUILD_BINARY_PACKAGE=ON -DCMAKE_INSTALL_PREFIX=$DEST -DPYTHON_EXECUTABLE=/usr/bin/python -DSETUPTOOLS_DEB_LAYOUT=OFF # -Drospack_DIR=$DEST/share/rospack/cmake/
 RUN make
 RUN make install
 
