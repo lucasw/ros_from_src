@@ -24,7 +24,8 @@ jobs:
       - name: local git dependencies
         run: |
           cd staging
-          ../ros_from_src/git_clone.sh
+          # override rosconsole in 20.04 for log4cxx compatibility
+          ROSCONSOLE=https://github.com/ros/rosconsole ../ros_from_src/git_clone.sh
 
       - name: local build
         run: |
@@ -34,7 +35,7 @@ jobs:
       - name: docker build 20.04
         run: |
           cd ros_from_src
-          docker build --build-arg IMAGE=ubuntu:20.04 --build-arg PYTHON_MINOR_VERSION=8 . -t ros2004
+          docker build --build-arg IMAGE=ubuntu:20.04 --build-arg ROSCONSOLE=https://github.com/ros/rosconsole --build-arg PYTHON_MINOR_VERSION=8 . -t ros2004
 
       - name: docker build 22.04
         run: |

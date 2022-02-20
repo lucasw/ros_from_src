@@ -29,8 +29,10 @@ git clone https://github.com/ros/genlisp
 git clone https://github.com/ros/genpy
 git clone https://github.com/ros/std_msgs
 git clone https://github.com/ros/message_runtime
-git clone https://github.com/ros-o/rosconsole
 git clone https://github.com/ros-o/pluginlib
+
+ROSCONSOLE1=${ROSCONSOLE:-https://github.com/ros-o/rosconsole}
+git clone $ROSCONSOLE1
 
 # pure python
 cd $SRC

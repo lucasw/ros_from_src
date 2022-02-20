@@ -167,6 +167,7 @@ RUN cmake $SRC/ros/core/rosbuild -DCATKIN_BUILD_BINARY_PACKAGE=ON -DCMAKE_INSTAL
 RUN make
 RUN make install
 
+RUN apt-get update
 RUN apt-get install -y python3-dateutil
 RUN apt-get install -y python3-docutils
 RUN export PATH=$PATH:/usr/local/bin
@@ -188,8 +189,14 @@ RUN git clone https://github.com/ros/genlisp
 RUN git clone https://github.com/ros/genpy
 RUN git clone https://github.com/ros/std_msgs
 RUN git clone https://github.com/ros/message_runtime
-RUN git clone https://github.com/ros-o/rosconsole
 RUN git clone https://github.com/ros-o/pluginlib
+
+# TODO(lucasw) this doesn't work in 20.04 because of log
+# --build-args ROSCONSOLE=https://github.com/ros-o/rosconsole
+ARG ROSCONSOLE=https://github.com/ros-o/rosconsole
+# ENV ROSCONSOLE=$ROSCONSOLE
+RUN echo $ROSCONSOLE
+RUN git clone $ROSCONSOLE
 
 # runtime dependencies
 # rosbuild
@@ -204,6 +211,7 @@ WORKDIR $SRC/rosdistro
 RUN python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
 
 WORKDIR $SRC
+# can be sudo in docker, but otherwise want git clone https://github.com/lucasw/rosdep --branch disable_root_etc_ros
 RUN git clone https://github.com/ros-infrastructure/rosdep
 WORKDIR $SRC/rosdep
 RUN python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
