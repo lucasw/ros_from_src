@@ -105,6 +105,13 @@ cmake $WS/genmsg -DCATKIN_BUILD_BINARY_PACKAGE=ON -DCMAKE_INSTALL_PREFIX=$DEST -
 make
 make install
 
+# genpy
+mkdir -p $BUILD/genpy
+cd $BUILD/genpy
+cmake $WS/genpy -DCATKIN_BUILD_BINARY_PACKAGE=ON -DCMAKE_INSTALL_PREFIX=$DEST -DPYTHON_EXECUTABLE=/usr/bin/python -DSETUPTOOLS_DEB_LAYOUT=OFF -Dcmake_modules_DIR=$DEST/share/cmake_modules/cmake/
+make
+make install
+
 # roslib
 mkdir -p $BUILD/roslib
 cd $BUILD/roslib
@@ -128,7 +135,7 @@ python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-v
 
 cd $SRC/rosdep
 python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
-rosdep init
+rosdep init || true
 rosdep update
 
 # TODO(lucasw) already have a copy of this but needs to be in the workspace
