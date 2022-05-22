@@ -1,0 +1,485 @@
+repositories:
+  clearpath/cpr_gazebo:
+    type: git
+    url: https://github.com/clearpathrobotics/cpr_gazebo.git
+    version: noetic-devel
+  clearpath/husky:
+    type: git
+    url: git@github.com:lucasw/husky
+    version: roslint_fixes
+  clearpath/moose:
+    type: git
+    url: git@github.com:moose-cpr/moose.git
+    version: master
+  clearpath/moose_simulator:
+    type: git
+    url: git@github.com:moose-cpr/moose_simulator.git
+    version: master
+  clearpath/warthog:
+    type: git
+    url: git@github.com:warthog-cpr/warthog
+    version: kinetic-devel
+  clearpath/warthog_simulator:
+    type: git
+    url: git@github.com:warthog-cpr/warthog_simulator.git
+    version: melodic-devel
+  greenzie/boustrophedon_planner:
+    type: git
+    url: git@github.com:lucasw/boustrophedon_planner
+    version: cpp17
+  lucasw/carbot:
+    type: git
+    url: git@github.com:lucasw/carbot
+    version: master
+  lucasw/dynamic_reconfigure_tools:
+    type: git
+    url: git@github.com:lucasw/dynamic_reconfigure_tools
+    version: master
+  lucasw/frei0r_image:
+    type: git
+    url: git@github.com:lucasw/frei0r_image
+    version: master
+  lucasw/image_manip:
+    type: git
+    url: git@github.com:lucasw/image_manip
+    version: master
+  lucasw/joy_feedback_ros:
+    type: git
+    url: git@github.com:lucasw/joy_feedback_ros
+    version: master
+  lucasw/nodelet_demo:
+    type: git
+    url: git@github.com:lucasw/nodelet_demo
+    version: master
+  lucasw/popcanbot:
+    type: git
+    url: git@github.com:lucasw/popcanbot
+    version: master
+  lucasw/ros1_lifecycle:
+    type: git
+    url: git@github.com:lucasw/ros1_lifecycle
+    version: misc_fixes
+  lucasw/ros_system_monitor:
+    type: git
+    url: git@github.com:lucasw/ros_system_monitor
+    version: chrony_monitor
+  lucasw/rqt_tf_echo:
+    type: git
+    url: git@github.com:lucasw/rqt_tf_echo.git
+    version: master
+  lucasw/rqt_topic_display:
+    type: git
+    url: git@github.com:lucasw/rqt_topic_display.git
+    version: master
+  lucasw/rviz_camera_stream:
+    type: git
+    url: git@github.com:lucasw/rviz_camera_stream
+    version: noetic-devel
+  lucasw/rviz_interactive_tf:
+    type: git
+    url: git@github.com:lucasw/rviz_interactive_tf
+    version: master
+  lucasw/rviz_lighting:
+    type: git
+    url: git@github.com:lucasw/rviz_lighting
+    version: cpp17
+  lucasw/rviz_ortho_view_controller:
+    type: git
+    url: git@github.com:lucasw/rviz_ortho_view_controller.git
+    version: master
+  lucasw/screengrab_ros:
+    type: git
+    url: git@github.com:lucasw/screengrab_ros
+    version: master
+  lucasw/signal_generator:
+    type: git
+    url: git@github.com:lucasw/signal_generator
+    version: master
+  lucasw/simple_sim_ros:
+    type: git
+    url: git@github.com:lucasw/simple_sim_ros
+    version: master
+  lucasw/tf_demo:
+    type: git
+    url: git@github.com:lucasw/tf_demo
+    version: old_tf_to_new_tf
+  lucasw/timer_test:
+    type: git
+    url: git@github.com:lucasw/timer_test
+    version: master
+  lucasw/topic_state:
+    type: git
+    url: git@github.com:lucasw/topic_state
+    version: master
+  lucasw/transform_point_cloud:
+    type: git
+    url: git@github.com:lucasw/transform_point_cloud.git
+    version: master
+  lucasw/v4l2ucp:
+    type: git
+    url: git@github.com:lucasw/v4l2ucp
+    version: master
+  lucasw/vimjay:
+    type: git
+    url: git@github.com:lucasw/vimjay
+    version: eliminate_build_warnings
+  other/PlotJuggler:
+    type: git
+    url: git@github.com:facontidavide/PlotJuggler.git
+    version: main
+  other/anybotics/elevation_mapping:
+    type: git
+    url: git@github.com:ANYbotics/elevation_mapping.git
+    version: master
+  other/anybotics/kindr:
+    type: git
+    url: git@github.com:ANYbotics/kindr
+    version: master
+  other/anybotics/kindr_ros:
+    type: git
+    url: git@github.com:lucasw/kindr_ros
+    version: cpp17
+  other/anybotics/point_cloud_io:
+    type: git
+    url: git@github.com:ANYbotics/point_cloud_io
+    version: master
+  other/apriltag_ros:
+    type: git
+    url: git@github.com:AprilRobotics/apriltag_ros.git
+    version: master
+  other/camera_throttler_nodelets:
+    type: git
+    url: git@github.com:lucasw/camera_throttler_nodelets.git
+    version: noetic_aggregated
+  other/catkin_virtualenv:
+    type: git
+    url: git@github.com:locusrobotics/catkin_virtualenv.git
+    version: master
+  other/ddynamic_reconfigure:
+    type: git
+    url: git@github.com:ros-o/ddynamic_reconfigure
+    version: obese-devel
+  other/depthai-ros-examples:
+    type: git
+    url: git@github.com:luxonis/depthai-ros-examples.git
+    version: main
+  other/euslisp-release:
+    type: git
+    url: git@github.com:tork-a/euslisp-release.git
+    version: release/melodic/euslisp
+  other/ffmpeg_image_transport:
+    type: git
+    url: git@github.com:lucasw/ffmpeg_image_transport
+    version: noetic_aggregated
+  other/ffmpeg_image_transport_msgs:
+    type: git
+    url: git@github.com:daniilidis-group/ffmpeg_image_transport_msgs.git
+    version: master
+  other/fiducials:
+    type: git
+    url: git@github.com:UbiquityRobotics/fiducials.git
+    version: noetic-devel
+  other/find-object:
+    type: git
+    url: git@github.com:lucasw/find-object.git
+    version: master
+  other/fuse:
+    type: git
+    url: git@github.com:lucasw/fuse
+    version: lucasw_test_cpp17
+  other/geneus:
+    type: git
+    url: git@github.com:jsk-ros-pkg/geneus.git
+    version: master
+  other/graph_rviz_plugin:
+    type: git
+    url: git@github.com:lucasw/graph_rviz_plugin
+    version: cpp17
+  other/image_common:
+    type: git
+    url: git@github.com:ros-perception/image_common
+    version: noetic-devel
+  other/jsk_common:
+    type: git
+    url: git@github.com:lucasw/jsk_common
+    version: cpp17
+  other/jsk_common_msgs:
+    type: git
+    url: git@github.com:lucasw/jsk_common_msgs
+    version: master
+  other/jsk_recognition:
+    type: git
+    url: git@github.com:lucasw/jsk_recognition
+    version: pcl_vtk_isfinite
+  other/jsk_roseus:
+    type: git
+    url: git@github.com:jsk-ros-pkg/jsk_roseus.git
+    version: master
+  other/jsk_visualization:
+    type: git
+    url: git@github.com:lucasw/jsk_visualization
+    version: boost_placeholders
+  other/marti_messages:
+    type: git
+    url: git@github.com:swri-robotics/marti_messages.git
+    version: master
+  other/mavros:
+    type: git
+    url: git@github.com:mavlink/mavros.git
+    version: master
+  other/nmea_navsat_driver:
+    type: git
+    url: git@github.com:ros-drivers/nmea_navsat_driver.git
+    version: master
+  other/nodelet_rosbag:
+    type: git
+    url: git@github.com:oriondream/nodelet_rosbag.git
+    version: in_place_factory
+  other/octomap_mapping:
+    type: git
+    url: git@github.com:lucasw/octomap_mapping.git
+    version: boost_placeholders
+  other/octomap_ros:
+    type: git
+    url: git@github.com:lucasw/octomap_ros
+    version: melodic-devel
+  other/openni2_camera:
+    type: git
+    url: git@github.com:lucasw/openni2_camera.git
+    version: subprocess_wtf_python3_7
+  other/people:
+    type: git
+    url: git@github.com:wg-perception/people.git
+    version: melodic
+  other/plotjuggler-ros-plugins:
+    type: git
+    url: git@github.com:PlotJuggler/plotjuggler-ros-plugins.git
+    version: development
+  other/plotjuggler_msgs:
+    type: git
+    url: git@github.com:PlotJuggler/plotjuggler_msgs.git
+    version: main
+  other/ros_control_boilerplate:
+    type: git
+    url: git@github.com:lucasw/ros_control_boilerplate
+    version: cpp17
+  other/rosboard:
+    type: git
+    url: git@github.com:dheera/rosboard.git
+    version: main
+  other/rosshow:
+    type: git
+    url: git@github.com:dheera/rosshow
+    version: main
+  other/rtabmap:
+    type: git
+    url: git@github.com:introlab/rtabmap.git
+    version: master
+  other/rtabmap_ros:
+    type: git
+    url: git@github.com:lucasw/rtabmap_ros
+    version: remove_qt5_use_modules
+  other/tf2_2d:
+    type: git
+    url: git@github.com:locusrobotics/tf2_2d.git
+    version: devel
+  other/turtlebot:
+    type: git
+    url: git@github.com:turtlebot/turtlebot
+    version: melodic
+  other/wu_ros_tools:
+    type: git
+    url: git@github.com:lucasw/wu_ros_tools
+    version: kinetic
+  ros/async_web_server_cpp:
+    type: git
+    url: git@github.com:lucasw/async_web_server_cpp.git
+    version: boost_placeholders
+  ros/audio_common:
+    type: git
+    url: git@github.com:ros-drivers/audio_common.git
+    version: master
+  ros/camera_info_manager_py:
+    type: git
+    url: git@github.com:lucasw/camera_info_manager_py
+    version: noetic-devel
+  ros/common_tutorials:
+    type: git
+    url: git@github.com:lucasw/common_tutorials.git
+    version: boost_placeholders
+  ros/control_msgs:
+    type: git
+    url: git@github.com:ros-controls/control_msgs.git
+    version: kinetic-devel
+  ros/ddynamic_reconfigure_python:
+    type: git
+    url: git@github.com:pal-robotics/ddynamic_reconfigure_python
+    version: master
+  ros/diagnostics:
+    type: git
+    url: git@github.com:ros/diagnostics.git
+    version: noetic-devel
+  ros/dynamic_reconfigure:
+    type: git
+    url: git@github.com:lucasw/dynamic_reconfigure
+    version: init_default_values
+  ros/filters:
+    type: git
+    url: git@github.com:ros/filters.git
+    version: noetic-devel
+  ros/four_wheel_steering_msgs:
+    type: git
+    url: git@github.com:ros-drivers/four_wheel_steering_msgs.git
+    version: master
+  ros/gazebo_ros_demos:
+    type: git
+    url: git@github.com:lucasw/gazebo_ros_demos
+    version: noetic-devel
+  ros/gazebo_ros_pkgs:
+    type: git
+    url: git@github.com:lucasw/gazebo_ros_pkgs
+    version: noetic_debug_plugins
+  ros/geographic_info:
+    type: git
+    url: git@github.com:ros-geographic-info/geographic_info.git
+    version: master
+  ros/geometry2:
+    type: git
+    url: git@github.com:lucasw/geometry2
+    version: noetic_aggregated
+  ros/grid_map:
+    type: git
+    url: git@github.com:lucasw/grid_map
+    version: cpp17
+  ros/image_pipeline:
+    type: git
+    url: git@github.com:lucasw/image_pipeline
+    version: rgb_in_depth_range
+  ros/image_transport_plugins:
+    type: git
+    url: git@github.com:lucasw/image_transport_plugins
+    version: enable_pub
+  ros/joint_state_publisher:
+    type: git
+    url: git@github.com:lucasw/joint_state_publisher
+    version: noetic_aggregated
+  ros/joystick_drivers:
+    type: git
+    url: git@github.com:lucasw/joystick_drivers
+    version: cpp17
+  ros/laser_assembler:
+    type: git
+    url: git@github.com:lucasw/laser_assembler
+    version: boost_placeholders
+  ros/navigation:
+    type: git
+    url: git@github.com:lucasw/navigation
+    version: boost_placeholders
+  ros/nmea_msgs:
+    type: git
+    url: git@github.com:ros-drivers/nmea_msgs
+    version: master
+  ros/octomap_msgs:
+    type: git
+    url: git@github.com:OctoMap/octomap_msgs.git
+    version: melodic-devel
+  ros/pluginlib:
+    type: git
+    url: git@github.com:lucasw/pluginlib
+    version: cpp17_test
+  ros/realtime_tools:
+    type: git
+    url: git@github.com:ros-controls/realtime_tools.git
+    version: noetic-devel
+  ros/robot_localization:
+    type: git
+    url: git@github.com:lucasw/robot_localization
+    version: boost_placeholders_cpp17
+  ros/ros_control:
+    type: git
+    url: git@github.com:lucasw/ros_control
+    version: acceleration_limits
+  ros/ros_controllers:
+    type: git
+    url: git@github.com:lucasw/ros_controllers
+    version: avoid_no_trajectory_defined
+  ros/ros_tutorials:
+    type: git
+    url: git@github.com:lucasw/ros_tutorials.git
+    version: boost_placeholders
+  ros/roscpp_core:
+    type: git
+    url: git@github.com:lucasw/roscpp_core
+    version: duration_out_of_dual_range
+  ros/roslint:
+    type: git
+    url: git@github.com:lucasw/roslint
+    version: add_headers_to_valid_extensions
+  ros/rospack:
+    type: git
+    url: git@github.com:lucasw/rospack
+    version: salsa
+  ros/rqt:
+    type: git
+    url: git@github.com:ros-visualization/rqt.git
+    version: kinetic-devel
+  ros/rqt_console:
+    type: git
+    url: git@github.com:ros-visualization/rqt_console.git
+    version: master
+  ros/rqt_logger_level:
+    type: git
+    url: git@github.com:ros-visualization/rqt_logger_level.git
+    version: master
+  ros/rqt_reconfigure:
+    type: git
+    url: https://github.com/ros-visualization/rqt_reconfigure
+    version: master
+  ros/rviz:
+    type: git
+    url: git@github.com:lucasw/rviz.git
+    version: ogre_vector
+  ros/teleop_twist_joy:
+    type: git
+    url: git@github.com:lucasw/teleop_twist_joy
+    version: cmp0115_cpp_extension
+  ros/unique_identifier:
+    type: git
+    url: git@github.com:ros-geographic-info/unique_identifier.git
+    version: master
+  ros/urdf_geometry_parser:
+    type: git
+    url: git@github.com:ros-controls/urdf_geometry_parser.git
+    version: kinetic-devel
+  ros/view_controller_msgs:
+    type: git
+    url: git@github.com:ros-visualization/view_controller_msgs.git
+    version: lunar-devel
+  ros/vision_msgs:
+    type: git
+    url: git@github.com:ros-perception/vision_msgs.git
+    version: noetic-devel
+  ros/web_video_server:
+    type: git
+    url: git@github.com:lucasw/web_video_server
+    version: boost_placeholders
+  ros/xacro:
+    type: git
+    url: git@github.com:ros/xacro.git
+    version: noetic-devel
+  roso/control_toolbox:
+    type: git
+    url: git@github.com:ros-o/control_toolbox
+    version: obese-devel
+  roso/qt_gui_core:
+    type: git
+    url: https://github.com/ros-o/qt_gui_core
+    version: obese-devel
+  roso/rosparam_shortcuts:
+    type: git
+    url: git@github.com:ros-o/rosparam_shortcuts
+    version: obese-devel
+  roso/rqt_image_view:
+    type: git
+    url: git@github.com:ros-o/rqt_image_view.git
+    version: obese-devel
