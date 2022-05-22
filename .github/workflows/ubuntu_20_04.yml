@@ -40,4 +40,4 @@ jobs:
       - name: docker build 22.04
         run: |
           cd ros_from_src
-          docker build --build-arg IMAGE=ubuntu:22.04 --build-arg PYTHON_MINOR_VERSION=9 . -t ros2204
+          docker build --build-arg IMAGE=ubuntu:22.04 --build-arg PYTHON_MINOR_VERSION=10 . -t ros2204

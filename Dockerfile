@@ -66,12 +66,13 @@ RUN git clone https://github.com/ros-o/ros_environment
 # python installs
 
 RUN python --version | awk  '{print $2}' | cut -d'.' -f1
+RUN python --version | awk  '{print $2}' | cut -d'.' -f2
 # TODO(lucasw) these aren't working
 # RUN export PYTHON_MAJOR_VERSION=`python --version | awk  '{print $2}' | cut -d'.' -f1`
 # RUN export PYTHON_MINOR_VERSION=`python --version | awk  '{print $2}' | cut -d'.' -f2`
 # RUN PYTHON_MINOR_VERSION=`python --version | awk  '{print $2}' | cut -d'.' -f2`
 ARG PYTHON_MAJOR_VERSION=3
-ARG PYTHON_MINOR_VERSION=9
+ARG PYTHON_MINOR_VERSION=10
 ENV OPT_PYTHONPATH=$DEST/lib/python$PYTHON_MAJOR_VERSION.$PYTHON_MINOR_VERSION/site-packages/
 RUN echo $PYTHONPATH
 ENV PYTHONPATH=$OPT_PYTHONPATH
