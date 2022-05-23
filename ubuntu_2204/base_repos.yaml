@@ -195,6 +195,10 @@ repositories:
     type: git
     url: git@github.com:lucasw/graph_rviz_plugin
     version: cpp17
+  other/hector_slam:
+    type: git
+    url: git@github.com:lucasw/hector_slam
+    version: boost_placeholders
   other/image_common:
     type: git
     url: git@github.com:ros-perception/image_common
@@ -238,7 +242,7 @@ repositories:
   other/octomap_mapping:
     type: git
     url: git@github.com:lucasw/octomap_mapping.git
-    version: boost_placeholders
+    version: kinetic-devel
   other/octomap_ros:
     type: git
     url: git@github.com:lucasw/octomap_ros
@@ -251,6 +255,10 @@ repositories:
     type: git
     url: git@github.com:wg-perception/people.git
     version: melodic
+  other/pid:
+    type: git
+    url: https://bitbucket.org/AndyZe/pid.git
+    version: master
   other/plotjuggler-ros-plugins:
     type: git
     url: git@github.com:PlotJuggler/plotjuggler-ros-plugins.git
@@ -263,6 +271,10 @@ repositories:
     type: git
     url: git@github.com:lucasw/ros_control_boilerplate
     version: cpp17
+  other/ros_numpy:
+    type: git
+    url: git@github.com:eric-wieser/ros_numpy.git
+    version: master
   other/rosboard:
     type: git
     url: git@github.com:dheera/rosboard.git
@@ -271,6 +283,10 @@ repositories:
     type: git
     url: git@github.com:dheera/rosshow
     version: main
+  other/rqt_ez_publisher:
+    type: git
+    url: git@github.com:OTL/rqt_ez_publisher.git
+    version: melodic-devel
   other/rtabmap:
     type: git
     url: git@github.com:introlab/rtabmap.git
@@ -294,7 +310,7 @@ repositories:
   ros/async_web_server_cpp:
     type: git
     url: git@github.com:lucasw/async_web_server_cpp.git
-    version: boost_placeholders
+    version: ros1-develop
   ros/audio_common:
     type: git
     url: git@github.com:ros-drivers/audio_common.git
@@ -351,6 +367,10 @@ repositories:
     type: git
     url: git@github.com:lucasw/grid_map
     version: cpp17
+  ros/image_common:
+    type: git
+    url: git@github.com:lucasw/image_common
+    version: noetic-devel
   ros/image_pipeline:
     type: git
     url: git@github.com:lucasw/image_pipeline
@@ -371,6 +391,14 @@ repositories:
     type: git
     url: git@github.com:lucasw/laser_assembler
     version: boost_placeholders
+  ros/libuvc_ros:
+    type: git
+    url: git@github.com:lucasw/libuvc_ros.git
+    version: boost_placeholders
+  ros/media_export:
+    type: git
+    url: git@github.com:ros/media_export.git
+    version: kinetic-devel
   ros/navigation:
     type: git
     url: git@github.com:lucasw/navigation
@@ -431,18 +459,30 @@ repositories:
     type: git
     url: git@github.com:ros-visualization/rqt_logger_level.git
     version: master
+  ros/rqt_plot:
+    type: git
+    url: git@github.com:ros-visualization/rqt_plot.git
+    version: master
   ros/rqt_reconfigure:
     type: git
     url: https://github.com/ros-visualization/rqt_reconfigure
     version: master
+  ros/rqt_robot_steering:
+    type: git
+    url: git@github.com:lucasw/rqt_robot_steering.git
+    version: python310
   ros/rviz:
     type: git
     url: git@github.com:lucasw/rviz.git
-    version: ogre_vector
+    version: cleanup_deprecated
   ros/teleop_twist_joy:
     type: git
     url: git@github.com:lucasw/teleop_twist_joy
     version: cmp0115_cpp_extension
+  ros/teleop_twist_keyboard:
+    type: git
+    url: git@github.com:ros-teleop/teleop_twist_keyboard.git
+    version: master
   ros/unique_identifier:
     type: git
     url: git@github.com:ros-geographic-info/unique_identifier.git
@@ -451,6 +491,14 @@ repositories:
     type: git
     url: git@github.com:ros-controls/urdf_geometry_parser.git
     version: kinetic-devel
+  ros/urdf_parser_py:
+    type: git
+    url: git@github.com:ros/urdf_parser_py.git
+    version: melodic-devel
+  ros/usb_cam:
+    type: git
+    url: git@github.com:ros-drivers/usb_cam.git
+    version: develop
   ros/view_controller_msgs:
     type: git
     url: git@github.com:ros-visualization/view_controller_msgs.git
@@ -465,8 +513,8 @@ repositories:
     version: boost_placeholders
   ros/xacro:
     type: git
-    url: git@github.com:ros/xacro.git
-    version: noetic-devel
+    url: git@github.com:lucasw/xacro
+    version: cleanup_roslint
   roso/control_toolbox:
     type: git
     url: git@github.com:ros-o/control_toolbox
@@ -477,8 +525,8 @@ repositories:
     version: obese-devel
   roso/rosparam_shortcuts:
     type: git
-    url: git@github.com:ros-o/rosparam_shortcuts
-    version: obese-devel
+    url: git@github.com:lucasw/rosparam_shortcuts
+    version: cleanup_lint
   roso/rqt_image_view:
     type: git
     url: git@github.com:ros-o/rqt_image_view.git
