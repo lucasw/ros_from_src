@@ -13,7 +13,6 @@ touch ./other/depthai-ros-examples/CATKIN_IGNORE
 touch ./other/fiducials/aruco_detect/CATKIN_IGNORE
 touch ./other/fiducials/aruco_gazebo/CATKIN_IGNORE
 touch ./other/fiducials/fiducial_slam/CATKIN_IGNORE
-touch ./other/image_common/CATKIN_IGNORE
 touch ./other/jsk_recognition/imagesift/CATKIN_IGNORE
 touch ./other/jsk_recognition/jsk_libfreenect2/CATKIN_IGNORE
 touch ./other/jsk_recognition/jsk_pcl_ros/CATKIN_IGNORE

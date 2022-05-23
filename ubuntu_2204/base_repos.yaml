@@ -199,10 +199,6 @@ repositories:
     type: git
     url: git@github.com:lucasw/hector_slam
     version: boost_placeholders
-  other/image_common:
-    type: git
-    url: git@github.com:ros-perception/image_common
-    version: noetic-devel
   other/jsk_common:
     type: git
     url: git@github.com:lucasw/jsk_common
