@@ -253,8 +253,8 @@ repositories:
     version: melodic
   other/pid:
     type: git
-    url: https://bitbucket.org/AndyZe/pid.git
-    version: master
+    url: git@github.com:lucasw/pid.git
+    version: boost_placeholders
   other/plotjuggler-ros-plugins:
     type: git
     url: git@github.com:PlotJuggler/plotjuggler-ros-plugins.git
