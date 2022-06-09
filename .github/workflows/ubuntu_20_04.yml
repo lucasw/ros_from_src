@@ -1,4 +1,4 @@
-name: Noetic ROS build from source
+name: Ubuntu 20.04 Noetic ROS build from source
 
 on:
   push:
