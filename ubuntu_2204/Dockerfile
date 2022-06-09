@@ -79,24 +79,24 @@ WORKDIR $WS/..
 RUN catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
 # split these up so can take advantage of docker layers, otherwise one failure
 # means a huge rebuild
-RUN catkin build -j1 fuse_core
-RUN catkin build -j1 rtabmap_ros
-RUN catkin build -j1 rviz
-RUN catkin build -j1 plotjuggler
-RUN catkin build -j1 rqt
-RUN catkin build -j1 octomap_server
-RUN catkin build -j1 libuvc_camera
-RUN catkin build -j1 fuse_constraints
-RUN catkin build -j1 people_tracking_filter
-RUN catkin build -j1 laser_assembler
-RUN catkin build -j1 catkin_virtualenv
-RUN catkin build -j1 nmea_navsat_driver
-RUN catkin build -j1 grid_map_visualization
-RUN catkin build -j1 stereo_image_proc
-RUN catkin build -j1 jsk_topic_tools
-RUN catkin build -j1 test_catkin_virtualenv_inherited
-RUN catkin build -j1 test_catkin_virtualenv_py3_isolated
-RUN catkin build -j1
+RUN catkin build --no-status -j1 fuse_core
+RUN catkin build --no-status -j1 rtabmap_ros
+RUN catkin build --no-status -j1 rviz
+RUN catkin build --no-status -j1 plotjuggler
+RUN catkin build --no-status -j1 rqt
+RUN catkin build --no-status -j1 octomap_server
+RUN catkin build --no-status -j1 libuvc_camera
+RUN catkin build --no-status -j1 fuse_constraints
+RUN catkin build --no-status -j1 people_tracking_filter
+RUN catkin build --no-status -j1 laser_assembler
+RUN catkin build --no-status -j1 catkin_virtualenv
+RUN catkin build --no-status -j1 nmea_navsat_driver
+RUN catkin build --no-status -j1 grid_map_visualization
+RUN catkin build --no-status -j1 stereo_image_proc
+RUN catkin build --no-status -j1 jsk_topic_tools
+RUN catkin build --no-status -j1 test_catkin_virtualenv_inherited
+RUN catkin build --no-status -j1 test_catkin_virtualenv_py3_isolated
+RUN catkin build --no-status -j1
 # rospack list won't work by itself
 RUN source devel/setup.bash && rospack list
 

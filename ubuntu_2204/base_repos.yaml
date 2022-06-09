@@ -419,6 +419,10 @@ repositories:
     type: git
     url: git@github.com:lucasw/robot_localization
     version: boost_placeholders_cpp17
+  ros_comm:
+    type: git
+    url: git@github.com:lucasw/ros_comm
+    version: salsa_noetic_aggregated
   ros/ros_control:
     type: git
     url: git@github.com:lucasw/ros_control
@@ -431,6 +435,10 @@ repositories:
     type: git
     url: git@github.com:lucasw/ros_tutorials.git
     version: boost_placeholders
+  rosconsole:
+    type: git
+    url: git@github.com:lucasw/rosconsole
+    version: concise_output_roso
   ros/roscpp_core:
     type: git
     url: git@github.com:lucasw/roscpp_core
