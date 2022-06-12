@@ -29,8 +29,9 @@ ENV SRC=/other/src
 RUN mkdir $SRC -p
 
 WORKDIR $SRC
-RUN git clone https://github.com/lucasw/ros_from_src.git
+# RUN git clone https://github.com/lucasw/ros_from_src.git
 WORKDIR $SRC/ros_from_src/ubuntu_2204
+COPY base_repos.yaml .
 # make git clone work through vcs without git credentials
 RUN sed -i 's/git@github.com:/https:\/\/github.com\//' base_repos.yaml
 
@@ -71,6 +72,7 @@ ENV WS=/base_catkin_ws/src
 RUN mkdir $WS -p
 WORKDIR $WS
 RUN vcs import --shallow < $SRC/ros_from_src/ubuntu_2204/base_repos.yaml
+COPY ignore.sh $SRC/ros_from_src/ubuntu_2204/
 RUN $SRC/ros_from_src/ubuntu_2204/ignore.sh
 
 RUN echo $CMAKE_PREFIX_PATH
@@ -97,10 +99,14 @@ RUN catkin build --no-status -j1 jsk_topic_tools
 RUN catkin build --no-status -j1 test_catkin_virtualenv_inherited
 RUN catkin build --no-status -j1 test_catkin_virtualenv_py3_isolated
 RUN catkin build --no-status -j1
-# rospack list won't work by itself
-RUN source devel/setup.bash && rospack list
+RUN catkin build --no-status
 
-# TODO(lucasw) run tests
+# rospack list won't work by itself
+# RUN source devel/setup.bash && rospack list
+
+# TODO(lucasw) run more tests than this
+RUN catkin build joint_trajectory_controller --no-status --no-deps --catkin-make-args tests
+RUN source devel/setup.bash && rostest joint_trajectory_controller joint_trajectory_controller.test
 
 # TODO(lucasw) instead of git cloning the repo we're already in, copy in the repos.yaml and ignore file
 # so someone could edit them and rerun the dockerfile
