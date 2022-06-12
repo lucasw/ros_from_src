@@ -177,8 +177,8 @@ repositories:
     version: master
   other/fiducials:
     type: git
-    url: git@github.com:UbiquityRobotics/fiducials.git
-    version: noetic-devel
+    url: git@github.com:lucasw/fiducials.git
+    version: boost_placeholders
   other/find-object:
     type: git
     url: git@github.com:lucasw/find-object.git
