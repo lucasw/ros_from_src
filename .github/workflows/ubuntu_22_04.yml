@@ -153,11 +153,11 @@ jobs:
           # ignore repos that aren't yet building in 22.04
           ../../other/src/ros_from_src/ubuntu_2204/ignore.sh
 
-      - name: build base_catkin_ws
+      - name: build joint_trajectory_controller
         run: |
           cd base_catkin_ws
           catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
-          catkin build --no-status
+          catkin build --no-status joint_trajectory_controller
           source devel/setup.bash
 
       - name: joint controller test
@@ -166,3 +166,10 @@ jobs:
           catkin build joint_trajectory_controller --no-status --no-deps --catkin-make-args tests
           source devel/setup.bash
           rostest joint_trajectory_controller joint_trajectory_controller.test
+
+      - name: build rest of base_catkin_ws
+        run: |
+          cd base_catkin_ws
+          catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
+          catkin build --no-status
+          source devel/setup.bash
