@@ -82,7 +82,8 @@ RUN catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
 # split these up so can take advantage of docker layers, otherwise one failure
 # means a huge rebuild
 RUN catkin build --no-status -j1 fuse_core
-RUN catkin build --no-status -j1 rtabmap_ros
+# disabling this because it is too slow to build
+# RUN catkin build --no-status -j1 rtabmap_ros
 RUN catkin build --no-status -j1 rviz
 RUN catkin build --no-status -j1 plotjuggler
 RUN catkin build --no-status -j1 rqt
