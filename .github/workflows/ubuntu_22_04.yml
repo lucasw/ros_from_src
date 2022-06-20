@@ -160,16 +160,31 @@ jobs:
           catkin build --no-status joint_trajectory_controller
           source devel/setup.bash
 
-      - name: joint controller test
+      - name: test joint_trajectory_controller
         run: |
           cd base_catkin_ws
-          catkin build joint_trajectory_controller --no-status --no-deps --catkin-make-args tests
           source devel/setup.bash
-          rostest joint_trajectory_controller joint_trajectory_controller.test
+          # catkin build joint_trajectory_controller --no-status --no-deps --catkin-make-args tests
+          # rostest joint_trajectory_controller joint_trajectory_controller.test
+          catkin test --no-status joint_trajectory_controller
+
+      - name: build plotjuggler
+        run: |
+          cd base_catkin_ws
+          source devel/setup.bash
+          catkin build --no-status plotjuggler
+          catkin build --no-status plotjuggler_ros
+          source devel/setup.bash
+
+      - name: build rviz
+        run: |
+          cd base_catkin_ws
+          source devel/setup.bash
+          catkin build --no-status rviz
+          source devel/setup.bash
 
       - name: build rest of base_catkin_ws
         run: |
           cd base_catkin_ws
-          catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
-          catkin build --no-status
           source devel/setup.bash
+          catkin build --no-status
