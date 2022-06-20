@@ -53,6 +53,7 @@ jobs:
           sudo apt-get install -yqq libyaml-cpp-dev
           sudo apt-get install -yqq cython3
           sudo apt-get install -yqq libapriltag-dev
+          sudo apt-get install -yqq libzmq3-dev
 
       - name: apt sdl installs
         run: |
@@ -67,6 +68,7 @@ jobs:
       - name: apt qt installs
         run: |
           sudo apt-get install -yqq libqt5svg5-dev libqt5websockets5-dev libqt5x11extras5-dev libqwt-qt5-dev
+          sudo apt-get install -yqq libqtav-dev
 
       - name: apt tool installs
         run: |
