@@ -206,3 +206,72 @@ jobs:
           cd base_catkin_ws
           source devel/setup.bash
           catkin build --no-status
+
+      ### BASE INSTALL BUILD ###
+      - name: setup base_catkin_ws
+        run: |
+          mkdir install_base_catkin_ws
+          cd install_base_catkin_ws
+          ln -s ../base_catkin_ws/src
+          catkin config --install --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
+
+      - name: build joint_trajectory_controller
+        run: |
+          cd install_base_catkin_ws
+          catkin build --no-status joint_trajectory_controller
+          source install/setup.bash
+
+      - name: test joint_trajectory_controller
+        run: |
+          cd install_base_catkin_ws
+          source install/setup.bash
+          catkin test --no-status joint_trajectory_controller
+
+      - name: build plotjuggler
+        run: |
+          cd install_base_catkin_ws
+          source install/setup.bash
+          catkin build --no-status plotjuggler
+          source install/setup.bash
+          catkin build --no-status plotjuggler_ros
+
+      - name: build jsk_common_msgs
+        run: |
+          cd install_base_catkin_ws
+          source install/setup.bash
+          catkin build --no-status jsk_common_msgs
+
+      - name: build rviz
+        run: |
+          cd install_base_catkin_ws
+          source install/setup.bash
+          catkin build --no-status rviz
+
+      - name: build jsk_rviz_plugins
+        run: |
+          cd install_base_catkin_ws
+          source install/setup.bash
+          catkin build --no-status jsk_rviz_plugins
+
+      - name: build fuse
+        run: |
+          cd install_base_catkin_ws
+          source install/setup.bash
+          catkin build --no-status fuse_models fuse_optimizers
+
+      - name: build rest of base packages
+        run: |
+          cd install_base_catkin_ws
+          source install/setup.bash
+          catkin build --no-status
+
+      - name: tar up install_catkin_ws
+        run: |
+          tar cvzf install_catkin_ws_2204.tgz install_base_catkin_ws/install
+          ls -l
+
+      - name: update install_catkin_ws_2204.tgz
+        uses: actions/upload-artifact@v2
+        with:
+          name: install_catkin_ws_2204
+          path: install_catkin_ws_2204.tgz
