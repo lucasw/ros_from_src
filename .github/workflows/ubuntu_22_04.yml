@@ -178,7 +178,8 @@ jobs:
         run: |
           cd base_catkin_ws
           source devel/setup.bash
-          catkin build --no-status plotjuggler
+          # Does building plotjuggler before plotjuggler_ros mess up in install?
+          # catkin build --no-status plotjuggler
           catkin build --no-status plotjuggler_ros
           source devel/setup.bash
 
