@@ -145,6 +145,7 @@ jobs:
           which catkin
           catkin --version
 
+      ### BASE DEVEL BUILD ###
       - name: setup base_catkin_ws
         run: |
           mkdir -p base_catkin_ws/src
@@ -156,10 +157,12 @@ jobs:
           # ignore repos that aren't yet building in 22.04
           ../../other/src/ros_from_src/ubuntu_2204/ignore.sh
 
+          cd ..
+          catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
+
       - name: build joint_trajectory_controller
         run: |
           cd base_catkin_ws
-          catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
           catkin build --no-status joint_trajectory_controller
           source devel/setup.bash
 
@@ -167,9 +170,9 @@ jobs:
         run: |
           cd base_catkin_ws
           source devel/setup.bash
-          # catkin build joint_trajectory_controller --no-status --no-deps --catkin-make-args tests
-          # rostest joint_trajectory_controller joint_trajectory_controller.test
-          catkin test --no-status joint_trajectory_controller
+          catkin build joint_trajectory_controller --no-status --no-deps --catkin-make-args tests
+          rostest joint_trajectory_controller joint_trajectory_controller.test
+          # catkin test --no-status joint_trajectory_controller
 
       - name: build plotjuggler
         run: |
@@ -185,6 +188,18 @@ jobs:
           source devel/setup.bash
           catkin build --no-status rviz
           source devel/setup.bash
+
+      - name: build jsk_rviz_plugins
+        run: |
+          cd base_catkin_ws
+          source devel/setup.bash
+          catkin build --no-status jsk_rviz_plugins
+
+      - name: build fuse
+        run: |
+          cd base_catkin_ws
+          source devel/setup.bash
+          catkin build --no-status fuse_models fuse_optimizers
 
       - name: build rest of base_catkin_ws
         run: |
