@@ -6,7 +6,7 @@ repositories:
   clearpath/husky:
     type: git
     url: git@github.com:lucasw/husky
-    version: roslint_fixes
+    version: cpp17
   clearpath/moose:
     type: git
     url: git@github.com:moose-cpr/moose.git

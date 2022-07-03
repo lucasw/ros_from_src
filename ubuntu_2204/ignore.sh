@@ -2,8 +2,8 @@
 # These build fine in 22.04 but take too long to build in github actions
 touch ./other/rtabmap/CATKIN_IGNORE
 touch ./other/rtabmap_ros/CATKIN_IGNORE
-# These are ignored because they don't yet build in 22.04, need modifications
-touch ./clearpath/husky/CATKIN_IGNORE
+# These are ignored because they don't yet build in 22.04, need modifications,
+# or depend on gazebo
 touch ./clearpath/husky/husky_gazebo/CATKIN_IGNORE
 touch ./clearpath/moose_simulator/CATKIN_IGNORE
 touch ./clearpath/warthog_simulator/CATKIN_IGNORE
