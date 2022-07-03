@@ -1,4 +1,4 @@
-name: Use debian ros packages in Ubuntu 22.04 along with source packages
+name: Ubuntu 22.04 build with debian ros packages along with source packages
 
 on:
   push:
@@ -7,58 +7,273 @@ on:
 jobs:
   ubuntu2204:
     runs-on: ubuntu-22.04
-    env:
-      DEST: $HOME/other/install
+    # env:
     steps:
       - name: git clone ros_from_src
         uses: actions/checkout@v3
         with:
           path: other/src/ros_from_src
 
-      - name: apt installs
+      - name: os version
         run: |
-          sudo apt install -yqq git
-          sudo apt install -yqq ros-*
-          sudo apt install -yqq catkin-lint cython3 libapriltag-dev libceres-dev libfrei0r-ocaml-dev
-          sudo apt install -yqq libgeographic-dev libgmock-dev libgoogle-glog-dev libgst-dev
-          sudo apt install -yqq libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev
-          sudo apt install -yqq libimage-view-dev liborocos-bfl-dev libpcl-ros-dev libqt5svg5-dev libqt5websockets5-dev
-          sudo apt install -yqq libqt5x11extras5-dev libqwt-qt5-dev libsdl-image1.2-dev
-          sudo apt install -yqq libspnav-dev liburdfdom-dev libuvc-dev libv4l-dev libyaml-cpp-dev
-          sudo apt install -yqq python-is-python3 python3-tf2-geometry-msgs python3-venv vim curl jq
+          lsb_release -a
+
+      - name: apt update
+        run: |
+          sudo add-apt-repository universe
+          sudo apt-get update
+
+      - name: apt upgrade
+        run: |
+          echo "skip"
+          # sudo apt-get upgrade
+
+      - name: needrestart
+        run: |
+          sudo needrestart -v
+          # sudo needrestart -r a
+          # sudo systemctl restart packagekit
+          # sudo systemctl restart php8.1-fpm
+          # sudo systemctl restart ssh
+
+      - name: apt library installs 1
+        run: |
+          sudo apt-get install -o Debug::pkgProblemResolver=true -yqq libunwind-dev
+          dpkg -l | grep libunwind
+          sudo apt-get install -o Debug::pkgProblemResolver=true -yqq libceres-dev
+
+      - name: apt library installs 2
+        run: |
+          sudo apt-get install -yqq libgeographic-dev
+          sudo apt-get install -yqq libgmock-dev libgoogle-glog-dev
+          sudo apt-get install -yqq liborocos-bfl-dev
+          sudo apt-get install -yqq libprotobuf-dev libprotoc-dev
+
+      - name: apt library installs 3
+        run: |
+          sudo apt-get install -yqq libspnav-dev liburdfdom-dev
+          sudo apt-get install -yqq libyaml-cpp-dev
+          sudo apt-get install -yqq cython3
+          sudo apt-get install -yqq libapriltag-dev
+          sudo apt-get install -yqq libzmq3-dev
+
+      - name: apt sdl installs
+        run: |
+          sudo apt-get install -o Debug::pkgProblemResolver=true -yqq libsdl2-* libsdl-image1.2-dev python3-sdl2
+          sudo apt-get install -yqq frei0r-plugins-dev libfrei0r-ocaml-dev
+
+      - name: apt video installs
+        run: |
+          sudo apt-get install -yqq libgst-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev
+          sudo apt-get install -yqq libuvc-dev libv4l-dev
+
+      - name: apt qt installs
+        run: |
+          sudo apt-get install -yqq libqt5svg5-dev libqt5websockets5-dev libqt5x11extras5-dev libqwt-qt5-dev
+          sudo apt-get install -yqq libqtav-dev
+
+      - name: apt tool installs
+        run: |
+          sudo apt-get install -yqq git
+          sudo apt-get install -yqq vim curl jq
+          sudo apt-get install -yqq python-is-python3 python3-venv
+
+      - name: apt ros installs
+        run: |
+          sudo apt-get install -yqq ros-*
+          sudo apt-get install -yqq catkin-lint
+          sudo apt-get install -yqq libimage-view-dev
+          sudo apt-get install -yqq libpcl-ros-dev
+          sudo apt-get install -yqq python3-tf2-geometry-msgs
 
       - name: setup
-        run:
+        run: |
           mkdir -p other/src
-          echo "$DEST/bin" >> $GITHUB_PATH
+          echo "DEST=$HOME/other/install" >> $GITHUB_ENV
+          # echo "$DEST/bin" >> $GITHUB_PATH
+          echo PYTHON_MAJOR_VERSION=`python --version | awk  '{print $2}' | cut -d'.' -f1` >> $GITHUB_ENV
+          echo PYTHON_MINOR_VERSION=`python --version | awk  '{print $2}' | cut -d'.' -f2` >> $GITHUB_ENV
+
+      - name: setup 2
+        run: |
+          echo "PATH=$PATH:$DEST/bin" >> $GITHUB_ENV
+          echo "PYTHONPATH=$DEST/lib/python$PYTHON_MAJOR_VERSION.$PYTHON_MINOR_VERSION/site-packages/" >> $GITHUB_ENV
+
+      - name: check setup
+        run: |
+          echo $HOME
+          echo $GITHUB_PATH
+          echo $PATH
+          echo $PYTHONPATH
+
+      - name: git clone vcstool
+        uses: actions/checkout@v3
+        with:
+          repository: dirk-thomas/vcstool
+          path: other/src/vcstool
 
       - name: vcs
         run: |
           cd other/src
-          git clone git@github.com:dirk-thomas/vcstool.git
           cd vcstool
           python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
           vcs --help
 
+      - name: git clone pycommon
+        uses: actions/checkout@v3
+        with:
+          repository: osrf/osrf_pycommon
+          path: other/src/osrf_pycommon
+
       - name: pycommon
         run: |
           cd other/src
-          git clone git@github.com:osrf/osrf_pycommon
           cd osrf_pycommon
           python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
 
+      - name: git clone catkin tools
+        uses: actions/checkout@v3
+        with:
+          repository: lucasw/catkin_tools
+          path: other/src/catkin_tools
+          ref: sanitize_cmake_prefix_path
+
+      - name: catkin tools
+        run: |
+          cd other/src
+          cd catkin_tools
+          python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
+          which catkin
+          catkin --version
+
+      ### BASE DEVEL BUILD ###
       - name: setup base_catkin_ws
         run: |
           mkdir -p base_catkin_ws/src
-          cd ~/base_catkin_ws/src
-          ln -s other/src/ros_from_src/ubuntu_2204/base_repos.yaml
+          cd base_catkin_ws/src
+          ln -s ../../other/src/ros_from_src/ubuntu_2204/base_repos.yaml
+          # need https instead of git@github
+          sed -i 's/git@github.com:/https:\/\/github.com\//' base_repos.yaml
           vcs import --shallow < base_repos.yaml
           # ignore repos that aren't yet building in 22.04
-          other/src/ros_from_src/ubuntu_2204/ignore.sh
+          ../../other/src/ros_from_src/ubuntu_2204/ignore.sh
 
-      - name: build base_catkin_ws
+          cd ..
+          catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
+
+      - name: build joint_trajectory_controller
         run: |
           cd base_catkin_ws
-          catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
-          catkin build
+          catkin build --no-status joint_trajectory_controller
           source devel/setup.bash
+
+      - name: test joint_trajectory_controller
+        run: |
+          cd base_catkin_ws
+          source devel/setup.bash
+          catkin build joint_trajectory_controller --no-status --no-deps --catkin-make-args tests
+          rostest joint_trajectory_controller joint_trajectory_controller.test
+          # catkin test --no-status joint_trajectory_controller
+
+      - name: build plotjuggler
+        run: |
+          cd base_catkin_ws
+          source devel/setup.bash
+          # Does building plotjuggler before plotjuggler_ros mess up in install?
+          # catkin build --no-status plotjuggler
+          catkin build --no-status plotjuggler_ros
+          source devel/setup.bash
+
+      - name: build rviz
+        run: |
+          cd base_catkin_ws
+          source devel/setup.bash
+          catkin build --no-status rviz
+          source devel/setup.bash
+
+      - name: build jsk_rviz_plugins
+        run: |
+          cd base_catkin_ws
+          source devel/setup.bash
+          catkin build --no-status jsk_rviz_plugins
+
+      - name: build fuse
+        run: |
+          cd base_catkin_ws
+          source devel/setup.bash
+          catkin build --no-status fuse_models fuse_optimizers
+
+      - name: build rest of base_catkin_ws
+        run: |
+          cd base_catkin_ws
+          source devel/setup.bash
+          catkin build --no-status
+
+      ### BASE INSTALL BUILD ###
+      - name: setup base_catkin_ws
+        run: |
+          mkdir install_base_catkin_ws
+          cd install_base_catkin_ws
+          ln -s ../base_catkin_ws/src
+          catkin config --install --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
+
+      - name: build joint_trajectory_controller
+        run: |
+          cd install_base_catkin_ws
+          catkin build --no-status joint_trajectory_controller
+          source install/setup.bash
+
+      - name: test joint_trajectory_controller
+        run: |
+          cd install_base_catkin_ws
+          source install/setup.bash
+          catkin test --no-status joint_trajectory_controller
+
+      - name: build plotjuggler
+        run: |
+          cd install_base_catkin_ws
+          source install/setup.bash
+          catkin build --no-status plotjuggler
+          source install/setup.bash
+          catkin build --no-status plotjuggler_ros
+
+      - name: build jsk_common_msgs
+        run: |
+          cd install_base_catkin_ws
+          source install/setup.bash
+          catkin build --no-status jsk_common_msgs
+
+      - name: build rviz
+        run: |
+          cd install_base_catkin_ws
+          source install/setup.bash
+          catkin build --no-status rviz
+
+      - name: build jsk_rviz_plugins
+        run: |
+          cd install_base_catkin_ws
+          source install/setup.bash
+          catkin build --no-status jsk_rviz_plugins
+
+      - name: build fuse
+        run: |
+          cd install_base_catkin_ws
+          source install/setup.bash
+          catkin build --no-status fuse_models fuse_optimizers
+
+      - name: build rest of base packages
+        run: |
+          cd install_base_catkin_ws
+          source install/setup.bash
+          catkin build --no-status
+
+      - name: tar up install_catkin_ws
+        run: |
+          tar cvzf install_catkin_ws_2204.tgz install_base_catkin_ws/install
+          ls -l
+
+      - name: update install_catkin_ws_2204.tgz
+        uses: actions/upload-artifact@v2
+        with:
+          name: install_catkin_ws_2204
+          path: install_catkin_ws_2204.tgz

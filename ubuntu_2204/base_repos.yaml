@@ -6,7 +6,7 @@ repositories:
   clearpath/husky:
     type: git
     url: git@github.com:lucasw/husky
-    version: roslint_fixes
+    version: cpp17
   clearpath/moose:
     type: git
     url: git@github.com:moose-cpr/moose.git
@@ -126,7 +126,7 @@ repositories:
   other/PlotJuggler:
     type: git
     url: git@github.com:facontidavide/PlotJuggler.git
-    version: main
+    version: 01a86f8aa0a6b960832012c1810cea34642c7268
   other/anybotics/elevation_mapping:
     type: git
     url: git@github.com:ANYbotics/elevation_mapping.git
@@ -177,8 +177,8 @@ repositories:
     version: master
   other/fiducials:
     type: git
-    url: git@github.com:UbiquityRobotics/fiducials.git
-    version: noetic-devel
+    url: git@github.com:lucasw/fiducials.git
+    version: boost_placeholders
   other/find-object:
     type: git
     url: git@github.com:lucasw/find-object.git
@@ -407,10 +407,10 @@ repositories:
     type: git
     url: git@github.com:OctoMap/octomap_msgs.git
     version: melodic-devel
-  ros/pluginlib:
-    type: git
-    url: git@github.com:lucasw/pluginlib
-    version: cpp17_test
+  # ros/pluginlib:
+  #   type: git
+  #   url: git@github.com:lucasw/pluginlib
+  #   version: cpp17_test
   ros/realtime_tools:
     type: git
     url: git@github.com:ros-controls/realtime_tools.git
@@ -419,6 +419,10 @@ repositories:
     type: git
     url: git@github.com:lucasw/robot_localization
     version: boost_placeholders_cpp17
+  ros_comm:
+    type: git
+    url: git@github.com:lucasw/ros_comm
+    version: salsa_noetic_aggregated
   ros/ros_control:
     type: git
     url: git@github.com:lucasw/ros_control
@@ -431,6 +435,10 @@ repositories:
     type: git
     url: git@github.com:lucasw/ros_tutorials.git
     version: boost_placeholders
+  rosconsole:
+    type: git
+    url: git@github.com:lucasw/rosconsole
+    version: concise_output_roso
   ros/roscpp_core:
     type: git
     url: git@github.com:lucasw/roscpp_core
