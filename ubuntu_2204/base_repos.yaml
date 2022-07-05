@@ -471,6 +471,10 @@ repositories:
     type: git
     url: https://github.com/ros-visualization/rqt_reconfigure
     version: master
+  ros/rqt_robot_monitor:
+    type: git
+    url: git@github.com:ros-visualization/rqt_robot_monitor.git
+    version: ros1
   ros/rqt_robot_steering:
     type: git
     url: git@github.com:lucasw/rqt_robot_steering.git
