@@ -74,6 +74,7 @@ WORKDIR $WS
 RUN vcs import --shallow < $SRC/ros_from_src/ubuntu_2204/base_repos.yaml
 COPY ignore.sh $SRC/ros_from_src/ubuntu_2204/
 RUN $SRC/ros_from_src/ubuntu_2204/ignore.sh
+RUN other/catkin_virtualenv/test_catkin_virtualenv_inherited/CATKIN_IGNORE
 
 RUN echo $CMAKE_PREFIX_PATH
 
