@@ -289,8 +289,10 @@ repositories:
     version: master
   other/rtabmap_ros:
     type: git
-    url: git@github.com:lucasw/rtabmap_ros
-    version: remove_qt5_use_modules
+    url: git@github.com:introlab/rtabmap_ros
+    version: master
+    # url: git@github.com:lucasw/rtabmap_ros
+    # version: remove_qt5_use_modules
   other/tf2_2d:
     type: git
     url: git@github.com:locusrobotics/tf2_2d.git
