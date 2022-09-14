@@ -74,8 +74,10 @@ WORKDIR $WS
 RUN vcs import --shallow < $SRC/ros_from_src/ubuntu_2204/base_repos.yaml
 COPY ignore.sh $SRC/ros_from_src/ubuntu_2204/
 RUN $SRC/ros_from_src/ubuntu_2204/ignore.sh
-RUN other/catkin_virtualenv/test_catkin_virtualenv_inherited/CATKIN_IGNORE
+RUN touch other/catkin_virtualenv/test_catkin_virtualenv_inherited/CATKIN_IGNORE
+RUN touch other/catkin_virtualenv/test_catkin_virtualenv_isolated/CATKIN_IGNORE
 
+# ENV ROS_DISTRO="noetic"
 RUN echo $CMAKE_PREFIX_PATH
 
 WORKDIR $WS/..
@@ -85,6 +87,7 @@ RUN catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
 RUN catkin build --no-status -j1 fuse_core
 # disabling this because it is too slow to build
 # RUN catkin build --no-status -j1 rtabmap_ros
+RUN catkin build --no-status -j1 jsk_rviz_plugins
 RUN catkin build --no-status -j1 rviz
 RUN catkin build --no-status -j1 plotjuggler
 RUN catkin build --no-status -j1 rqt
@@ -98,10 +101,10 @@ RUN catkin build --no-status -j1 nmea_navsat_driver
 RUN catkin build --no-status -j1 grid_map_visualization
 RUN catkin build --no-status -j1 stereo_image_proc
 RUN catkin build --no-status -j1 jsk_topic_tools
-RUN catkin build --no-status -j1 test_catkin_virtualenv_inherited
-RUN catkin build --no-status -j1 test_catkin_virtualenv_py3_isolated
+RUN catkin build --no-status -j1 jsk_interactive_marker
+# RUN catkin build --no-status -j1 test_catkin_virtualenv_inherited
+# RUN catkin build --no-status -j1 test_catkin_virtualenv_py3_isolated
 RUN catkin build --no-status -j1
-RUN catkin build --no-status
 
 # rospack list won't work by itself
 # RUN source devel/setup.bash && rospack list
