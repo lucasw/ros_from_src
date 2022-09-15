@@ -111,7 +111,11 @@ RUN catkin build --no-status -j1
 
 # TODO(lucasw) run more tests than this
 RUN catkin build joint_trajectory_controller --no-status --no-deps --catkin-make-args tests
-RUN source devel/setup.bash && rostest joint_trajectory_controller joint_trajectory_controller.test
+RUN ls -l devel
+# make 'source' work
+SHELL ["/bin/bash", "-c"]
+RUN source devel/setup.sh && rospack list
+# RUN source devel/setup.sh && rostest joint_trajectory_controller joint_trajectory_controller.test
 
 # TODO(lucasw) instead of git cloning the repo we're already in, copy in the repos.yaml and ignore file
 # so someone could edit them and rerun the dockerfile
