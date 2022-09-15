@@ -421,6 +421,10 @@ repositories:
     type: git
     url: git@github.com:lucasw/robot_localization
     version: boost_placeholders_cpp17
+  ros/robot_state_publisher:
+    type: git
+    url: git@github.com:lucasw/robot_state_publisher
+    version: robot_state_function
   ros_comm:
     type: git
     url: git@github.com:lucasw/ros_comm
