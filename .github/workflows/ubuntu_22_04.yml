@@ -161,6 +161,12 @@ jobs:
           cd ..
           catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
 
+      - name: build rtabmap_ros
+        run: |
+          cd base_catkin_ws
+          catkin build --no-status rtabmap_ros
+          source devel/setup.bash
+
       - name: build joint_trajectory_controller
         run: |
           cd base_catkin_ws
