@@ -126,7 +126,7 @@ repositories:
   other/PlotJuggler:
     type: git
     url: git@github.com:facontidavide/PlotJuggler.git
-    version: 01a86f8aa0a6b960832012c1810cea34642c7268
+    version: main
   other/anybotics/elevation_mapping:
     type: git
     url: git@github.com:ANYbotics/elevation_mapping.git
