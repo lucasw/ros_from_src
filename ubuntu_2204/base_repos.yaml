@@ -425,7 +425,7 @@ repositories:
     type: git
     url: git@github.com:lucasw/robot_state_publisher
     version: robot_state_function
-  ros_comm:
+  ros/ros_comm:
     type: git
     url: git@github.com:lucasw/ros_comm
     version: salsa_noetic_aggregated
@@ -441,7 +441,7 @@ repositories:
     type: git
     url: git@github.com:lucasw/ros_tutorials.git
     version: boost_placeholders
-  rosconsole:
+  ros/rosconsole:
     type: git
     url: git@github.com:lucasw/rosconsole
     version: concise_output_roso
