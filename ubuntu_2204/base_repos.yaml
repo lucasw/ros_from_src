@@ -459,7 +459,7 @@ repositories:
     version: salsa
   ros/rqt:
     type: git
-    url: git@github.com:ros-visualization/rqt.git
+    url: git@github.com:lucasw/rqt.git
     version: kinetic-devel
   ros/rqt_console:
     type: git
