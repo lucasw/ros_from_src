@@ -31,3 +31,4 @@ touch ./ros/grid_map/grid_map_demos/CATKIN_IGNORE
 touch ./ros/grid_map/grid_map_filters/CATKIN_IGNORE
 touch ./ros/joystick_drivers/ps3joy/CATKIN_IGNORE
 touch ./ros/joystick_drivers/wiimote/CATKIN_IGNORE
+touch ./ros/web_video_server/CATKIN_IGNORE
