@@ -6,11 +6,11 @@ repositories:
   clearpath/husky:
     type: git
     url: git@github.com:lucasw/husky
-    version: cpp17
+    version: roslint_fixes
   clearpath/moose:
     type: git
-    url: git@github.com:moose-cpr/moose.git
-    version: master
+    url: git@github.com:lucasw/moose
+    version: pluginlib_hpp
   clearpath/moose_simulator:
     type: git
     url: git@github.com:moose-cpr/moose_simulator.git
@@ -139,6 +139,10 @@ repositories:
     type: git
     url: git@github.com:lucasw/kindr_ros
     version: cpp17
+  other/anybotics/message_logger:
+    type: git
+    url: git@github.com:lucasw/message_logger
+    version: line_endings
   other/anybotics/point_cloud_io:
     type: git
     url: git@github.com:ANYbotics/point_cloud_io
@@ -159,10 +163,6 @@ repositories:
     type: git
     url: git@github.com:ros-o/ddynamic_reconfigure
     version: obese-devel
-  other/depthai-ros-examples:
-    type: git
-    url: git@github.com:luxonis/depthai-ros-examples.git
-    version: main
   other/euslisp-release:
     type: git
     url: git@github.com:tork-a/euslisp-release.git
@@ -177,8 +177,8 @@ repositories:
     version: master
   other/fiducials:
     type: git
-    url: git@github.com:lucasw/fiducials.git
-    version: boost_placeholders
+    url: git@github.com:lucasw/fiducials
+    version: cmake_vision_msgs
   other/find-object:
     type: git
     url: git@github.com:lucasw/find-object.git
@@ -194,7 +194,7 @@ repositories:
   other/graph_rviz_plugin:
     type: git
     url: git@github.com:lucasw/graph_rviz_plugin
-    version: cpp17
+    version: pluginlib_hpp
   other/hector_slam:
     type: git
     url: git@github.com:lucasw/hector_slam
@@ -202,7 +202,7 @@ repositories:
   other/jsk_common:
     type: git
     url: git@github.com:lucasw/jsk_common
-    version: cpp17
+    version: pluginlib_hpp
   other/jsk_common_msgs:
     type: git
     url: git@github.com:lucasw/jsk_common_msgs
@@ -225,20 +225,20 @@ repositories:
     version: master
   other/mavros:
     type: git
-    url: git@github.com:mavlink/mavros.git
-    version: master
+    url: git@github.com:lucasw/mavros
+    version: pluginlib_hpp
   other/nmea_navsat_driver:
     type: git
     url: git@github.com:ros-drivers/nmea_navsat_driver.git
     version: master
   other/nodelet_rosbag:
     type: git
-    url: git@github.com:oriondream/nodelet_rosbag.git
-    version: in_place_factory
+    url: git@github.com:lucasw/nodelet_rosbag
+    version: pluginlib_hpp
   other/octomap_mapping:
     type: git
     url: git@github.com:lucasw/octomap_mapping.git
-    version: kinetic-devel
+    version: pluginlib_hpp
   other/octomap_ros:
     type: git
     url: git@github.com:lucasw/octomap_ros
@@ -271,6 +271,10 @@ repositories:
     type: git
     url: git@github.com:lucasw/ros_numpy.git
     version: collections_abc
+  other/ros_rtsp:
+    type: git
+    url: git@github.com:lucasw/ros_rtsp
+    version: pluginlib_hpp
   other/rosboard:
     type: git
     url: git@github.com:dheera/rosboard.git
@@ -289,10 +293,8 @@ repositories:
     version: master
   other/rtabmap_ros:
     type: git
-    url: git@github.com:introlab/rtabmap_ros
-    version: master
-    # url: git@github.com:lucasw/rtabmap_ros
-    # version: remove_qt5_use_modules
+    url: git@github.com:lucasw/rtabmap_ros
+    version: pluginlib_hpp
   other/tf2_2d:
     type: git
     url: git@github.com:locusrobotics/tf2_2d.git
@@ -368,7 +370,7 @@ repositories:
   ros/image_common:
     type: git
     url: git@github.com:lucasw/image_common
-    version: noetic-devel
+    version: ubuntu_2210
   ros/image_pipeline:
     type: git
     url: git@github.com:lucasw/image_pipeline
@@ -409,10 +411,10 @@ repositories:
     type: git
     url: git@github.com:OctoMap/octomap_msgs.git
     version: melodic-devel
-  # ros/pluginlib:
-  #   type: git
-  #   url: git@github.com:lucasw/pluginlib
-  #   version: cpp17_test
+  ros/pluginlib:
+    type: git
+    url: git@github.com:lucasw/pluginlib
+    version: cpp17_test
   ros/realtime_tools:
     type: git
     url: git@github.com:ros-controls/realtime_tools.git
@@ -444,7 +446,7 @@ repositories:
   ros/rosconsole:
     type: git
     url: git@github.com:lucasw/rosconsole
-    version: concise_output_roso
+    version: ubuntu_2210
   ros/roscpp_core:
     type: git
     url: git@github.com:lucasw/roscpp_core
@@ -459,8 +461,8 @@ repositories:
     version: salsa
   ros/rqt:
     type: git
-    url: git@github.com:lucasw/rqt.git
-    version: kinetic-devel
+    url: git@github.com:lucasw/rqt
+    version: ubuntu_2210
   ros/rqt_console:
     type: git
     url: git@github.com:ros-visualization/rqt_console.git
@@ -481,14 +483,14 @@ repositories:
     type: git
     url: https://github.com/ros-visualization/rqt_reconfigure
     version: master
-  ros/rqt_robot_monitor:
-    type: git
-    url: git@github.com:ros-visualization/rqt_robot_monitor.git
-    version: ros1
   ros/rqt_robot_steering:
     type: git
     url: git@github.com:lucasw/rqt_robot_steering.git
     version: python310
+  ros/rqt_tf_tree:
+    type: git
+    url: git@github.com:ros-visualization/rqt_tf_tree.git
+    version: master
   ros/rviz:
     type: git
     url: git@github.com:lucasw/rviz.git
@@ -517,6 +519,10 @@ repositories:
     type: git
     url: git@github.com:ros-drivers/usb_cam.git
     version: develop
+  ros/video_stream_opencv:
+    type: git
+    url: git@github.com:lucasw/video_stream_opencv
+    version: build_2204
   ros/view_controller_msgs:
     type: git
     url: git@github.com:ros-visualization/view_controller_msgs.git
@@ -531,7 +537,7 @@ repositories:
     version: boost_placeholders
   ros/xacro:
     type: git
-    url: git@github.com:lucasw/xacro
+    url: git@github.com:lucasw/xacro.git
     version: cleanup_roslint
   roso/control_toolbox:
     type: git
@@ -539,13 +545,13 @@ repositories:
     version: obese-devel
   roso/qt_gui_core:
     type: git
-    url: https://github.com/ros-o/qt_gui_core
-    version: obese-devel
+    url: git@github.com:lucasw/qt_gui_core
+    version: ubuntu_2210
   roso/rosparam_shortcuts:
     type: git
     url: git@github.com:lucasw/rosparam_shortcuts
     version: cleanup_lint
   roso/rqt_image_view:
     type: git
-    url: git@github.com:ros-o/rqt_image_view.git
-    version: obese-devel
+    url: git@github.com:lucasw/rqt_image_view
+    version: ubuntu_2210
