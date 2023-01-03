@@ -411,10 +411,6 @@ repositories:
     type: git
     url: git@github.com:OctoMap/octomap_msgs.git
     version: melodic-devel
-  ros/pluginlib:
-    type: git
-    url: git@github.com:lucasw/pluginlib
-    version: cpp17_test
   ros/realtime_tools:
     type: git
     url: git@github.com:ros-controls/realtime_tools.git
@@ -554,4 +550,4 @@ repositories:
   roso/rqt_image_view:
     type: git
     url: git@github.com:lucasw/rqt_image_view
-    version: ubuntu_2210
+    version: obese-devel
