@@ -459,6 +459,10 @@ repositories:
     type: git
     url: git@github.com:lucasw/rqt
     version: ubuntu_2210
+  ros/rqt_bag:
+    type: git
+    url: git@github.com:lucasw/rqt_bag
+    version: build_2204
   ros/rqt_console:
     type: git
     url: git@github.com:ros-visualization/rqt_console.git
@@ -479,6 +483,10 @@ repositories:
     type: git
     url: https://github.com/ros-visualization/rqt_reconfigure
     version: master
+  ros/rqt_robot_monitor:
+    type: git
+    url: git@github.com:ros-visualization/rqt_robot_monitor.git
+    version: ros1
   ros/rqt_robot_steering:
     type: git
     url: git@github.com:lucasw/rqt_robot_steering.git
