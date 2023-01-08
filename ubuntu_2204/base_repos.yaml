@@ -269,8 +269,8 @@ repositories:
     version: cpp17
   other/ros_numpy:
     type: git
-    url: git@github.com:eric-wieser/ros_numpy.git
-    version: master
+    url: git@github.com:lucasw/ros_numpy.git
+    version: collections_abc
   other/rosboard:
     type: git
     url: git@github.com:dheera/rosboard.git
