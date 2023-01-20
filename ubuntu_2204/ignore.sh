@@ -18,10 +18,7 @@ touch ./other/jsk_recognition/jsk_perception/CATKIN_IGNORE
 touch ./other/jsk_recognition/sound_classification/CATKIN_IGNORE
 touch ./other/jsk_roseus/CATKIN_IGNORE
 touch ./other/jsk_roseus/roseus_msgs/CATKIN_IGNORE
-touch ./other/mavros/libmavconn/CATKIN_IGNORE
-touch ./other/mavros/mavros/CATKIN_IGNORE
-touch ./other/mavros/mavros_extras/CATKIN_IGNORE
-touch ./other/mavros/test_mavros/CATKIN_IGNORE
+touch ./other/mavros/CATKIN_IGNORE
 touch ./other/openni2_camera/CATKIN_IGNORE
 touch ./other/people/face_detector/CATKIN_IGNORE
 touch ./other/people/leg_detector/CATKIN_IGNORE
