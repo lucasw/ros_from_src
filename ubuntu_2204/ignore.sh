@@ -10,6 +10,7 @@ touch ./other/catkin_virtualenv/test_catkin_virtualenv/CATKIN_IGNORE
 touch ./other/catkin_virtualenv/test_catkin_virtualenv_python2/CATKIN_IGNORE
 touch ./other/depthai-ros-examples/CATKIN_IGNORE
 touch ./other/fiducials/aruco_gazebo/CATKIN_IGNORE
+touch ./other/jsk_common/jsk_rosbag_tools/CATKIN_IGNORE
 touch ./other/jsk_recognition/imagesift/CATKIN_IGNORE
 touch ./other/jsk_recognition/jsk_libfreenect2/CATKIN_IGNORE
 touch ./other/jsk_recognition/jsk_pcl_ros/CATKIN_IGNORE
