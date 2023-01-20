@@ -461,6 +461,10 @@ repositories:
     type: git
     url: git@github.com:ros-visualization/rqt_console.git
     version: master
+  ros/rqt_graph:
+    type: git
+    url: git@github.com:ros-visualization/rqt_graph.git
+    version: master
   ros/rqt_logger_level:
     type: git
     url: git@github.com:ros-visualization/rqt_logger_level.git
