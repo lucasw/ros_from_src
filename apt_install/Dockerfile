@@ -34,5 +34,7 @@ RUN apt-get install -y ros-cmake-modules
 RUN apt-get install -y ros-$ROS_DISTRO-ros-base
 RUN source /opt/ros/$ROS_DISTRO/setup.bash
 RUN rosdep init
-RUN rosdep update
-
+# ERROR: cannot download default sources list from:
+# https://raw.githubusercontent.com/ros/rosdistro/master/rosdep/sources.list.d/20-default.list
+# Website may be down.
+RUN rosdep update || true
