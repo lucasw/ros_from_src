@@ -22,6 +22,7 @@ touch ./other/mavros/CATKIN_IGNORE
 touch ./other/openni2_camera/CATKIN_IGNORE
 touch ./other/people/face_detector/CATKIN_IGNORE
 touch ./other/people/leg_detector/CATKIN_IGNORE
+touch ./other/ros_rtsp/CATKIN_IGNORE
 touch ./ros/gazebo_ros_demos/CATKIN_IGNORE
 touch ./ros/gazebo_ros_pkgs/CATKIN_IGNORE
 touch ./ros/grid_map/grid_map_demos/CATKIN_IGNORE
