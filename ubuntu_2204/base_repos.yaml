@@ -389,8 +389,8 @@ repositories:
     version: cpp17
   ros/laser_assembler:
     type: git
-    url: git@github.com:lucasw/laser_assembler
-    version: boost_placeholders
+    url: git@github.com:ros-o/laser_assembler
+    version: obese-devel
   ros/libuvc_ros:
     type: git
     url: git@github.com:lucasw/libuvc_ros.git
@@ -401,8 +401,8 @@ repositories:
     version: kinetic-devel
   ros/navigation:
     type: git
-    url: git@github.com:lucasw/navigation
-    version: boost_placeholders
+    url: git@github.com:ros-planning/navigation
+    version: noetic-devel
   ros/nmea_msgs:
     type: git
     url: git@github.com:ros-drivers/nmea_msgs
