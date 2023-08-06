@@ -19,6 +19,8 @@ touch ./other/jsk_recognition/jsk_perception/CATKIN_IGNORE
 touch ./other/jsk_recognition/sound_classification/CATKIN_IGNORE
 touch ./other/jsk_roseus/CATKIN_IGNORE
 touch ./other/jsk_roseus/roseus_msgs/CATKIN_IGNORE
+touch ./other/lvr2/CATKIN_IGNORE
+touch ./other/mesh_tools/CATKIN_IGNORE
 touch ./other/mavros/CATKIN_IGNORE
 touch ./other/openni2_camera/CATKIN_IGNORE
 touch ./other/people/face_detector/CATKIN_IGNORE
