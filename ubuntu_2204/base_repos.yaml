@@ -42,7 +42,7 @@ repositories:
   lucasw/image_manip:
     type: git
     url: git@github.com:lucasw/image_manip
-    version: master
+    version: fix_zero_frame_rate
   lucasw/joy_feedback_ros:
     type: git
     url: git@github.com:lucasw/joy_feedback_ros
@@ -163,6 +163,10 @@ repositories:
     type: git
     url: git@github.com:ros-o/ddynamic_reconfigure
     version: obese-devel
+  other/depthai-ros-examples:
+    type: git
+    url: git@github.com:luxonis/depthai-ros-examples.git
+    version: main
   other/euslisp-release:
     type: git
     url: git@github.com:tork-a/euslisp-release.git
@@ -186,7 +190,7 @@ repositories:
   other/fuse:
     type: git
     url: git@github.com:lucasw/fuse
-    version: lucasw_test_cpp17
+    version: cpp17
   other/geneus:
     type: git
     url: git@github.com:jsk-ros-pkg/geneus.git
@@ -202,7 +206,7 @@ repositories:
   other/jsk_common:
     type: git
     url: git@github.com:lucasw/jsk_common
-    version: pluginlib_hpp
+    version: video_to_bag_features
   other/jsk_common_msgs:
     type: git
     url: git@github.com:lucasw/jsk_common_msgs
@@ -219,6 +223,14 @@ repositories:
     type: git
     url: git@github.com:lucasw/jsk_visualization
     version: boost_placeholders
+  other/libnabo:
+    type: git
+    url: git@github.com:ethz-asl/libnabo
+    version: master
+  other/lvr2:
+    type: git
+    url: git@github.com:lucasw/lvr2
+    version: build_2304
   other/marti_messages:
     type: git
     url: git@github.com:swri-robotics/marti_messages.git
@@ -226,7 +238,15 @@ repositories:
   other/mavros:
     type: git
     url: git@github.com:lucasw/mavros
-    version: pluginlib_hpp
+    version: master
+  other/mesh_tools:
+    type: git
+    url: git@github.com:lucasw/mesh_tools
+    version: generate_mesh_geometry
+  other/message_filters:
+    type: git
+    url: git@github.com:fkie/message_filters.git
+    version: master
   other/nmea_navsat_driver:
     type: git
     url: git@github.com:ros-drivers/nmea_navsat_driver.git
@@ -238,7 +258,7 @@ repositories:
   other/octomap_mapping:
     type: git
     url: git@github.com:lucasw/octomap_mapping.git
-    version: pluginlib_hpp
+    version: filter_limits
   other/octomap_ros:
     type: git
     url: git@github.com:lucasw/octomap_ros
@@ -247,6 +267,10 @@ repositories:
     type: git
     url: git@github.com:lucasw/openni2_camera.git
     version: subprocess_wtf_python3_7
+  other/pal_statistics:
+    type: git
+    url: git@github.com:pal-robotics/pal_statistics.git
+    version: kinetic-devel
   other/people:
     type: git
     url: git@github.com:wg-perception/people.git
@@ -257,8 +281,8 @@ repositories:
     version: boost_placeholders
   other/plotjuggler-ros-plugins:
     type: git
-    url: git@github.com:PlotJuggler/plotjuggler-ros-plugins.git
-    version: development
+    url: git@github.com:lucasw/plotjuggler-ros-plugins
+    version: depend_pal_statistics_msgs
   other/plotjuggler_msgs:
     type: git
     url: git@github.com:PlotJuggler/plotjuggler_msgs.git
@@ -275,18 +299,30 @@ repositories:
     type: git
     url: git@github.com:lucasw/ros_rtsp
     version: pluginlib_hpp
+  other/rosbag_snapshot:
+    type: git
+    url: git@github.com:ros/rosbag_snapshot.git
+    version: main
   other/rosboard:
     type: git
     url: git@github.com:dheera/rosboard.git
     version: main
+  other/rosfmt:
+    type: git
+    url: git@github.com:lucasw/rosfmt
+    version: build_2204
+  other/rosmon:
+    type: git
+    url: git@github.com:lucasw/rosmon
+    version: build_2204
   other/rosshow:
     type: git
     url: git@github.com:dheera/rosshow
     version: main
   other/rqt_ez_publisher:
     type: git
-    url: git@github.com:OTL/rqt_ez_publisher.git
-    version: melodic-devel
+    url: git@github.com:lucasw/rqt_ez_publisher
+    version: ubuntu2210
   other/rtabmap:
     type: git
     url: git@github.com:introlab/rtabmap.git
@@ -294,7 +330,11 @@ repositories:
   other/rtabmap_ros:
     type: git
     url: git@github.com:lucasw/rtabmap_ros
-    version: pluginlib_hpp
+    version: build_rtabmap_viz
+  other/static_transform_mux:
+    type: git
+    url: git@github.com:tradr-project/static_transform_mux.git
+    version: master
   other/tf2_2d:
     type: git
     url: git@github.com:locusrobotics/tf2_2d.git
@@ -386,11 +426,11 @@ repositories:
   ros/joystick_drivers:
     type: git
     url: git@github.com:lucasw/joystick_drivers
-    version: cpp17
+    version: warn_not_error_if_no_joy
   ros/laser_assembler:
     type: git
-    url: git@github.com:ros-o/laser_assembler
-    version: obese-devel
+    url: git@github.com:lucasw/laser_assembler
+    version: noetic-devel
   ros/libuvc_ros:
     type: git
     url: git@github.com:lucasw/libuvc_ros.git
@@ -401,8 +441,8 @@ repositories:
     version: kinetic-devel
   ros/navigation:
     type: git
-    url: git@github.com:ros-planning/navigation
-    version: noetic-devel
+    url: git@github.com:lucasw/navigation
+    version: lucasw_debug
   ros/nmea_msgs:
     type: git
     url: git@github.com:ros-drivers/nmea_msgs
@@ -507,6 +547,14 @@ repositories:
     type: git
     url: git@github.com:ros-teleop/teleop_twist_keyboard.git
     version: master
+  ros/twist_mux:
+    type: git
+    url: git@github.com:lucasw/twist_mux
+    version: ubuntu2210
+  ros/twist_mux_msgs:
+    type: git
+    url: git@github.com:ros-teleop/twist_mux_msgs
+    version: melodic-devel
   ros/unique_identifier:
     type: git
     url: git@github.com:ros-geographic-info/unique_identifier.git
@@ -558,4 +606,4 @@ repositories:
   roso/rqt_image_view:
     type: git
     url: git@github.com:lucasw/rqt_image_view
-    version: obese-devel
+    version: detection2d_image_view
