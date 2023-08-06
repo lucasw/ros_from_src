@@ -12,28 +12,9 @@ RUN apt-get update
 RUN apt-get install -y apt-utils
 
 # apt installs
-RUN apt-get install -y build-essential
-RUN apt-get install -y bzip2 libbz2-dev
-RUN apt-get install -y cmake
-RUN apt-get install -y git
-RUN apt-get install -y libboost-dev
-RUN apt-get install -y libboost-filesystem-dev
-RUN apt-get install -y libboost-program-options-dev
-RUN apt-get install -y libboost-regex-dev
-RUN apt-get install -y libboost-thread-dev
-RUN apt-get install -y libgpgme-dev
-RUN apt-get install -y libgtest-dev
-RUN apt-get install -y liblog4cxx-dev
-RUN apt-get install -y liblz4-dev lz4
-RUN apt-get install -y libpoco-dev
-RUN apt-get install -y libtinyxml2-dev
-RUN apt-get install -y mawk coreutils
-RUN apt-get install -y python-is-python3
-RUN apt-get install -y python3
-RUN apt-get install -y python3-dev
-RUN apt-get install -y python3-empy
-RUN apt-get install -y python3-setuptools
-RUN apt-get install -y python3-yaml
+# TODO(lucasw) used to do these on separate layers but github actions has a layer limit?
+# it was failing later with 'ERROR: failed to solve: failed to prepare...max depth exceeded'
+RUN apt-get install -y build-essential bzip2 libbz2-dev cmake git libboost-dev libboost-filesystem-dev libboost-program-options-dev libboost-regex-dev libboost-thread-dev libgpgme-dev libgtest-dev liblog4cxx-dev liblz4-dev lz4 libpoco-dev libtinyxml2-dev mawk coreutils python-is-python3 python3 python3-dev python3-empy python3-setuptools python3-yaml
 
 ENV SRC=/src
 RUN mkdir $SRC -p
@@ -241,7 +222,7 @@ RUN catkin build
 # rospack list won't work by itself
 RUN source devel/setup.bash && rospack list
 
-RUN apt install python3-netifaces
+RUN apt-get install python3-netifaces
 
 WORKDIR $WS/..
 # TODO(lucasw) run tests
