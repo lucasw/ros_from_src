@@ -19,7 +19,7 @@ export PYTHONPATH=$DEST/lib/python$PYTHON_MAJOR_VERSION.$PYTHON_MINOR_VERSION/si
 ```
 mkdir -p ~/other/src
 cd ~/other/src
-git clone git@github.com:lucasw/ros_from_src
+git clone git@github.com:lucasw/ros_from_src --branch robot_state_publisher
 ```
 
 ```
