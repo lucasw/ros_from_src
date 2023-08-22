@@ -12,6 +12,7 @@ apt-get install -y libboost-filesystem-dev
 apt-get install -y libboost-program-options-dev
 apt-get install -y libboost-regex-dev
 apt-get install -y libboost-thread-dev
+apt-get install -y libfmt-dev
 apt-get install -y libgpgme-dev
 apt-get install -y libgtest-dev
 apt-get install -y liblog4cxx-dev

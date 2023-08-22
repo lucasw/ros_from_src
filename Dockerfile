@@ -14,7 +14,7 @@ RUN apt-get install -y apt-utils
 # apt installs
 # TODO(lucasw) used to do these on separate layers but github actions has a layer limit?
 # it was failing later with 'ERROR: failed to solve: failed to prepare...max depth exceeded'
-RUN apt-get install -y build-essential bzip2 libbz2-dev cmake git libboost-dev libboost-filesystem-dev libboost-program-options-dev libboost-regex-dev libboost-thread-dev libgpgme-dev libgtest-dev liblog4cxx-dev liblz4-dev lz4 libpoco-dev libtinyxml2-dev mawk coreutils python-is-python3 python3 python3-dev python3-empy python3-setuptools python3-yaml
+RUN apt-get install -y build-essential bzip2 libbz2-dev cmake git libboost-dev libboost-filesystem-dev libboost-program-options-dev libboost-regex-dev libboost-thread-dev libfmt-dev libgpgme-dev libgtest-dev liblog4cxx-dev liblz4-dev lz4 libpoco-dev libtinyxml2-dev mawk coreutils python-is-python3 python3 python3-dev python3-empy python3-setuptools python3-yaml
 
 ENV SRC=/src
 RUN mkdir $SRC -p
