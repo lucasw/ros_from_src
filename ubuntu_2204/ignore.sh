@@ -1,6 +1,7 @@
 #!/bin/sh
 # These are ignored because they don't yet build in 22.04, need modifications,
 # or depend on gazebo
+touch ./clearpath/CATKIN_IGNORE
 touch ./clearpath/husky/husky_gazebo/CATKIN_IGNORE
 touch ./clearpath/moose_simulator/CATKIN_IGNORE
 touch ./clearpath/warthog_simulator/CATKIN_IGNORE
