@@ -147,6 +147,20 @@ jobs:
           which catkin
           catkin --version
 
+      ### trying early install build
+      - name: setup base_catkin_ws
+        run: |
+          mkdir install_base_catkin_ws
+          cd install_base_catkin_ws
+          ln -s ../base_catkin_ws/src
+          catkin config --install --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
+
+      - name: build fiducials
+        run: |
+          cd install_base_catkin_ws
+          source install/setup.bash
+          catkin build --no-status fiducials
+
       ### BASE DEVEL BUILD ###
       - name: setup base_catkin_ws
         run: |
@@ -229,12 +243,6 @@ jobs:
           catkin build --no-status
 
       ### BASE INSTALL BUILD ###
-      - name: setup base_catkin_ws
-        run: |
-          mkdir install_base_catkin_ws
-          cd install_base_catkin_ws
-          ln -s ../base_catkin_ws/src
-          catkin config --install --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
 
       - name: build joint_trajectory_controller
         run: |
@@ -280,7 +288,7 @@ jobs:
           source install/setup.bash
           catkin build --no-status fuse_models fuse_optimizers
 
-      - name: build rest of base packages
+      - name: build and install rest of base packages
         run: |
           cd install_base_catkin_ws
           source install/setup.bash
