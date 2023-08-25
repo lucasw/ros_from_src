@@ -162,6 +162,12 @@ jobs:
           cd ..
           catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
 
+      - name: build fiducials
+        run: |
+          cd base_catkin_ws
+          catkin build --no-status fiducials
+          source devel/setup.bash
+
       - name: build qt_gui_core
         run: |
           cd base_catkin_ws
