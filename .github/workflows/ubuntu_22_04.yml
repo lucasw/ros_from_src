@@ -158,8 +158,8 @@ jobs:
       - name: build fiducials
         run: |
           cd install_base_catkin_ws
-          source install/setup.bash
           catkin build --no-status fiducials
+          source install/setup.bash
 
       ### BASE DEVEL BUILD ###
       - name: setup base_catkin_ws
