@@ -245,19 +245,19 @@ jobs:
 
       ### BASE INSTALL BUILD ###
 
-      - name: build joint_trajectory_controller
+      - name: build install joint_trajectory_controller
         run: |
           cd install_base_catkin_ws
           catkin build --no-status joint_trajectory_controller
           source install/setup.bash
 
-      - name: test joint_trajectory_controller
+      - name: test install joint_trajectory_controller
         run: |
           cd install_base_catkin_ws
           source install/setup.bash
           catkin test --no-status joint_trajectory_controller
 
-      - name: build plotjuggler
+      - name: build install plotjuggler
         run: |
           cd install_base_catkin_ws
           source install/setup.bash
@@ -265,25 +265,25 @@ jobs:
           source install/setup.bash
           catkin build --no-status plotjuggler_ros
 
-      - name: build jsk_common_msgs
+      - name: build install jsk_common_msgs
         run: |
           cd install_base_catkin_ws
           source install/setup.bash
           catkin build --no-status jsk_common_msgs
 
-      - name: build rviz
+      - name: build install rviz
         run: |
           cd install_base_catkin_ws
           source install/setup.bash
           catkin build --no-status rviz
 
-      - name: build jsk_rviz_plugins
+      - name: build install jsk_rviz_plugins
         run: |
           cd install_base_catkin_ws
           source install/setup.bash
           catkin build --no-status jsk_rviz_plugins
 
-      - name: build fuse
+      - name: build install fuse
         run: |
           cd install_base_catkin_ws
           source install/setup.bash
