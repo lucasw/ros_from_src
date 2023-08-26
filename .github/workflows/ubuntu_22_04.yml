@@ -4,8 +4,17 @@ on:
   push:
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   ubuntu2204:
+    strategy:
+      fail-fast: false
+      matrix:
+        build_type: [install, devel]
+
     runs-on: ubuntu-22.04
     # env:
     steps:
@@ -147,160 +156,113 @@ jobs:
           which catkin
           catkin --version
 
-      ### BASE DEVEL BUILD ###
       - name: setup base_catkin_ws
         run: |
-          mkdir -p base_catkin_ws/src
-          cd base_catkin_ws/src
+          mkdir -p ${{ matrix.build_type }}_base_catkin_ws/src
+          cd ${{ matrix.build_type }}_base_catkin_ws/src
           ln -s ../../other/src/ros_from_src/ubuntu_2204/base_repos.yaml
           # need https instead of git@github
           sed -i 's/git@github.com:/https:\/\/github.com\//' base_repos.yaml
+          ls -l
           vcs import --shallow < base_repos.yaml
           # ignore repos that aren't yet building in 22.04
           ../../other/src/ros_from_src/ubuntu_2204/ignore.sh
 
-          cd ..
+      - name: devel setup
+        if: ${{ matrix.build_type == 'devel' }}
+        run: |
+          cd ${{ matrix.build_type }}_base_catkin_ws
           catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
 
-      ### trying early install build
-      - name: setup base_catkin_ws
+      - name: install setup
+        if: ${{ matrix.build_type == 'install' }}
         run: |
-          mkdir install_base_catkin_ws
-          cd install_base_catkin_ws
-          ln -s ../base_catkin_ws/src
+          cd ${{ matrix.build_type }}_base_catkin_ws
           catkin config --install --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
-
-      - name: build fiducials
-        run: |
-          cd install_base_catkin_ws
-          catkin build --no-status fiducials
-          source install/setup.bash
 
       # back to devel build
       - name: build fiducials
         run: |
-          cd base_catkin_ws
+          cd ${{ matrix.build_type }}_base_catkin_ws
           catkin build --no-status fiducials
-          source devel/setup.bash
+          source ${{ matrix.build_type }}/setup.bash
 
       - name: build qt_gui_core
         run: |
-          cd base_catkin_ws
+          cd ${{ matrix.build_type }}_base_catkin_ws
           catkin build --no-status qt_gui_core
-          source devel/setup.bash
+          source ${{ matrix.build_type }}/setup.bash
 
       - name: build rtabmap_ros
         run: |
-          cd base_catkin_ws
+          cd ${{ matrix.build_type }}_base_catkin_ws
           catkin build --no-status rtabmap_ros
-          source devel/setup.bash
+          source ${{ matrix.build_type }}/setup.bash
 
       - name: build joint_trajectory_controller
         run: |
-          cd base_catkin_ws
+          cd ${{ matrix.build_type }}_base_catkin_ws
           catkin build --no-status joint_trajectory_controller
-          source devel/setup.bash
+          source ${{ matrix.build_type }}/setup.bash
 
       - name: test joint_trajectory_controller
+        if: ${{ matrix.build_type == 'devel' }}
         run: |
-          cd base_catkin_ws
-          source devel/setup.bash
+          cd ${{ matrix.build_type }}_base_catkin_ws
+          source ${{ matrix.build_type }}/setup.bash
           catkin build joint_trajectory_controller --no-status --no-deps --catkin-make-args tests
           rostest joint_trajectory_controller joint_trajectory_controller.test
           # catkin test --no-status joint_trajectory_controller
 
+      - name: test install joint_trajectory_controller
+        if: ${{ matrix.build_type == 'install' }}
+        run: |
+          cd ${{ matrix.build_type }}_base_catkin_ws
+          source ${{ matrix.build_type }}/setup.bash
+          catkin test --no-status joint_trajectory_controller
+
       - name: build plotjuggler
         run: |
-          cd base_catkin_ws
-          source devel/setup.bash
+          cd ${{ matrix.build_type }}_base_catkin_ws
+          source ${{ matrix.build_type }}/setup.bash
           # Does building plotjuggler before plotjuggler_ros mess up in install?
           # catkin build --no-status plotjuggler
           catkin build --no-status plotjuggler_ros
-          source devel/setup.bash
+          source ${{ matrix.build_type }}/setup.bash
 
       - name: build rviz
         run: |
-          cd base_catkin_ws
-          source devel/setup.bash
+          cd ${{ matrix.build_type }}_base_catkin_ws
+          source ${{ matrix.build_type }}/setup.bash
           catkin build --no-status rviz
-          source devel/setup.bash
+          source ${{ matrix.build_type }}/setup.bash
 
       - name: build jsk_rviz_plugins
         run: |
-          cd base_catkin_ws
-          source devel/setup.bash
+          cd ${{ matrix.build_type }}_base_catkin_ws
+          source ${{ matrix.build_type }}/setup.bash
           catkin build --no-status jsk_rviz_plugins
 
       - name: build fuse
         run: |
-          cd base_catkin_ws
-          source devel/setup.bash
+          cd ${{ matrix.build_type }}_base_catkin_ws
+          source ${{ matrix.build_type }}/setup.bash
           catkin build --no-status fuse_models fuse_optimizers
 
-      - name: build rest of base_catkin_ws
+      - name: build rest of ${{ matrix.build_type }}_base_catkin_ws
         run: |
-          cd base_catkin_ws
-          source devel/setup.bash
-          catkin build --no-status
-
-      ### BASE INSTALL BUILD ###
-
-      - name: build install joint_trajectory_controller
-        run: |
-          cd install_base_catkin_ws
-          catkin build --no-status joint_trajectory_controller
-          source install/setup.bash
-
-      - name: test install joint_trajectory_controller
-        run: |
-          cd install_base_catkin_ws
-          source install/setup.bash
-          catkin test --no-status joint_trajectory_controller
-
-      - name: build install plotjuggler
-        run: |
-          cd install_base_catkin_ws
-          source install/setup.bash
-          catkin build --no-status plotjuggler
-          source install/setup.bash
-          catkin build --no-status plotjuggler_ros
-
-      - name: build install jsk_common_msgs
-        run: |
-          cd install_base_catkin_ws
-          source install/setup.bash
-          catkin build --no-status jsk_common_msgs
-
-      - name: build install rviz
-        run: |
-          cd install_base_catkin_ws
-          source install/setup.bash
-          catkin build --no-status rviz
-
-      - name: build install jsk_rviz_plugins
-        run: |
-          cd install_base_catkin_ws
-          source install/setup.bash
-          catkin build --no-status jsk_rviz_plugins
-
-      - name: build install fuse
-        run: |
-          cd install_base_catkin_ws
-          source install/setup.bash
-          catkin build --no-status fuse_models fuse_optimizers
-
-      - name: build and install rest of base packages
-        run: |
-          cd install_base_catkin_ws
-          source install/setup.bash
+          cd ${{ matrix.build_type }}_base_catkin_ws
+          source ${{ matrix.build_type }}/setup.bash
           catkin build --no-status
 
       - name: tar up install_catkin_ws
+        if: ${{ matrix.build_type == 'install' }}
         run: |
-          tar cvzf install_catkin_ws_2204.tgz install_base_catkin_ws/install
+          tar cvzf install_catkin_ws_2204.tgz ${{ matrix.build_type }}_base_catkin_ws/install
           ls -l
 
       - name: update install_catkin_ws_2204.tgz
+        if: ${{ matrix.build_type == 'install' }}
         uses: actions/upload-artifact@v2
         with:
           name: install_catkin_ws_2204
