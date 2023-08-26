@@ -147,20 +147,6 @@ jobs:
           which catkin
           catkin --version
 
-      ### trying early install build
-      - name: setup base_catkin_ws
-        run: |
-          mkdir install_base_catkin_ws
-          cd install_base_catkin_ws
-          ln -s ../base_catkin_ws/src
-          catkin config --install --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
-
-      - name: build fiducials
-        run: |
-          cd install_base_catkin_ws
-          catkin build --no-status fiducials
-          source install/setup.bash
-
       ### BASE DEVEL BUILD ###
       - name: setup base_catkin_ws
         run: |
@@ -176,6 +162,21 @@ jobs:
           cd ..
           catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
 
+      ### trying early install build
+      - name: setup base_catkin_ws
+        run: |
+          mkdir install_base_catkin_ws
+          cd install_base_catkin_ws
+          ln -s ../base_catkin_ws/src
+          catkin config --install --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
+
+      - name: build fiducials
+        run: |
+          cd install_base_catkin_ws
+          catkin build --no-status fiducials
+          source install/setup.bash
+
+      # back to devel build
       - name: build fiducials
         run: |
           cd base_catkin_ws
