@@ -187,23 +187,29 @@ jobs:
           catkin build --no-status fiducials
           source ${{ matrix.build_type }}/setup.bash
 
+      - name: build grid_map
+        run: |
+          cd ${{ matrix.build_type }}_base_catkin_ws
+          source ${{ matrix.build_type }}/setup.bash
+          catkin build --no-status grid_map*
+
       - name: build qt_gui_core
         run: |
           cd ${{ matrix.build_type }}_base_catkin_ws
-          catkin build --no-status qt_gui_core
           source ${{ matrix.build_type }}/setup.bash
+          catkin build --no-status qt_gui_core
 
       - name: build rtabmap_ros
         run: |
           cd ${{ matrix.build_type }}_base_catkin_ws
-          catkin build --no-status rtabmap_ros
           source ${{ matrix.build_type }}/setup.bash
+          catkin build --no-status rtabmap_ros
 
       - name: build joint_trajectory_controller
         run: |
           cd ${{ matrix.build_type }}_base_catkin_ws
-          catkin build --no-status joint_trajectory_controller
           source ${{ matrix.build_type }}/setup.bash
+          catkin build --no-status joint_trajectory_controller
 
       - name: test joint_trajectory_controller
         if: ${{ matrix.build_type == 'devel' }}
@@ -237,11 +243,11 @@ jobs:
           catkin build --no-status rviz
           source ${{ matrix.build_type }}/setup.bash
 
-      - name: build jsk_rviz_plugins
+      - name: build jsk
         run: |
           cd ${{ matrix.build_type }}_base_catkin_ws
           source ${{ matrix.build_type }}/setup.bash
-          catkin build --no-status jsk_rviz_plugins
+          catkin build --no-status jsk*
 
       - name: build fuse
         run: |

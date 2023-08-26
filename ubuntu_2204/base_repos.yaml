@@ -406,7 +406,7 @@ repositories:
   ros/grid_map:
     type: git
     url: git@github.com:lucasw/grid_map
-    version: cpp17
+    version: tbb_2021
   ros/image_common:
     type: git
     url: git@github.com:lucasw/image_common
