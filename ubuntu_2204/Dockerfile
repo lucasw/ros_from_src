@@ -78,7 +78,7 @@ WORKDIR $WS/..
 RUN catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
 # split these up so can take advantage of docker layers, otherwise one failure
 # means a huge rebuild
-RUN catkin build --no-status -j1 fuse_core
+# RUN catkin build --no-status -j1 fuse_core
 # disabling this because it is too slow to build
 # RUN catkin build --no-status -j1 rtabmap_ros
 RUN catkin build --no-status -j1 jsk_rviz_plugins
@@ -87,7 +87,7 @@ RUN catkin build --no-status -j1 plotjuggler
 RUN catkin build --no-status -j1 rqt
 RUN catkin build --no-status -j1 octomap_server
 RUN catkin build --no-status -j1 libuvc_camera
-RUN catkin build --no-status -j1 fuse_constraints
+# RUN catkin build --no-status -j1 fuse_constraints
 RUN catkin build --no-status -j1 people_tracking_filter
 RUN catkin build --no-status -j1 laser_assembler
 RUN catkin build --no-status -j1 catkin_virtualenv
