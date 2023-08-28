@@ -80,8 +80,9 @@ TODO(lucasw) see if rosdep install works
 
 ---
 
+Optional
 
-Run the above in docker:
+Run the above in docker instead:
 ```
 cd ros_from_src/ubuntu_2204
 docker build . -t ros_debian_2204
