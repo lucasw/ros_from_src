@@ -33,7 +33,8 @@ vcs is very useful for managing a large set of git repos:
 
 ```
 cd ~/other/src
-git clone git@github.com:dirk-thomas/vcstool.git
+# git clone git@github.com:dirk-thomas/vcstool.git
+git clone https://github.com/dirk-thomas/vcstool.git
 cd vcstool
 python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
 ```
@@ -41,7 +42,8 @@ python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-v
 osrf_pycommon is a dependency of catkin_tools
 ```
 cd ~/other/src
-git clone git@github.com:osrf/osrf_pycommon
+# git clone git@github.com:osrf/osrf_pycommon
+git clone https://github.com/osrf/osrf_pycommon
 cd osrf_pycommon
 python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
 ```
@@ -49,7 +51,8 @@ python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-v
 catkin_tools is needed to catkin build (but if catkin_make is preferred then this and osrf_pycommon isn't necessary)
 ```
 cd ~/other/src
-git clone git@github.com:lucasw/catkin_tools --branch sanitize_cmake_prefix_path
+# git clone git@github.com:lucasw/catkin_tools --branch sanitize_cmake_prefix_path
+git clone https:github.com/lucasw/catkin_tools --branch sanitize_cmake_prefix_path
 cd catkin_tools
 python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
 ```
@@ -60,6 +63,10 @@ Download a bunch of repos that are not available in 22.04 through apt, some with
 mkdir -p ~/base_catkin_ws/src
 cd ~/base_catkin_ws/src
 ln -s ~/other/src/ros_from_src/ubuntu_2204/base_repos.yaml
+
+# optional step needed if can't do git clone git@github... on this system
+sed -i 's/git@github.com:/https:\/\/github.com\//' base_repos.yaml
+
 vcs import --shallow < base_repos.yaml
 # ignore repos that aren't yet building in 22.04
 ~/other/src/ros_from_src/ubuntu_2204/ignore.sh
