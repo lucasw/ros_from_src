@@ -8,6 +8,7 @@ WS=`pwd`/catkin_ws/src
 echo $WS
 mkdir $WS -p
 
+# TODO(lucasw) replace these git clones with vcs
 # packages that need to be cmake installed, and are ros packages in a catkin workspace
 cd $WS
 git clone https://github.com/ros/catkin

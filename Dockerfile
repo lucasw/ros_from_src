@@ -12,28 +12,9 @@ RUN apt-get update
 RUN apt-get install -y apt-utils
 
 # apt installs
-RUN apt-get install -y build-essential
-RUN apt-get install -y bzip2 libbz2-dev
-RUN apt-get install -y cmake
-RUN apt-get install -y git
-RUN apt-get install -y libboost-dev
-RUN apt-get install -y libboost-filesystem-dev
-RUN apt-get install -y libboost-program-options-dev
-RUN apt-get install -y libboost-regex-dev
-RUN apt-get install -y libboost-thread-dev
-RUN apt-get install -y libgpgme-dev
-RUN apt-get install -y libgtest-dev
-RUN apt-get install -y liblog4cxx-dev
-RUN apt-get install -y liblz4-dev lz4
-RUN apt-get install -y libpoco-dev
-RUN apt-get install -y libtinyxml2-dev
-RUN apt-get install -y mawk coreutils
-RUN apt-get install -y python-is-python3
-RUN apt-get install -y python3
-RUN apt-get install -y python3-dev
-RUN apt-get install -y python3-empy
-RUN apt-get install -y python3-setuptools
-RUN apt-get install -y python3-yaml
+# TODO(lucasw) used to do these on separate layers but github actions has a layer limit?
+# it was failing later with 'ERROR: failed to solve: failed to prepare...max depth exceeded'
+RUN apt-get install -y build-essential bzip2 libbz2-dev cmake git libboost-dev libboost-filesystem-dev libboost-program-options-dev libboost-regex-dev libboost-thread-dev libfmt-dev libgpgme-dev libgtest-dev liblog4cxx-dev liblz4-dev lz4 libpoco-dev libtinyxml2-dev mawk coreutils python-is-python3 python3 python3-dev python3-empy python3-setuptools python3-yaml
 
 ENV SRC=/src
 RUN mkdir $SRC -p
@@ -44,24 +25,18 @@ RUN mkdir $WS -p
 
 ENV DEST=/opt/ros/noetic
 
+# TODO(lucasw) this doesn't work in 20.04 because of log
+# --build-args ROSCONSOLE=https://github.com/ros-o/rosconsole
+ARG ROSCONSOLE=https://github.com/ros-o/rosconsole
+# ENV ROSCONSOLE=$ROSCONSOLE
+RUN echo $ROSCONSOLE
+
 # packages that need to be cmake installed, and are ros packages in a catkin workspace
-WORKDIR $WS
-RUN git clone https://github.com/ros/catkin
-RUN git clone https://github.com/ros/console_bridge
-RUN git clone https://github.com/ros/cmake_modules
-RUN git clone https://github.com/ros-o/class_loader
-RUN git clone https://github.com/ros/rospack
-RUN git clone https://github.com/ros/genmsg
-RUN git clone https://github.com/ros/ros
-
-# pure python
-WORKDIR $SRC
-RUN git clone https://github.com/ros-infrastructure/catkin_pkg
-RUN git clone https://github.com/osrf/osrf_pycommon
-RUN git clone https://github.com/catkin/catkin_tools
-
-# cmake installs
-RUN git clone https://github.com/ros-o/ros_environment
+RUN mkdir $SRC/ros_from_src -p
+WORKDIR /
+COPY git_clone.sh $SRC/ros_from_src
+# WORKDIR $SRC/ros_from_src
+RUN ROS_CONSOLE=$ROSCONSOLE $SRC/ros_from_src/git_clone.sh
 
 # python installs
 
@@ -80,6 +55,7 @@ RUN echo $PYTHONPATH
 
 # catkin_pkg
 WORKDIR $SRC/catkin_pkg
+RUN pwd
 RUN python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
 RUN ls -l $OPT_PYTHONPATH
 RUN ls -l $OPT_PYTHONPATH/catkin_pkg
@@ -179,41 +155,17 @@ RUN apt-get install -y python3-distro
 
 # ros packages, regular catkin build only for these
 WORKDIR $WS
-RUN git clone https://github.com/ros/ros_comm
-RUN git clone https://github.com/ros/roscpp_core
-RUN git clone https://github.com/ros/ros_comm_msgs
-RUN git clone https://github.com/ros/message_generation
-RUN git clone https://github.com/ros/gencpp
-RUN git clone https://github.com/jsk-ros-pkg/geneus
-RUN git clone https://github.com/RethinkRobotics-opensource/gennodejs
-RUN git clone https://github.com/ros/genlisp
-RUN git clone https://github.com/ros/genpy
-RUN git clone https://github.com/ros/std_msgs
-RUN git clone https://github.com/ros/message_runtime
-RUN git clone https://github.com/ros-o/pluginlib
 
-# TODO(lucasw) this doesn't work in 20.04 because of log
-# --build-args ROSCONSOLE=https://github.com/ros-o/rosconsole
-ARG ROSCONSOLE=https://github.com/ros-o/rosconsole
-# ENV ROSCONSOLE=$ROSCONSOLE
-RUN echo $ROSCONSOLE
-RUN git clone $ROSCONSOLE
 
 # runtime dependencies
 # rosbuild
-WORKDIR $SRC
-RUN git clone https://github.com/ros/rospkg
 WORKDIR $SRC/rospkg
 RUN python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
 
-WORKDIR $SRC
-RUN git clone https://github.com/ros-infrastructure/rosdistro
 WORKDIR $SRC/rosdistro
 RUN python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
 
-WORKDIR $SRC
 # can be sudo in docker, but otherwise want git clone https://github.com/lucasw/rosdep --branch disable_root_etc_ros
-RUN git clone https://github.com/ros-infrastructure/rosdep
 WORKDIR $SRC/rosdep
 RUN python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
 RUN rosdep init
@@ -241,7 +193,7 @@ RUN catkin build
 # rospack list won't work by itself
 RUN source devel/setup.bash && rospack list
 
-RUN apt install python3-netifaces
+RUN apt-get install python3-netifaces
 
 WORKDIR $WS/..
 # TODO(lucasw) run tests

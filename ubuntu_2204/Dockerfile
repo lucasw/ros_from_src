@@ -15,13 +15,7 @@ RUN apt-get install -y apt-utils
 # apt installs
 RUN apt install -y git
 RUN apt install -y ros-*
-RUN apt install -y catkin-lint cython3 libapriltag-dev libceres-dev libfrei0r-ocaml-dev
-RUN apt install -y libgeographic-dev libgmock-dev libgoogle-glog-dev libgst-dev
-RUN apt install -y libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev
-RUN apt install -y libimage-view-dev liborocos-bfl-dev libpcl-ros-dev libqt5svg5-dev libqt5websockets5-dev
-RUN apt install -y libqt5x11extras5-dev libqwt-qt5-dev libsdl-image1.2-dev
-RUN apt install -y libspnav-dev liburdfdom-dev libuvc-dev libv4l-dev libyaml-cpp-dev
-RUN apt install -y python-is-python3 python3-tf2-geometry-msgs python3-venv vim curl jq
+RUN apt install -y catkin-lint cython3 libapriltag-dev libceres-dev libfmt-dev libfrei0r-ocaml-dev libgeographic-dev libgmock-dev libgoogle-glog-dev libgst-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev libimage-view-dev liborocos-bfl-dev libpcl-ros-dev libqt5svg5-dev libqt5websockets5-dev libqt5x11extras5-dev libqwt-qt5-dev libsdl-image1.2-dev libspnav-dev liburdfdom-dev libuvc-dev libv4l-dev libyaml-cpp-dev python-is-python3 python3-tf2-geometry-msgs python3-venv vim curl jq
 
 ENV DEST=/other/install
 RUN mkdir $DEST -p
@@ -84,7 +78,7 @@ WORKDIR $WS/..
 RUN catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
 # split these up so can take advantage of docker layers, otherwise one failure
 # means a huge rebuild
-RUN catkin build --no-status -j1 fuse_core
+# RUN catkin build --no-status -j1 fuse_core
 # disabling this because it is too slow to build
 # RUN catkin build --no-status -j1 rtabmap_ros
 RUN catkin build --no-status -j1 jsk_rviz_plugins
@@ -93,7 +87,7 @@ RUN catkin build --no-status -j1 plotjuggler
 RUN catkin build --no-status -j1 rqt
 RUN catkin build --no-status -j1 octomap_server
 RUN catkin build --no-status -j1 libuvc_camera
-RUN catkin build --no-status -j1 fuse_constraints
+# RUN catkin build --no-status -j1 fuse_constraints
 RUN catkin build --no-status -j1 people_tracking_filter
 RUN catkin build --no-status -j1 laser_assembler
 RUN catkin build --no-status -j1 catkin_virtualenv
