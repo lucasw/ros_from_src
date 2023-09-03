@@ -1,29 +1,60 @@
 # Ubuntu 22.04 setup
 
 ```
-sudo apt install ros-robot-dev rviz
+sudo apt install devscripts dh-make
+```
+
+```
+cd ~/install_base_catkin_ws
+catkin config -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
+catkin build
+```
+
+https://stackoverflow.com/questions/10999948/how-to-include-a-directory-in-the-package-debuild
+-> "Edit: Example without using Makefile (if you are not going to build anything)"
+
+Create the debian folder:
+
+```
+cd ros_from_src/debian
+ln -s ~/install_base_catkin_ws/install
+dh_make -p rosone_0.0.5 -i --createorig
+```
+
+Had to make a bunch of manual edits after that, like set debian/rosone-dev.install to `install/*`
+
+touch debian/rosone.install
+```
+test/ /opt/ros/one
+```
+
+Build the .deb
+
+```
+cd ros_from_src/debian
+dpkg-buildpackage -A -uc
+```
+
+It creates a deb one directory up:
+
+```
+dpkg-deb -c ../rosone_0.0.5-1_all.deb
+drwxr-xr-x root/root         0 2023-09-03 15:30 ./
+drwxr-xr-x root/root         0 2023-09-03 15:30 ./opt/
+drwxr-xr-x root/root         0 2023-09-03 15:30 ./opt/ros/
+drwxr-xr-x root/root         0 2023-09-03 15:30 ./opt/ros/one/
+... all the install/ files
+drwxr-xr-x root/root         0 2023-09-03 15:30 ./usr/
+drwxr-xr-x root/root         0 2023-09-03 15:30 ./usr/share/
+drwxr-xr-x root/root         0 2023-09-03 15:30 ./usr/share/doc/
+drwxr-xr-x root/root         0 2023-09-03 15:30 ./usr/share/doc/rosone/
+-rw-r--r-- root/root       167 2023-09-03 15:30 ./usr/share/doc/rosone/README.Debian
+-rw-r--r-- root/root       174 2023-09-03 15:30 ./usr/share/doc/rosone/changelog.Debian.gz
+-rw-r--r-- root/root      1898 2023-09-03 15:30 ./usr/share/doc/rosone/copyright
+drwxr-xr-x root/root         0 2023-09-03 15:30 ./usr/share/doc-base/
+-rw-r--r-- root/root       504 2023-09-03 15:30 ./usr/share/doc-base/rosone.rosone
 ```
 
 
-Need to install catkin from source and have it in catkin_ws/src
 
-Need to install catkin_tools from source (adapted from ../build.sh)
-
-In .bashrc:
-```
-export DEST=$HOME/other/install
-export PATH=$PATH:$DEST/bin
-
-PYTHON_MAJOR_VERSION=`python --version | awk  '{print $2}' | cut -d'.' -f1`
-PYTHON_MINOR_VERSION=`python --version | awk  '{print $2}' | cut -d'.' -f2`
-OPT_PYTHONPATH=$DEST/lib/python$PYTHON_MAJOR_VERSION.$PYTHON_MINOR_VERSION/site-packages/
-export PYTHONPATH=$PYTHONPATH:$OPT_PYTHONPATH
-```
-
-
-```
-git clone https://github.com/catkin/catkin_tools
-cd catkin_tools
-python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
-```
-
+Is a recursive search and replace on /home/lucasw/install_base_catkin_ws/install to /opt/ros/oone needed?
