@@ -1,0 +1,5 @@
+rosone (0.0.5-1) UNRELEASED; urgency=medium
+
+  * Initial release. (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+
+ -- lucasw <lucasw@unknown>  Tue, 05 Sep 2023 12:31:11 -0700
