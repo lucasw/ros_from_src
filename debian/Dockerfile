@@ -1,4 +1,6 @@
-# install all ros packages from debian
+# install all ros packages from debian, then install custom debian built from ros_from_src
+# cd ros_from_src  # be one directory up from debian/
+# docker build debian -t rosonedeb
 ARG IMAGE=ubuntu:22.04
 FROM ${IMAGE}
 ARG IMAGE
@@ -9,48 +11,22 @@ ENV DEBIAN_FRONTEND="noninteractive"
 # be able to source files
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-RUN apt-get update
+RUN apt-get update -y
+RUN apt-get upgrade -y
 RUN apt-get install -y apt-utils
 
 # apt installs
-RUN apt-get update
-RUN apt-get install -y build-essential
-RUN apt-get install -y bzip2 libbz2-dev
-RUN apt-get install -y cmake
-RUN apt-get install -y coreutils
-RUN apt-get install -y git
-RUN apt-get install -y libboost-dev
-RUN apt-get install -y libboost-filesystem-dev
-RUN apt-get install -y libboost-program-options-dev
-RUN apt-get install -y libboost-regex-dev
-RUN apt-get install -y libboost-thread-dev
-RUN apt-get install -y libgpgme-dev
-RUN apt-get install -y libgtest-dev
-RUN apt-get install -y liblog4cxx-dev
-RUN apt-get install -y liblz4-dev lz4
-RUN apt-get install -y libpoco-dev
-RUN apt-get install -y libtinyxml2-dev
-RUN apt-get install -y mawk
+RUN apt-get update && apt-get install -y git
+RUN apt-get install -y ros-*
+RUN apt-get install -y catkin-lint cython3 libapriltag-dev libceres-dev libfmt-dev libfrei0r-ocaml-dev libgeographic-dev libgmock-dev libgoogle-glog-dev libgst-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev libimage-view-dev liborocos-bfl-dev libpcl-ros-dev libqt5svg5-dev libqt5websockets5-dev libqt5x11extras5-dev libqwt-qt5-dev libsdl-image1.2-dev libspnav-dev liburdfdom-dev libuvc-dev libv4l-dev libyaml-cpp-dev python-is-python3 python3-tf2-geometry-msgs python3-venv vim curl jq --fix-missing
 
-RUN apt-get update
-RUN apt-get install -y python-is-python3
-RUN apt-get install -y python3
-RUN apt-get install -y python3-dateutil
-RUN apt-get install -y python3-defusedxml
-RUN apt-get install -y python3-dev
-RUN apt-get install -y python3-distro
-RUN apt-get install -y python3-docutils
-RUN apt-get install -y python3-empy
-RUN apt-get install -y python3-netifaces
-RUN apt-get install -y python3-pyparsing
-RUN apt-get install -y python3-setuptools
-RUN apt-get install -y python3-yaml
-
-RUN apt-get update
-# ros debian installs
-# https://wiki.debian.org/DebianScience/Robotics/ROS/Packages
-# RUN apt-get install -y ros-robot-state-publisher
-RUN apt-get install -y rviz
-RUN apt-get install -y ros-robot
-RUN apt-get install -y ros-robot-dev
-RUN apt-get install -y python3-vcstools
+ARG DEB=rosone_0.0.5-1_all.deb
+RUN echo ${DEB}
+COPY rosone_0.0.5-1_all.deb .
+# COPY ${DEB} .
+RUN dpkg -i ${DEB}
+RUN du -sh /opt/ros
+RUN find /opt/ros | head -n 30
+RUN ls -l /usr/lib/x86_64-linux-gnu/libpython*
+RUN source /opt/ros/one/install/setup.bash
+RUN source /opt/ros/one/install/setup.bash && rospack find fuse_msgs

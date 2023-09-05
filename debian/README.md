@@ -58,3 +58,15 @@ drwxr-xr-x root/root         0 2023-09-03 15:30 ./usr/share/doc-base/
 
 
 Is a recursive search and replace on /home/lucasw/install_base_catkin_ws/install to /opt/ros/oone needed?
+
+
+# Docker
+
+Test inside a docker container, having built the deb on the outside- but only works if using same ubuntu on the outside:
+
+```
+cd ros_from_src/debian
+# docker won't use this file if not in current directory
+cp ../rosone_0.0.5-1_all.deb .
+docker build . -t rosonedeb --build-arg IMAGE=ubuntu:23.04
+```
