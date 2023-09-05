@@ -264,12 +264,27 @@ jobs:
       - name: tar up install_catkin_ws
         if: ${{ matrix.build_type == 'install' }}
         run: |
-          tar cvzf install_catkin_ws_2204.tgz ${{ matrix.build_type }}_base_catkin_ws/install
+          tar cvzf install_catkin_ws_2204.tgz install_base_catkin_ws/install
           ls -l
 
-      - name: update install_catkin_ws_2204.tgz
+      - name: upload install_catkin_ws_2204.tgz
         if: ${{ matrix.build_type == 'install' }}
         uses: actions/upload-artifact@v2
         with:
           name: install_catkin_ws_2204
           path: install_catkin_ws_2204.tgz
+
+      - name: make a deb from the entirety of install_catkin_ws/install
+        if: ${{ matrix.build_type == 'install' }}
+        run: |
+          cd other/src/ros_from_src/debian
+          ln -s ../../../../install_base_catkin_ws/install
+          dpkg-buildpackage -A -uc
+
+      - name: upload .deb
+        if: ${{ matrix.build_type == 'install' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: install_catkin_ws_2204.deb
+          # TODO(lucasw) extract name from debian files, VERSION?
+          path: other/src/ros_from_src/rosone_0.0.5-1_all.deb
