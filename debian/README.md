@@ -69,4 +69,6 @@ cd ros_from_src/debian
 # docker won't use this file if not in current directory
 cp ../rosone_0.0.5-1_all.deb .
 docker build . -t rosonedeb --build-arg IMAGE=ubuntu:23.04
+docker run -it rosonedeb
+roslaunch nodelet_tutorial_math plus.launch  # or something else installed by the .deb
 ```
