@@ -14,6 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         build_type: [install, devel]
+        build_all: [minimal, full]
 
     runs-on: ubuntu-22.04
     # env:
@@ -169,6 +170,35 @@ jobs:
           # ignore repos that aren't yet building in 22.04
           ../../other/src/ros_from_src/ubuntu_2204/ignore.sh
 
+      # TODO(lucasw) later have an entirely separately layer for the larger slow building packages
+      - name: ignore large slow packages
+        if: ${{ matrix.build_all == 'minimal' }}
+        run: |
+          cd ${{ matrix.build_type }}_base_catkin_ws/src
+
+          touch other/PlotJuggler/CATKIN_IGNORE
+          touch other/plotjuggler_msgs/CATKIN_IGNORE
+          touch other/plotjuggler-ros-plugins/CATKIN_IGNORE
+
+          touch other/jsk_common/CATKIN_IGNORE
+          touch other/jsk_common_msgs/CATKIN_IGNORE
+          touch other/jsk_recognition/CATKIN_IGNORE
+          touch other/jsk_roseus/CATKIN_IGNORE
+          touch other/jsk_visualization/CATKIN_IGNORE
+
+          touch other/fiducials/CATKIN_IGNORE
+
+          touch other/fuse/CATKIN_IGNORE
+
+          touch other/rtabmap/CATKIN_IGNORE
+          touch other/rtabmap_ros/CATKIN_IGNORE
+
+          touch ros/grid_map/CATKIN_IGNORE
+
+          touch other/anybotics/CATKIN_IGNORE
+          touch other/octomap_ros/CATKIN_IGNORE
+          touch other/octomap_ros/CATKIN_IGNORE
+
       - name: devel setup
         if: ${{ matrix.build_type == 'devel' }}
         run: |
@@ -183,12 +213,14 @@ jobs:
 
       # back to devel build
       - name: build fiducials
+        if: ${{ matrix.build_all == 'full' }}
         run: |
           cd ${{ matrix.build_type }}_base_catkin_ws
           catkin build --no-status fiducials
           source ${{ matrix.build_type }}/setup.bash
 
       - name: build grid_map
+        if: ${{ matrix.build_all == 'full' }}
         run: |
           cd ${{ matrix.build_type }}_base_catkin_ws
           source ${{ matrix.build_type }}/setup.bash
@@ -201,6 +233,7 @@ jobs:
           catkin build --no-status qt_gui_core
 
       - name: build rtabmap_ros
+        if: ${{ matrix.build_all == 'full' }}
         run: |
           cd ${{ matrix.build_type }}_base_catkin_ws
           source ${{ matrix.build_type }}/setup.bash
@@ -213,7 +246,8 @@ jobs:
           catkin build --no-status joint_trajectory_controller
 
       - name: test joint_trajectory_controller
-        if: ${{ matrix.build_type == 'devel' }}
+        # TODO(lucasw) this test is slow, maybe don't do it at all
+        if: ${{ (matrix.build_type == 'devel' && matrix.build_all == 'full') }}
         run: |
           cd ${{ matrix.build_type }}_base_catkin_ws
           source ${{ matrix.build_type }}/setup.bash
@@ -222,13 +256,14 @@ jobs:
           # catkin test --no-status joint_trajectory_controller
 
       - name: test install joint_trajectory_controller
-        if: ${{ matrix.build_type == 'install' }}
+        if: ${{ (matrix.build_type == 'devel' && matrix.build_all == 'full') }}
         run: |
           cd ${{ matrix.build_type }}_base_catkin_ws
           source ${{ matrix.build_type }}/setup.bash
           catkin test --no-status joint_trajectory_controller
 
       - name: build plotjuggler
+        if: ${{ matrix.build_all == 'full' }}
         run: |
           cd ${{ matrix.build_type }}_base_catkin_ws
           source ${{ matrix.build_type }}/setup.bash
@@ -245,12 +280,14 @@ jobs:
           source ${{ matrix.build_type }}/setup.bash
 
       - name: build jsk
+        if: ${{ matrix.build_all == 'full' }}
         run: |
           cd ${{ matrix.build_type }}_base_catkin_ws
           source ${{ matrix.build_type }}/setup.bash
           catkin build --no-status jsk*
 
       - name: build fuse
+        if: ${{ matrix.build_all == 'full' }}
         run: |
           cd ${{ matrix.build_type }}_base_catkin_ws
           source ${{ matrix.build_type }}/setup.bash
@@ -286,6 +323,6 @@ jobs:
         if: ${{ matrix.build_type == 'install' }}
         uses: actions/upload-artifact@v2
         with:
-          name: install_catkin_ws_2204.deb
+          name: install_catkin_ws_2204_${{ matrix.build_all }}.deb
           # TODO(lucasw) extract name from debian files, VERSION?
           path: other/src/ros_from_src/rosone_0.0.5-1_all.deb
