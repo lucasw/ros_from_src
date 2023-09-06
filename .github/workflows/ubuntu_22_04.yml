@@ -50,6 +50,7 @@ jobs:
           sudo apt-get install -o Debug::pkgProblemResolver=true -yqq libunwind-dev
           dpkg -l | grep libunwind
           sudo apt-get install -o Debug::pkgProblemResolver=true -yqq libceres-dev
+          sudo apt-get install -yqq devscripts dh-make
 
       - name: apt library installs 2
         run: |
