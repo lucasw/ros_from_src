@@ -211,13 +211,20 @@ jobs:
           cd ${{ matrix.build_type }}_base_catkin_ws
           catkin config --install --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
 
-      # back to devel build
+      # individual packages or sets of packages built separately
+      # this first one sources last because nothing has been built yet
+      - name: build qt_gui_core
+        run: |
+          cd ${{ matrix.build_type }}_base_catkin_ws
+          catkin build --no-status qt_gui_core
+          source ${{ matrix.build_type }}/setup.bash
+
       - name: build fiducials
         if: ${{ matrix.build_all == 'full' }}
         run: |
           cd ${{ matrix.build_type }}_base_catkin_ws
-          catkin build --no-status fiducials
           source ${{ matrix.build_type }}/setup.bash
+          catkin build --no-status fiducials
 
       - name: build grid_map
         if: ${{ matrix.build_all == 'full' }}
@@ -225,12 +232,6 @@ jobs:
           cd ${{ matrix.build_type }}_base_catkin_ws
           source ${{ matrix.build_type }}/setup.bash
           catkin build --no-status grid_map*
-
-      - name: build qt_gui_core
-        run: |
-          cd ${{ matrix.build_type }}_base_catkin_ws
-          source ${{ matrix.build_type }}/setup.bash
-          catkin build --no-status qt_gui_core
 
       - name: build rtabmap_ros
         if: ${{ matrix.build_all == 'full' }}
