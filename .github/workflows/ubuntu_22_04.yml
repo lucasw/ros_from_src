@@ -196,7 +196,7 @@ jobs:
           touch ros/grid_map/CATKIN_IGNORE
 
           touch other/anybotics/CATKIN_IGNORE
-          touch other/octomap_ros/CATKIN_IGNORE
+          touch other/octomap_mapping/CATKIN_IGNORE
           touch other/octomap_ros/CATKIN_IGNORE
 
       - name: devel setup
