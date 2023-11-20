@@ -23,6 +23,34 @@ repositories:
     type: git
     url: git@github.com:warthog-cpr/warthog_simulator.git
     version: melodic-devel
+  extra/common_msgs:
+    type: git
+    url: git@github.com:ros/common_msgs.git
+    version: noetic-devel
+  extra/geometry:
+    type: git
+    url: git@github.com:ros-o/geometry.git
+    version: obese-devel
+  extra/laser_geometry:
+    type: git
+    url: git@github.com:ros-o/laser_geometry.git
+    version: obese-devel
+  extra/navigation_msgs:
+    type: git
+    url: git@github.com:ros-planning/navigation_msgs.git
+    version: ros1
+  extra/pcl_msgs:
+    type: git
+    url: git@github.com:ros-perception/pcl_msgs.git
+    version: noetic-devel
+  extra/perception_pcl:
+    type: git
+    url: git@github.com:ros-o/perception_pcl.git
+    version: obese-devel
+  extra/vision_opencv:
+    type: git
+    url: git@github.com:ros-perception/vision_opencv.git
+    version: noetic
   greenzie/boustrophedon_planner:
     type: git
     url: git@github.com:lucasw/boustrophedon_planner
@@ -59,10 +87,18 @@ repositories:
     type: git
     url: git@github.com:lucasw/ros1_lifecycle
     version: misc_fixes
+  lucasw/ros_example:
+    type: git
+    url: git@github.com:lucasw/ros_example
+    version: main
   lucasw/ros_system_monitor:
     type: git
     url: git@github.com:lucasw/ros_system_monitor
     version: chrony_monitor
+  lucasw/rqt_file_dialog:
+    type: git
+    url: git@github.com:lucasw/rqt_file_dialog
+    version: master
   lucasw/rqt_tf_echo:
     type: git
     url: git@github.com:lucasw/rqt_tf_echo.git
@@ -123,10 +159,14 @@ repositories:
     type: git
     url: git@github.com:lucasw/vimjay
     version: eliminate_build_warnings
+  opencv_apps:
+    type: git
+    url: git@github.com:ros-perception/opencv_apps.git
+    version: indigo
   other/PlotJuggler:
     type: git
-    url: git@github.com:facontidavide/PlotJuggler.git
-    version: main
+    url: git@github.com:lucasw/plotjuggler
+    version: memeless
   other/anybotics/elevation_mapping:
     type: git
     url: git@github.com:ANYbotics/elevation_mapping.git
@@ -281,12 +321,16 @@ repositories:
     version: boost_placeholders
   other/plotjuggler-ros-plugins:
     type: git
-    url: git@github.com:lucasw/plotjuggler-ros-plugins
-    version: depend_pal_statistics_msgs
+    url: git@github.com:PlotJuggler/plotjuggler-ros-plugins.git
+    version: development
   other/plotjuggler_msgs:
     type: git
     url: git@github.com:PlotJuggler/plotjuggler_msgs.git
     version: main
+  other/point_cloud_converter:
+    type: git
+    url: git@github.com:pal-robotics-forks/point_cloud_converter.git
+    version: hydro-devel
   other/ros_control_boilerplate:
     type: git
     url: git@github.com:lucasw/ros_control_boilerplate
@@ -343,6 +387,14 @@ repositories:
     type: git
     url: git@github.com:turtlebot/turtlebot
     version: melodic
+  # other/vdb_mapping:
+  #   type: git
+  #   url: git@github.com:lucasw/vdb_mapping
+  #   version: min_range
+  # other/vdb_mapping_ros:
+  #   type: git
+  #   url: git@github.com:lucasw/vdb_mapping_ros
+  #   version: rolling_window
   other/wu_ros_tools:
     type: git
     url: git@github.com:lucasw/wu_ros_tools
@@ -538,7 +590,7 @@ repositories:
   ros/rviz:
     type: git
     url: git@github.com:lucasw/rviz.git
-    version: cleanup_deprecated
+    version: misc_fixes
   ros/teleop_twist_joy:
     type: git
     url: git@github.com:lucasw/teleop_twist_joy
