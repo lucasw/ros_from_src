@@ -34,8 +34,6 @@ touch ./other/ros_rtsp/CATKIN_IGNORE
 touch ./other/pal_statistics/pal_statistics/CATKIN_IGNORE
 touch ./ros/gazebo_ros_demos/CATKIN_IGNORE
 touch ./ros/gazebo_ros_pkgs/CATKIN_IGNORE
-touch ./ros/grid_map/grid_map_demos/CATKIN_IGNORE
-touch ./ros/grid_map/grid_map_filters/CATKIN_IGNORE
 touch ./ros/joystick_drivers/ps3joy/CATKIN_IGNORE
 touch ./ros/joystick_drivers/wiimote/CATKIN_IGNORE
 touch ./ros/web_video_server/CATKIN_IGNORE
