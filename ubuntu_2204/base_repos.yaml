@@ -373,8 +373,8 @@ repositories:
     version: master
   other/rtabmap_ros:
     type: git
-    url: git@github.com:lucasw/rtabmap_ros
-    version: build_rtabmap_viz
+    url: git@github.com:introlab/rtabmap_ros
+    version: master
   other/static_transform_mux:
     type: git
     url: git@github.com:tradr-project/static_transform_mux.git
