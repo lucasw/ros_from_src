@@ -167,6 +167,8 @@ jobs:
           sed -i 's/git@github.com:/https:\/\/github.com\//' base_repos.yaml
           ls -l
           vcs import --shallow < base_repos.yaml
+          # show which versions were imported
+          vcs export --exact
           # ignore repos that aren't yet building in 22.04
           ../../other/src/ros_from_src/ubuntu_2204/ignore.sh
 
