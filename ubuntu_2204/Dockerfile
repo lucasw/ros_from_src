@@ -1,3 +1,4 @@
+# docker build . -t ros_from_src_ubuntu_2204
 ARG IMAGE=ubuntu:22.04
 FROM ${IMAGE}
 ARG IMAGE
@@ -8,14 +9,14 @@ ENV DEBIAN_FRONTEND="noninteractive"
 # be able to source files
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-RUN apt-get update -y
-RUN apt-get upgrade -y
-RUN apt-get install -y apt-utils
+RUN apt-get update -yqq
+RUN apt-get upgrade -yqq
+RUN apt-get install -yqq apt-utils
 
 # apt installs
-RUN apt install -y git
-RUN apt install -y ros-*
-RUN apt install -y catkin-lint cython3 libapriltag-dev libceres-dev libfmt-dev libfrei0r-ocaml-dev libgeographic-dev libgmock-dev libgoogle-glog-dev libgst-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev libimage-view-dev liborocos-bfl-dev libpcl-ros-dev libqt5svg5-dev libqt5websockets5-dev libqt5x11extras5-dev libqwt-qt5-dev libsdl-image1.2-dev libspnav-dev liburdfdom-dev libuvc-dev libv4l-dev libyaml-cpp-dev python-is-python3 python3-tf2-geometry-msgs python3-venv vim curl jq
+RUN apt-get update && apt-get install -yqq git
+RUN apt-get update && apt-get install -yqq ros-*
+RUN apt-get update && apt-get install -yqq catkin-lint cython3 libapriltag-dev libceres-dev libfmt-dev libfrei0r-ocaml-dev libgeographic-dev libgmock-dev libgoogle-glog-dev libgst-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev libimage-view-dev liborocos-bfl-dev libpcl-ros-dev libqt5svg5-dev libqt5websockets5-dev libqt5x11extras5-dev libqwt-qt5-dev libsdl-image1.2-dev libspnav-dev liburdfdom-dev libuvc-dev libv4l-dev libyaml-cpp-dev python-is-python3 python3-tf2-geometry-msgs python3-venv vim curl jq
 
 ENV DEST=/other/install
 RUN mkdir $DEST -p
@@ -75,7 +76,7 @@ RUN touch other/catkin_virtualenv/test_catkin_virtualenv_isolated/CATKIN_IGNORE
 RUN echo $CMAKE_PREFIX_PATH
 
 WORKDIR $WS/..
-RUN catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
+RUN catkin config --install --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
 # split these up so can take advantage of docker layers, otherwise one failure
 # means a huge rebuild
 # RUN catkin build --no-status -j1 fuse_core
@@ -101,15 +102,15 @@ RUN catkin build --no-status -j1 jsk_interactive_marker
 RUN catkin build --no-status -j1
 
 # rospack list won't work by itself
-# RUN source devel/setup.bash && rospack list
+# RUN source install/setup.bash && rospack list
 
 # TODO(lucasw) run more tests than this
 RUN catkin build joint_trajectory_controller --no-status --no-deps --catkin-make-args tests
-RUN ls -l devel
+RUN ls -l install
 # make 'source' work
 SHELL ["/bin/bash", "-c"]
-RUN source devel/setup.sh && rospack list
-# RUN source devel/setup.sh && rostest joint_trajectory_controller joint_trajectory_controller.test
+RUN source install/setup.sh && rospack list
+# RUN source install/setup.sh && rostest joint_trajectory_controller joint_trajectory_controller.test
 
 # TODO(lucasw) instead of git cloning the repo we're already in, copy in the repos.yaml and ignore file
 # so someone could edit them and rerun the dockerfile
