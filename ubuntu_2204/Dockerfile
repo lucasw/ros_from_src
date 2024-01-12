@@ -18,33 +18,26 @@ RUN apt-get update && apt-get install -yqq git
 RUN apt-get update && apt-get install -yqq ros-*
 RUN apt-get update && apt-get install -yqq catkin-lint cython3 libapriltag-dev libceres-dev libfmt-dev libfrei0r-ocaml-dev libgeographic-dev libgmock-dev libgoogle-glog-dev libgst-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev libimage-view-dev liborocos-bfl-dev libpcl-ros-dev libqt5svg5-dev libqt5websockets5-dev libqt5x11extras5-dev libqwt-qt5-dev libsdl-image1.2-dev libspnav-dev liburdfdom-dev libuvc-dev libv4l-dev libyaml-cpp-dev python-is-python3 python3-tf2-geometry-msgs python3-venv vim curl jq
 
-ENV DEST=/other/install
-RUN mkdir $DEST -p
-ENV SRC=/other/src
+ENV DEST0=/opt/ros/base
+RUN mkdir $DEST0 -p
+ENV SRC=/opt/src
 RUN mkdir $SRC -p
-
-WORKDIR $SRC
-# RUN git clone https://github.com/lucasw/ros_from_src.git
-WORKDIR $SRC/ros_from_src/ubuntu_2204
-COPY base_repos.yaml .
-# make git clone work through vcs without git credentials
-RUN sed -i 's/git@github.com:/https:\/\/github.com\//' base_repos.yaml
 
 WORKDIR $SRC
 RUN git clone https://github.com/dirk-thomas/vcstool.git
 WORKDIR $SRC/vcstool
-RUN python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
+RUN python3 setup.py install --prefix=$DEST0 --record install_manifest.txt --single-version-externally-managed
 
 WORKDIR $SRC
 RUN git clone https://github.com/osrf/osrf_pycommon.git
 WORKDIR $SRC/osrf_pycommon
 RUN ls -l
-RUN python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
+RUN python3 setup.py install --prefix=$DEST0 --record install_manifest.txt --single-version-externally-managed
 
 WORKDIR $SRC
 RUN git clone https://github.com/lucasw/catkin_tools.git --branch sanitize_cmake_prefix_path
 WORKDIR $SRC/catkin_tools
-RUN python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
+RUN python3 setup.py install --prefix=$DEST0 --record install_manifest.txt --single-version-externally-managed
 
 WORKDIR $SRC
 RUN python --version | awk  '{print $2}' | cut -d'.' -f1
@@ -55,12 +48,19 @@ RUN python --version | awk  '{print $2}' | cut -d'.' -f2
 # RUN PYTHON_MINOR_VERSION=`python --version | awk  '{print $2}' | cut -d'.' -f2`
 ARG PYTHON_MAJOR_VERSION=3
 ARG PYTHON_MINOR_VERSION=10
-ENV OPT_PYTHONPATH=$DEST/lib/python$PYTHON_MAJOR_VERSION.$PYTHON_MINOR_VERSION/site-packages/
+ENV OPT_PYTHONPATH=$DEST0/lib/python$PYTHON_MAJOR_VERSION.$PYTHON_MINOR_VERSION/site-packages/
 RUN echo $PYTHONPATH
 ENV PYTHONPATH=$OPT_PYTHONPATH
 RUN echo $PYTHONPATH
 
-ENV PATH=$DEST/bin:$PATH
+ENV PATH=$DEST0/bin:$PATH
+
+# WORKDIR $SRC
+# RUN git clone https://github.com/lucasw/ros_from_src.git
+WORKDIR $SRC/ros_from_src/ubuntu_2204
+COPY base_repos.yaml .
+# make git clone work through vcs without git credentials
+RUN sed -i 's/git@github.com:/https:\/\/github.com\//' base_repos.yaml
 
 # get packages and build
 ENV WS=/base_catkin_ws/src
@@ -106,11 +106,9 @@ RUN catkin build --no-status -j1
 
 # TODO(lucasw) run more tests than this
 RUN catkin build joint_trajectory_controller --no-status --no-deps --catkin-make-args tests
-RUN ls -l install
+RUN ln -s /base_catkin_ws/install /opt/ros/one
+RUN ls -l /opt/ros/one
 # make 'source' work
 SHELL ["/bin/bash", "-c"]
-RUN source install/setup.sh && rospack list
+RUN source /opt/ros/one/setup.sh && rospack list
 # RUN source install/setup.sh && rostest joint_trajectory_controller joint_trajectory_controller.test
-
-# TODO(lucasw) instead of git cloning the repo we're already in, copy in the repos.yaml and ignore file
-# so someone could edit them and rerun the dockerfile
