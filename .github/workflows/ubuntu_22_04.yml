@@ -67,8 +67,9 @@ jobs:
           sudo apt-get install -yqq cython3
           sudo apt-get install -yqq libapriltag-dev
           sudo apt-get install -yqq libfmt-dev
-          sudo apt-get install -yqq libzmq3-dev
           sudo apt-get install -yqq libhdf5-dev
+          sudo apt-get install -yqq libturbojpeg0-dev
+          sudo apt-get install -yqq libzmq3-dev
 
       - name: apt sdl installs
         run: |
