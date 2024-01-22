@@ -270,7 +270,7 @@ repositories:
   other/lvr2:
     type: git
     url: git@github.com:lucasw/lvr2
-    version: build_2304
+    version: ros1_or_2
   other/marti_messages:
     type: git
     url: git@github.com:swri-robotics/marti_messages.git
