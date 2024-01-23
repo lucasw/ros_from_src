@@ -178,7 +178,7 @@ RUN rosdep update || true
 WORKDIR $WS/..
 RUN source $DEST/setup.bash
 RUN catkin init
-RUN source $DEST/setup.bash && catkin config
+RUN source $DEST/setup.bash && catkin config --install --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
 # rospack list won't work by itself
 RUN source $DEST/setup.bash && rospack list
 
@@ -191,7 +191,7 @@ RUN echo $CMAKE_PREFIX_PATH
 RUN echo $ROS_PACKAGE_PATH
 RUN catkin build
 # rospack list won't work by itself
-RUN source devel/setup.bash && rospack list
+RUN source install/setup.bash && rospack list
 
 RUN apt-get install python3-netifaces
 
