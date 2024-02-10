@@ -165,8 +165,8 @@ repositories:
     version: indigo
   other/PlotJuggler:
     type: git
-    url: git@github.com:lucasw/plotjuggler
-    version: memeless
+    url: git@github.com:facontidavide/PlotJuggler.git
+    version: main
   other/anybotics/elevation_mapping:
     type: git
     url: git@github.com:ANYbotics/elevation_mapping.git
@@ -322,7 +322,7 @@ repositories:
   other/plotjuggler-ros-plugins:
     type: git
     url: git@github.com:PlotJuggler/plotjuggler-ros-plugins.git
-    version: development
+    version: main
   other/plotjuggler_msgs:
     type: git
     url: git@github.com:PlotJuggler/plotjuggler_msgs.git
@@ -343,6 +343,10 @@ repositories:
     type: git
     url: git@github.com:lucasw/ros_rtsp
     version: pluginlib_hpp
+  other/ros_type_introspection:
+    type: git
+    url: git@github.com:facontidavide/ros_type_introspection.git
+    version: master
   other/rosbag_snapshot:
     type: git
     url: git@github.com:ros/rosbag_snapshot.git
