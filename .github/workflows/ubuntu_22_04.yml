@@ -217,8 +217,8 @@ jobs:
 
           # TODO(lucasw) lvr2 not building in devel, but could build it
           # outside of catkin entirely and install to DEST
-          touch other/lvr2/CATKIN_IGNORE
-          touch other/mesh_tools/CATKIN_IGNORE
+          touch src/other/lvr2/CATKIN_IGNORE
+          touch src/other/mesh_tools/CATKIN_IGNORE
 
       - name: install setup
         if: ${{ matrix.build_type == 'install' }}
