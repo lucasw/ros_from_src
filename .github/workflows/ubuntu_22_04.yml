@@ -297,12 +297,12 @@ jobs:
           source ${{ matrix.build_type }}/setup.bash
 
       - name: build rviz_map_plugin
-        if: ${{ matrix.build_all == 'full' }}
+        if: ${{ matrix.build_all == 'full' }} && ${{ matrix.build_type == 'install' }}
         run: |
           cd ${{ matrix.build_type }}_base_catkin_ws
           source ${{ matrix.build_type }}/setup.bash
           catkin build --no-status rviz_map_plugin
-          
+
       - name: build jsk
         if: ${{ matrix.build_all == 'full' }}
         run: |
