@@ -345,8 +345,8 @@ repositories:
     version: pluginlib_hpp
   other/ros_type_introspection:
     type: git
-    url: git@github.com:facontidavide/ros_type_introspection.git
-    version: master
+    url: git@github.com:lucasw/ros_type_introspection.git
+    version: build_2204
   other/rosbag_snapshot:
     type: git
     url: git@github.com:ros/rosbag_snapshot.git
