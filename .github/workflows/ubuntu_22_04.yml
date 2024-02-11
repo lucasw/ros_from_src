@@ -73,6 +73,7 @@ jobs:
           sudo apt-get install -yqq libhdf5-dev
           sudo apt-get install -yqq libturbojpeg0-dev
           sudo apt-get install -yqq libzmq3-dev
+          sudo apt-get install -yqq ocl-icd-opencl-dev opencl-headers
 
       - name: apt sdl installs
         run: |
