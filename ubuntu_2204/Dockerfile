@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -yqq git
 RUN apt-get update && apt-get install -yqq ros-*
 RUN apt-get update && apt-get install -yqq catkin-lint cython3 libapriltag-dev libceres-dev libfmt-dev libfrei0r-ocaml-dev libgeographic-dev libgmock-dev libgoogle-glog-dev libgst-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev libimage-view-dev liborocos-bfl-dev libpcl-ros-dev libqt5svg5-dev libqt5websockets5-dev libqt5x11extras5-dev libqwt-qt5-dev libsdl-image1.2-dev libspnav-dev liburdfdom-dev libuvc-dev libv4l-dev libyaml-cpp-dev python-is-python3 python3-tf2-geometry-msgs python3-venv vim curl jq
 RUN apt-get update && apt-get install -yqq libgsl-dev wget freeglut3-dev libcgal-dev libhdf5-dev libturbojpeg0-dev libzmq3-dev
+RUN apt-get -y install ocl-icd-opencl-dev opencl-headers
 
 ENV DEST0=/opt/ros/base
 RUN mkdir $DEST0 -p
