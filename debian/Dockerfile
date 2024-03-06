@@ -64,14 +64,26 @@ ENV PATH=$DEST0/bin:$PATH
 RUN which catkin && catkin --help
 ################################################################################
 
-ARG DEB=rosone_0.0.6-1_all.deb
-RUN echo ${DEB}
-COPY rosone_0.0.6-1_all.deb .
+# this deb isn't working right, env vars aren't set properly and rosrun doesn't work
+# for packages inside it
+# ARG DEB=rosone_0.0.6-1_all.deb
+# RUN echo ${DEB}
+# COPY rosone_0.0.6-1_all.deb .
 # COPY ${DEB} .
-RUN dpkg -i ${DEB}
+# RUN dpkg -i ${DEB}
+# TODO(lucasw) this setup isn't doing much, have to set this manually
+# ENV ROS_PACKAGE_PATH=/opt/ros/one/share:/usr/share
+
+WORKDIR /opt/ros
+RUN apt-get install -yqq zip
+COPY install_catkin_ws_2204.zip .
+RUN unzip install_catkin_ws_2204.zip
+RUN tar xvf install_catkin_ws_2204.tgz
+RUN mv install_base_catkin_ws/install one
+RUN rmdir install_base_catkin_ws
+
 RUN du -sh /opt/ros
 RUN find /opt/ros | head -n 30
 RUN ls -l /usr/lib/x86_64-linux-gnu/libpython*
-# TODO(lucasw) fix the deb install
-RUN source /opt/ros/one/setup.bash
+RUN source /opt/ros/one/setup.bash && echo $ROS_PACKAGE_PATH && echo $PATH
 RUN source /opt/ros/one/setup.bash && rospack find pcl_ros
