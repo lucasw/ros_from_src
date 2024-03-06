@@ -1,5 +1,13 @@
+rosone (0.0.6-1) UNRELEASED; urgency=medium
+
+  * Updated ros packages, now have perception_pcl
+  * hand-edited this changelog, this file needs to be updated to build this
+    version
+
+ -- lucasw <wsacul@gmail.com>  Wed, 06 Mar 2024 7:00:00 -0700
+
 rosone (0.0.5-1) UNRELEASED; urgency=medium
 
   * Initial release. (Closes: #nnnn)  <nnnn is the bug number of your ITP>
 
- -- lucasw <lucasw@unknown>  Tue, 05 Sep 2023 12:31:11 -0700
+ -- lucasw <wsacul@gmail.com>  Tue, 05 Sep 2023 12:31:11 -0700
