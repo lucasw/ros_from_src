@@ -164,6 +164,15 @@ jobs:
           which catkin
           catkin --version
 
+      # the newer openvdb that doesn't have tbb error that the apt install version has
+      - name: install build openvdb
+        run: |
+          mkdir -p other/build/openvdb
+          cd other/build/openvdb
+          cmake ../../../${{ matrix.build_type }}_base_catkin_ws/src/other/vdb/openvdb/ -DCMAKE_INSTALL_PREFIX=$DEST
+          make -j2  # it's a slow build
+          make install
+
       - name: setup base_catkin_ws
         run: |
           mkdir -p ${{ matrix.build_type }}_base_catkin_ws/src
@@ -214,7 +223,7 @@ jobs:
         if: ${{ matrix.build_type == 'devel' }}
         run: |
           cd ${{ matrix.build_type }}_base_catkin_ws
-          catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
+          catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated -Wno-dev -DCMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES=$DEST/include -DCMAKE_LIBRARY_PATH=$DEST/lib
 
           # TODO(lucasw) lvr2 not building in devel, but could build it
           # outside of catkin entirely and install to DEST
@@ -225,7 +234,7 @@ jobs:
         if: ${{ matrix.build_type == 'install' }}
         run: |
           cd ${{ matrix.build_type }}_base_catkin_ws
-          catkin config --install --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
+          catkin config --install --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated -Wno-dev -DCMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES=$DEST/include -DCMAKE_LIBRARY_PATH=$DEST/lib
 
       # individual packages or sets of packages built separately
       # this first one sources last because nothing has been built yet

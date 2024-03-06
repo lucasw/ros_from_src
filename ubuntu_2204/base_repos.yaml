@@ -391,14 +391,18 @@ repositories:
     type: git
     url: git@github.com:turtlebot/turtlebot
     version: melodic
-  # other/vdb_mapping:
-  #   type: git
-  #   url: git@github.com:lucasw/vdb_mapping
-  #   version: min_range
-  # other/vdb_mapping_ros:
-  #   type: git
-  #   url: git@github.com:lucasw/vdb_mapping_ros
-  #   version: rolling_window
+  other/vdb/openvdb:
+    type: git
+    url: git@github.com:AcademySoftwareFoundation/openvdb.git
+    version: master
+  other/vdb/vdb_mapping:
+    type: git
+    url: git@github.com:lucasw/vdb_mapping
+    version: min_range
+  other/vdb/vdb_mapping_ros:
+    type: git
+    url: git@github.com:lucasw/vdb_mapping_ros
+    version: rolling_window
   other/wu_ros_tools:
     type: git
     url: git@github.com:lucasw/wu_ros_tools
