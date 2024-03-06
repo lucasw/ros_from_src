@@ -1,1 +1,1 @@
-install/ /opt/ros/one
+install/* /opt/ros/one
