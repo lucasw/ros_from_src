@@ -349,4 +349,4 @@ jobs:
         with:
           name: install_catkin_ws_2204_${{ matrix.build_all }}.deb
           # TODO(lucasw) extract name from debian files, VERSION?
-          path: other/src/ros_from_src/rosone_0.0.5-1_all.deb
+          path: other/src/ros_from_src/rosone_0.0.6-1_all.deb

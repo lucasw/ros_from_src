@@ -1,6 +1,6 @@
 # install all ros packages from debian, then install custom debian built from ros_from_src
 # cd ros_from_src  # be one directory up from debian/
-# docker build debian -t rosonedeb
+# docker build debian -t ros_from_src_ubuntu_2204
 ARG IMAGE=ubuntu:22.04
 FROM ${IMAGE}
 ARG IMAGE
@@ -19,15 +19,17 @@ RUN apt-get install -y apt-utils
 RUN apt-get update && apt-get install -y git
 RUN apt-get install -y ros-*
 RUN apt-get install -y catkin-lint cython3 libapriltag-dev libceres-dev libfmt-dev libfrei0r-ocaml-dev libgmock-dev libgoogle-glog-dev libgst-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev libimage-view-dev liborocos-bfl-dev libpcl-ros-dev libqt5svg5-dev libqt5websockets5-dev libqt5x11extras5-dev libqwt-qt5-dev libsdl-image1.2-dev libspnav-dev liburdfdom-dev libuvc-dev libv4l-dev libyaml-cpp-dev python-is-python3 python3-tf2-geometry-msgs python3-venv vim curl jq --fix-missing
+# not depended on by anything in the rosone deb but useful to already have for building other packages from src
+RUN apt-get install -y google-mock libdiagnostic-updater-dev libmuparser-dev libopenvdb-dev python3-geopy python3-open3d python3-pip python3-scipy
 # RUN apt-get install -y libgeographic-dev
 
-ARG DEB=rosone_0.0.5-1_all.deb
+ARG DEB=rosone_0.0.6-1_all.deb
 RUN echo ${DEB}
-COPY rosone_0.0.5-1_all.deb .
+COPY rosone_0.0.6-1_all.deb .
 # COPY ${DEB} .
 RUN dpkg -i ${DEB}
 RUN du -sh /opt/ros
 RUN find /opt/ros | head -n 30
 RUN ls -l /usr/lib/x86_64-linux-gnu/libpython*
 RUN source /opt/ros/one/install/setup.bash
-RUN source /opt/ros/one/install/setup.bash && rospack find fuse_msgs
+RUN source /opt/ros/one/install/setup.bash && rospack find pcl_ros
