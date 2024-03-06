@@ -164,15 +164,6 @@ jobs:
           which catkin
           catkin --version
 
-      # the newer openvdb that doesn't have tbb error that the apt install version has
-      - name: install build openvdb
-        run: |
-          mkdir -p other/build/openvdb
-          cd other/build/openvdb
-          cmake ../../../${{ matrix.build_type }}_base_catkin_ws/src/other/vdb/openvdb/ -DCMAKE_INSTALL_PREFIX=$DEST
-          make -j2  # it's a slow build
-          make install
-
       - name: setup base_catkin_ws
         run: |
           mkdir -p ${{ matrix.build_type }}_base_catkin_ws/src
@@ -186,6 +177,16 @@ jobs:
           vcs export --exact
           # ignore repos that aren't yet building in 22.04
           ../../other/src/ros_from_src/ubuntu_2204/ignore.sh
+
+      # the newer openvdb that doesn't have tbb error that the apt install version has
+      - name: install build openvdb
+        if: ${{ matrix.build_all == 'full' }}
+        run: |
+          mkdir -p other/build/openvdb
+          cd other/build/openvdb
+          cmake ../../../${{ matrix.build_type }}_base_catkin_ws/src/other/vdb/openvdb/ -DCMAKE_INSTALL_PREFIX=$DEST
+          make -j2  # it's a slow build
+          make install
 
       # TODO(lucasw) later have an entirely separately layer for the larger slow building packages
       - name: ignore large slow packages
@@ -218,6 +219,8 @@ jobs:
           touch other/anybotics/CATKIN_IGNORE
           touch other/octomap_mapping/CATKIN_IGNORE
           touch other/octomap_ros/CATKIN_IGNORE
+
+          touch other/vdb/CATKIN_IGNORE
 
       - name: devel setup
         if: ${{ matrix.build_type == 'devel' }}
