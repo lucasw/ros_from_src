@@ -27,7 +27,10 @@ touch ./other/geneus/CATKIN_IGNORE
 # touch ./other/mesh_tools/mesh_msgs_hdf5/CATKIN_IGNORE
 # touch ./other/mesh_tools/hdf5_map_io/CATKIN_IGNORE
 # touch ./other/mesh_tools/rviz_map_plugin/CATKIN_IGNORE
-touch ./other/mavros/CATKIN_IGNORE
+touch ./other/mavros/libmavconn/CATKIN_IGNORE
+touch ./other/mavros/mavros/CATKIN_IGNORE
+touch ./other/mavros/mavros_extras/CATKIN_IGNORE
+touch ./other/mavros/test_mavros/CATKIN_IGNORE
 touch ./other/openni2_camera/CATKIN_IGNORE
 touch ./other/people/face_detector/CATKIN_IGNORE
 touch ./other/people/leg_detector/CATKIN_IGNORE
