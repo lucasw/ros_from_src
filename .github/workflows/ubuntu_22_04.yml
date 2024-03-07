@@ -185,7 +185,7 @@ jobs:
           mkdir -p other/build/openvdb
           cd other/build/openvdb
           cmake ../../../${{ matrix.build_type }}_base_catkin_ws/src/other/vdb/openvdb/ -DCMAKE_INSTALL_PREFIX=$DEST
-          make -j2  # it's a slow build
+          make -j3  # it's a slow build
           make install
 
       # TODO(lucasw) later have an entirely separately layer for the larger slow building packages
@@ -246,6 +246,14 @@ jobs:
           cd ${{ matrix.build_type }}_base_catkin_ws
           catkin build --no-status qt_gui_core
           source ${{ matrix.build_type }}/setup.bash
+
+      - name: build vdb mapping
+        if: ${{ matrix.build_all == 'full' }}
+        run: |
+          export PATH=$PATH:$DEST/bin
+          cd ${{ matrix.build_type }}_base_catkin_ws
+          source ${{ matrix.build_type }}/setup.bash
+          catkin build --no-status vdb_mapping* --verbose
 
       - name: build fiducials
         if: ${{ matrix.build_all == 'full' }}
