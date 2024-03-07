@@ -57,6 +57,7 @@ ENV PYTHONPATH=$OPT_PYTHONPATH
 RUN echo $PYTHONPATH
 
 ENV PATH=$DEST0/bin:$PATH
+ENV CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$DEST/lib/cmake
 
 # WORKDIR $SRC
 # RUN git clone https://github.com/lucasw/ros_from_src.git
@@ -75,6 +76,12 @@ RUN $SRC/ros_from_src/ubuntu_2204/ignore.sh
 RUN touch other/catkin_virtualenv/test_catkin_virtualenv_inherited/CATKIN_IGNORE
 RUN touch other/catkin_virtualenv/test_catkin_virtualenv_isolated/CATKIN_IGNORE
 
+RUN mkdir -p $HOME/other/build/openvdb
+WORKDIR other/build/openvdb
+RUN cmake $HOME/base_catkin_ws/src/other/vdb/openvdb/ -DCMAKE_INSTALL_PREFIX=$DEST
+RUN make -j2  # it's a slow build
+RUN make install
+
 # ENV ROS_DISTRO="noetic"
 RUN echo $CMAKE_PREFIX_PATH
 
@@ -85,6 +92,7 @@ RUN catkin config --install --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-depreca
 # RUN catkin build --no-status -j1 fuse_core
 # disabling this because it is too slow to build
 # RUN catkin build --no-status -j1 rtabmap_ros
+RUN catkin build --no-status -j1 vdb_mapping*
 RUN catkin build --no-status -j1 jsk_rviz_plugins
 RUN catkin build --no-status -j1 rviz
 RUN catkin build --no-status -j1 plotjuggler
