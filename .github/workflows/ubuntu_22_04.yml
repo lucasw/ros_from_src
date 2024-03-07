@@ -116,6 +116,7 @@ jobs:
         run: |
           echo "PATH=$PATH:$DEST/bin" >> $GITHUB_ENV
           echo "PYTHONPATH=$DEST/lib/python$PYTHON_MAJOR_VERSION.$PYTHON_MINOR_VERSION/site-packages/" >> $GITHUB_ENV
+          echo "CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$DEST/lib/cmake" >> $GITHUB_ENV
 
       - name: check setup
         run: |
@@ -250,7 +251,6 @@ jobs:
       - name: build vdb mapping
         if: ${{ matrix.build_all == 'full' }}
         run: |
-          export PATH=$PATH:$DEST/bin
           cd ${{ matrix.build_type }}_base_catkin_ws
           source ${{ matrix.build_type }}/setup.bash
           catkin build --no-status vdb_mapping* --verbose
