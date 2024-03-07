@@ -78,7 +78,7 @@ RUN touch other/catkin_virtualenv/test_catkin_virtualenv_isolated/CATKIN_IGNORE
 
 RUN mkdir -p $HOME/other/build/openvdb
 WORKDIR other/build/openvdb
-RUN cmake $HOME/base_catkin_ws/src/other/vdb/openvdb/ -DCMAKE_INSTALL_PREFIX=$DEST
+RUN cmake $WS/other/vdb/openvdb/ -DCMAKE_INSTALL_PREFIX=$DEST
 RUN make -j2  # it's a slow build
 RUN make install
 
