@@ -348,11 +348,19 @@ jobs:
         if: ${{ matrix.build_type == 'install' }}
         run: |
           tar cvzf install_catkin_ws_2204.tgz install_base_catkin_ws/install
+          tar cvzf install_dest_2204.tgz $DEST
           ls -l
 
       - name: upload install_catkin_ws_2204.tgz
         if: ${{ matrix.build_type == 'install' }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
+        with:
+          name: install_dest_2204
+          path: install_dest_2204.tgz
+
+      - name: upload install_catkin_ws_2204.tgz
+        if: ${{ matrix.build_type == 'install' }}
+        uses: actions/upload-artifact@v4
         with:
           name: install_catkin_ws_2204
           path: install_catkin_ws_2204.tgz
@@ -366,7 +374,7 @@ jobs:
 
       - name: upload .deb
         if: ${{ matrix.build_type == 'install' }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: install_catkin_ws_2204_${{ matrix.build_all }}.deb
           # TODO(lucasw) extract name from debian files, VERSION?
