@@ -86,7 +86,7 @@ RUN make install
 RUN echo $CMAKE_PREFIX_PATH
 
 WORKDIR $WS/..
-RUN catkin config --install --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
+RUN catkin config --install --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated -Wno-dev -DCMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES=$DEST/include -DCMAKE_LIBRARY_PATH=$DEST/lib
 # split these up so can take advantage of docker layers, otherwise one failure
 # means a huge rebuild
 # RUN catkin build --no-status -j1 fuse_core
