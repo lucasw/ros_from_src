@@ -21,26 +21,26 @@ RUN apt-get update && apt-get install -yqq libgsl-dev wget freeglut3-dev libcgal
 RUN apt-get -y install ocl-icd-opencl-dev opencl-headers
 RUN apt-get -y install libopenvdb-dev
 
-ENV DEST0=/opt/ros/base
-RUN mkdir $DEST0 -p
+ENV DEST=/opt/ros/base
+RUN mkdir $DEST -p
 ENV SRC=/opt/src
 RUN mkdir $SRC -p
 
 WORKDIR $SRC
 RUN git clone https://github.com/dirk-thomas/vcstool.git
 WORKDIR $SRC/vcstool
-RUN python3 setup.py install --prefix=$DEST0 --record install_manifest.txt --single-version-externally-managed
+RUN python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
 
 WORKDIR $SRC
 RUN git clone https://github.com/osrf/osrf_pycommon.git
 WORKDIR $SRC/osrf_pycommon
 RUN ls -l
-RUN python3 setup.py install --prefix=$DEST0 --record install_manifest.txt --single-version-externally-managed
+RUN python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
 
 WORKDIR $SRC
 RUN git clone https://github.com/lucasw/catkin_tools.git --branch sanitize_cmake_prefix_path
 WORKDIR $SRC/catkin_tools
-RUN python3 setup.py install --prefix=$DEST0 --record install_manifest.txt --single-version-externally-managed
+RUN python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
 
 WORKDIR $SRC
 RUN python --version | awk  '{print $2}' | cut -d'.' -f1
@@ -51,12 +51,12 @@ RUN python --version | awk  '{print $2}' | cut -d'.' -f2
 # RUN PYTHON_MINOR_VERSION=`python --version | awk  '{print $2}' | cut -d'.' -f2`
 ARG PYTHON_MAJOR_VERSION=3
 ARG PYTHON_MINOR_VERSION=10
-ENV OPT_PYTHONPATH=$DEST0/lib/python$PYTHON_MAJOR_VERSION.$PYTHON_MINOR_VERSION/site-packages/
+ENV OPT_PYTHONPATH=$DEST/lib/python$PYTHON_MAJOR_VERSION.$PYTHON_MINOR_VERSION/site-packages/
 RUN echo $PYTHONPATH
 ENV PYTHONPATH=$OPT_PYTHONPATH
 RUN echo $PYTHONPATH
 
-ENV PATH=$DEST0/bin:$PATH
+ENV PATH=$DEST/bin:$PATH
 ENV CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$DEST/lib/cmake
 
 # WORKDIR $SRC
