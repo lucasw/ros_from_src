@@ -26,26 +26,10 @@ RUN apt-get install -y google-mock libdiagnostic-updater-dev libmuparser-dev lib
 ################################################################################
 # catkin and related setup
 # TODO(lucasw) there needs to be a deb made for just these packages, they aren't in the deb installed below
-ENV DEST0=/opt/ros/base
-RUN mkdir $DEST0 -p
+ENV DEST=/opt/ros/base
+RUN mkdir $DEST -p
 ENV SRC=/opt/src
 RUN mkdir $SRC -p
-
-WORKDIR $SRC
-RUN git clone https://github.com/dirk-thomas/vcstool.git
-WORKDIR $SRC/vcstool
-RUN python3 setup.py install --prefix=$DEST0 --record install_manifest.txt --single-version-externally-managed
-
-WORKDIR $SRC
-RUN git clone https://github.com/osrf/osrf_pycommon.git
-WORKDIR $SRC/osrf_pycommon
-RUN ls -l
-RUN python3 setup.py install --prefix=$DEST0 --record install_manifest.txt --single-version-externally-managed
-
-WORKDIR $SRC
-RUN git clone https://github.com/lucasw/catkin_tools.git --branch sanitize_cmake_prefix_path
-WORKDIR $SRC/catkin_tools
-RUN python3 setup.py install --prefix=$DEST0 --record install_manifest.txt --single-version-externally-managed
 
 WORKDIR $SRC
 RUN python --version | awk  '{print $2}' | cut -d'.' -f1
@@ -56,12 +40,11 @@ RUN python --version | awk  '{print $2}' | cut -d'.' -f2
 # RUN PYTHON_MINOR_VERSION=`python --version | awk  '{print $2}' | cut -d'.' -f2`
 ARG PYTHON_MAJOR_VERSION=3
 ARG PYTHON_MINOR_VERSION=10
-ENV OPT_PYTHONPATH=$DEST0/lib/python$PYTHON_MAJOR_VERSION.$PYTHON_MINOR_VERSION/site-packages/
+ENV OPT_PYTHONPATH=$DEST/lib/python$PYTHON_MAJOR_VERSION.$PYTHON_MINOR_VERSION/site-packages/
 RUN echo $PYTHONPATH
 ENV PYTHONPATH=$OPT_PYTHONPATH
 RUN echo $PYTHONPATH
-ENV PATH=$DEST0/bin:$PATH
-RUN which catkin && catkin --help
+ENV PATH=$DEST/bin:$PATH
 ################################################################################
 
 # this deb isn't working right, env vars aren't set properly and rosrun doesn't work
@@ -76,11 +59,23 @@ RUN which catkin && catkin --help
 
 WORKDIR /opt/ros
 RUN apt-get install -yqq zip
-COPY install_catkin_ws_2204.zip .
-RUN unzip install_catkin_ws_2204.zip
+
+COPY install_dest_2204_full.zip .
+RUN unzip install_dest_2204_full.zip
+RUN tar xvf install_dest_2204.tgz
+# TODO(lucasw) zip up the install in a way that exclude the full path
+RUN mv home/runner/other/install/* $DEST
+RUN rm -rf home
+RUN rm install_dest_2204*
+
+RUN which catkin && catkin --help
+
+COPY install_catkin_ws_2204__full.zip .
+RUN unzip install_catkin_ws_2204__full.zip
 RUN tar xvf install_catkin_ws_2204.tgz
 RUN mv install_base_catkin_ws/install one
 RUN rmdir install_base_catkin_ws
+RUN rm install_catkin_ws*
 
 RUN du -sh /opt/ros
 RUN find /opt/ros | head -n 30
