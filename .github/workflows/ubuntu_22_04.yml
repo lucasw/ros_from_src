@@ -355,14 +355,14 @@ jobs:
         if: ${{ matrix.build_type == 'install' }}
         uses: actions/upload-artifact@v4
         with:
-          name: install_dest_2204
+          name: install_dest_2204_${{ matrix.build_all }}
           path: install_dest_2204.tgz
 
       - name: upload install_catkin_ws_2204.tgz
         if: ${{ matrix.build_type == 'install' }}
         uses: actions/upload-artifact@v4
         with:
-          name: install_catkin_ws_2204
+          name: install_catkin_ws_2204__${{ matrix.build_all }}
           path: install_catkin_ws_2204.tgz
 
       - name: make a deb from the entirety of install_catkin_ws/install
