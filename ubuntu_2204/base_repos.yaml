@@ -550,7 +550,7 @@ repositories:
   ros/roslint:
     type: git
     url: git@github.com:lucasw/roslint
-    version: add_headers_to_valid_extensions
+    version: roslint_rust
   ros/rospack:
     type: git
     url: git@github.com:lucasw/rospack
