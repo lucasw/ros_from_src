@@ -297,11 +297,11 @@ repositories:
     version: pluginlib_hpp
   other/octomap_mapping:
     type: git
-    url: git@github.com:lucasw/octomap_mapping.git
-    version: filter_limits
+    url: git@github.com:octomap/octomap_mapping.git
+    version: kinetic-devel
   other/octomap_ros:
     type: git
-    url: git@github.com:lucasw/octomap_ros
+    url: git@github.com:octomap/octomap_ros
     version: melodic-devel
   other/openni2_camera:
     type: git
