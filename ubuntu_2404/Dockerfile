@@ -89,9 +89,18 @@ RUN $SRC/ros_from_src/ubuntu_2404/ignore.sh
 RUN touch other/catkin_virtualenv/test_catkin_virtualenv_inherited/CATKIN_IGNORE
 RUN touch other/catkin_virtualenv/test_catkin_virtualenv_isolated/CATKIN_IGNORE
 
+# RUN apt-get install -yqq cmake
+RUN git clone https://gitlab.kitware.com/cmake/cmake.git
+WORKDIR $WS/cmake
+RUN apt-get install -yqq g++
+RUN apt-get install -yqq make
+RUN ./bootstrap && make && make install
+
+RUN apt-get install -yqq libboost-iostreams-dev
+RUN apt-get install -yqq libjemalloc-dev
+
 RUN mkdir -p $HOME/other/build/openvdb
 WORKDIR other/build/openvdb
-RUN apt-get install -yqq cmake
 RUN cmake $WS/other/vdb/openvdb/ -DCMAKE_INSTALL_PREFIX=$DEST
 RUN make -j2  # it's a slow build
 RUN make install
