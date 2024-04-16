@@ -43,12 +43,30 @@ RUN apt-get update && apt-get install -yqq ros-core
 RUN apt-get update && apt-get install -yqq ros-core-dev
 RUN apt-get update && apt-cache search ros-
 RUN apt-get update && apt-get install -yqq ros-desktop-full
-RUN apt-get update && apt-cache search qt5 | grep dev
+
+# install every ros package
+RUN apt-get update && apt-get install -yqq `apt-cache search "Robot OS" | awk '{print $1}' | xargs | sed 's/\n/ /g'`
+RUN apt-get install -yqq libtf-conversions-dev
 
 RUN apt-get install -yqq build-essential
 
 RUN apt-get install -yqq libboost-iostreams-dev
 RUN apt-get install -yqq libjemalloc-dev
+
+# from rosdep
+RUN apt-get install -yqq binutils-dev festival festvox-kallpc16k ffmpeg flite google-mock gstreamer1.0-alsa gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly gstreamer1.0-tools
+RUN apt-get install -yqq ifstat iproute2 iputils-ping joystick libassimp-dev libbullet-dev libgstreamer-plugins-good1.0-0 libprotobuf-dev libprotoc-dev
+RUN apt-get install -yqq libqt5svg5-dev libqt5websockets5-dev libqt5x11extras5-dev libqwt-qt5-dev
+RUN apt-get install -yqq libshiboken2-dev libxmu-dev lm-sensors protobuf-compiler
+RUN apt-get install -yqq python3-cairo python3-cairosvg python3-click python3-colorama python3-coverage python3-imageio python3-joblib python3-matplotlib python3-mock python3-nose python3-opencv python3-progressbar python3-psutil python3-pydot python3-pygraphviz
+# python-pil python3-catkin-pkg-modules
+RUN apt-get install -yqq python3-pyproj python3-pyqt5.qtsvg python3-pyside2.qtsvg python3-scipy python3-serial python3-shapely python3-skimage python3-sklearn python3-tabulate python3-texttable python3-tornado python3-websocket
+# python3-rosdep python3-rosdep-modules python3-rospkg-modules
+RUN apt-get install -yqq qt5-image-formats-plugins shiboken2 sysstat tango-icon-theme virtualenv
+
+RUN apt-get install -yqq libpyside2-dev
+RUN apt-get install -yqq python3-sip-dev
+RUN apt-get install -yqq pyqt5-dev
 
 ENV DEST=/opt/ros/base
 RUN mkdir $DEST -p
@@ -112,16 +130,15 @@ RUN catkin config --install --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-depreca
 # RUN catkin build --no-status -j1 fuse_core
 # disabling this because it is too slow to build
 # RUN catkin build --no-status -j1 rtabmap_ros
-RUN apt-get install -yqq libpyside2-dev
-RUN apt-get install -yqq python3-sip-dev
-RUN apt-get install -yqq pyqt5-dev
+RUN rosdep update
+RUN rosdep install --from-paths src --ignore-src -r -s || true
+RUN catkin build --no-status -j1 libuvc_camera
 RUN catkin build --no-status -j1 rqt
 RUN catkin build --no-status -j1 vdb_mapping*
 RUN catkin build --no-status -j1 jsk_rviz_plugins
 RUN catkin build --no-status -j1 rviz
 RUN catkin build --no-status -j1 plotjuggler
 RUN catkin build --no-status -j1 octomap_server
-RUN catkin build --no-status -j1 libuvc_camera
 # RUN catkin build --no-status -j1 fuse_constraints
 RUN catkin build --no-status -j1 people_tracking_filter
 RUN catkin build --no-status -j1 laser_assembler
