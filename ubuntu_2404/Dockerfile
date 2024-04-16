@@ -34,19 +34,22 @@ RUN apt-get update && apt-get install -yqq liburdfdom-dev
 # libgeographic-dev libgst-dev
 # vim  is broken 'you have held broken packages'
 RUN apt-cache search geographic
-# RUN apt-get update && apt-get install -yqq libimage-view-dev
-# RUN apt-get update && apt-get install -yqq libpcl-ros-dev
-# RUN apt-get update && apt-get install -yqq python3-tf2-geometry-msgs
+RUN apt-get update && apt-get install -yqq libimage-view-dev
+RUN apt-get update && apt-get install -yqq libpcl-ros-dev
+RUN apt-get update && apt-get install -yqq python3-tf2-geometry-msgs
 RUN apt-get update && apt-get install -yqq libgeographiclib-dev
 RUN apt-cache search gst | grep dev
-# RUN apt-get update && apt-get install -yqq ros-core
-# RUN apt-get update && apt-get install -yqq ros-core-dev
-RUN apt-get update && apt-cache search qt5 | grep dev
+RUN apt-get update && apt-get install -yqq ros-core
+RUN apt-get update && apt-get install -yqq ros-core-dev
 RUN apt-get update && apt-cache search ros-
-# RUN apt-get update && apt-get install -yqq ros-desktop-full
+RUN apt-get update && apt-get install -yqq ros-desktop-full
+RUN apt-get update && apt-cache search qt5 | grep dev
 
+RUN apt-get install -yqq build-essential
 
-# RUN apt-get update && apt-get install -yqq ros-*
+RUN apt-get install -yqq libboost-iostreams-dev
+RUN apt-get install -yqq libjemalloc-dev
+
 ENV DEST=/opt/ros/base
 RUN mkdir $DEST -p
 ENV SRC=/opt/src
@@ -88,16 +91,6 @@ COPY ignore.sh $SRC/ros_from_src/ubuntu_2404/
 RUN $SRC/ros_from_src/ubuntu_2404/ignore.sh
 RUN touch other/catkin_virtualenv/test_catkin_virtualenv_inherited/CATKIN_IGNORE
 RUN touch other/catkin_virtualenv/test_catkin_virtualenv_isolated/CATKIN_IGNORE
-
-# RUN apt-get install -yqq cmake
-RUN git clone https://gitlab.kitware.com/cmake/cmake.git
-WORKDIR $WS/cmake
-RUN apt-get install -yqq g++
-RUN apt-get install -yqq make
-RUN ./bootstrap && make && make install
-
-RUN apt-get install -yqq libboost-iostreams-dev
-RUN apt-get install -yqq libjemalloc-dev
 
 RUN mkdir -p $HOME/other/build/openvdb
 WORKDIR other/build/openvdb
