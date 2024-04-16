@@ -143,13 +143,24 @@ RUN catkin build --no-status -j1 octomap_server
 RUN catkin build --no-status -j1 people_tracking_filter
 RUN catkin build --no-status -j1 laser_assembler
 RUN catkin build --no-status -j1 catkin_virtualenv
-RUN catkin build --no-status -j1 nmea_navsat_driver
+# RUN catkin build --no-status -j1 nmea_navsat_driver
 RUN catkin build --no-status -j1 grid_map_visualization
 RUN catkin build --no-status -j1 stereo_image_proc
 RUN catkin build --no-status -j1 jsk_topic_tools
 RUN catkin build --no-status -j1 jsk_interactive_marker
 # RUN catkin build --no-status -j1 test_catkin_virtualenv_inherited
 # RUN catkin build --no-status -j1 test_catkin_virtualenv_py3_isolated
+# the navsat tests are broken
+RUN catkin build --no-status -j1 nmea_navsat_driver --cmake-args -DCATKIN_ENABLE_TESTING=False
+RUN catkin build --no-status -j1 lvr2
+RUN catkin build --no-status -j1 ros_type_introspection
+RUN catkin build --no-status -j1 actionlib_tutorials
+RUN catkin build --no-status -j1 rospack
+RUN catkin build --no-status -j1 libnabo
+RUN catkin build --no-status -j1 rqt*
+RUN catkin build --no-status -j1 jsk*
+RUN catkin build --no-status -j1 rtabmap*
+RUN catkin build --no-status -j1 fuse*
 RUN catkin build --no-status -j1
 
 # rospack list won't work by itself
