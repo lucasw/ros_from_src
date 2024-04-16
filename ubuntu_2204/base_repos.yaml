@@ -494,7 +494,7 @@ repositories:
   ros/libuvc_ros:
     type: git
     url: git@github.com:lucasw/libuvc_ros.git
-    version: boost_placeholders
+    version: libuvc_0_0_7
   ros/media_export:
     type: git
     url: git@github.com:ros/media_export.git
