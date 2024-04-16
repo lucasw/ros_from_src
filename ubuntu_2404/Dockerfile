@@ -92,11 +92,15 @@ RUN $SRC/ros_from_src/ubuntu_2404/ignore.sh
 RUN touch other/catkin_virtualenv/test_catkin_virtualenv_inherited/CATKIN_IGNORE
 RUN touch other/catkin_virtualenv/test_catkin_virtualenv_isolated/CATKIN_IGNORE
 
-RUN mkdir -p $HOME/other/build/openvdb
-WORKDIR other/build/openvdb
-RUN cmake $WS/other/vdb/openvdb/ -DCMAKE_INSTALL_PREFIX=$DEST
-RUN make -j2  # it's a slow build
-RUN make install
+RUN apt-cache search openvdb
+RUN dpkg -l | grep openvdb
+# RUN mkdir -p $HOME/other/build/openvdb
+# WORKDIR other/build/openvdb
+# RUN cmake $WS/other/vdb/openvdb/ -DCMAKE_INSTALL_PREFIX=$DEST
+# RUN make -j2  # it's a slow build
+# RUN make install
+RUN dpkg -l | grep ros
+# RUN dpkg -l | grep rqt
 
 # ENV ROS_DISTRO="noetic"
 RUN echo $CMAKE_PREFIX_PATH
@@ -108,11 +112,14 @@ RUN catkin config --install --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-depreca
 # RUN catkin build --no-status -j1 fuse_core
 # disabling this because it is too slow to build
 # RUN catkin build --no-status -j1 rtabmap_ros
+RUN apt-get install -yqq libpyside2-dev
+RUN apt-get install -yqq python3-sip-dev
+RUN apt-get install -yqq pyqt5-dev
+RUN catkin build --no-status -j1 rqt
 RUN catkin build --no-status -j1 vdb_mapping*
 RUN catkin build --no-status -j1 jsk_rviz_plugins
 RUN catkin build --no-status -j1 rviz
 RUN catkin build --no-status -j1 plotjuggler
-RUN catkin build --no-status -j1 rqt
 RUN catkin build --no-status -j1 octomap_server
 RUN catkin build --no-status -j1 libuvc_camera
 # RUN catkin build --no-status -j1 fuse_constraints

@@ -27,10 +27,10 @@ repositories:
     type: git
     url: git@github.com:ros/common_msgs.git
     version: noetic-devel
-  extra/geometry:
-    type: git
-    url: git@github.com:ros-o/geometry.git
-    version: obese-devel
+  # extra/geometry:
+  #   type: git
+  #   url: git@github.com:ros-o/geometry.git
+  #   version: obese-devel
   extra/laser_geometry:
     type: git
     url: git@github.com:ros-o/laser_geometry.git
@@ -46,6 +46,10 @@ repositories:
   extra/perception_pcl:
     type: git
     url: git@github.com:ros-o/perception_pcl.git
+    version: obese-devel
+  extra/python_qt_binding:
+    type: git
+    url: git@github.com:ros-o/python_qt_binding.git
     version: obese-devel
   extra/vision_opencv:
     type: git
