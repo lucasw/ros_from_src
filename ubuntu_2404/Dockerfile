@@ -159,6 +159,12 @@ RUN catkin build --no-status -j1 rospack
 RUN catkin build --no-status -j1 libnabo
 RUN catkin build --no-status -j1 rqt*
 RUN catkin build --no-status -j1 jsk*
+RUN apt-get install -yqq vim
+RUN apt-get install -yqq libapriltag-dev
+# there's a bug with libapriltag-dev 3.3.0-2.1build1, could patch but skip for now
+# probably they'll update it soon?
+# RUN catkin build --no-status -j1 apriltag_ros
+RUN touch src/other/apriltag_ros/CATKIN_IGNORE
 RUN catkin build --no-status -j1 rtabmap*
 RUN catkin build --no-status -j1 fuse*
 RUN catkin build --no-status -j1
