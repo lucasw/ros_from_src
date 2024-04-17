@@ -166,7 +166,15 @@ RUN apt-get install -yqq libapriltag-dev
 # RUN catkin build --no-status -j1 apriltag_ros
 RUN touch src/other/apriltag_ros/CATKIN_IGNORE
 RUN catkin build --no-status -j1 rtabmap*
+RUN apt-get update -yqq
+RUN apt-get upgrade -yqq
+RUN dpkg -l | grep ceres
+RUN dpkg -l | grep apriltag
+RUN cd src/other/fuse && ls -l && git fetch && git reset --hard origin/cpp17 && git show
+RUN catkin build --no-status -j1 fuse_viz
 RUN catkin build --no-status -j1 fuse*
+RUN cd src/other/rosmon && git fetch && git reset --hard origin/build_2204 && git show && ls -l
+RUN catkin build --no-status -j1 rosmon*
 RUN catkin build --no-status -j1
 
 # rospack list won't work by itself
