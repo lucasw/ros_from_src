@@ -165,7 +165,8 @@ repositories:
     version: eliminate_build_warnings
   opencv_apps:
     type: git
-    url: git@github.com:ros-perception/opencv_apps.git
+    # url: git@github.com:ros-perception/opencv_apps.git
+    url: git@github.com:muellerbernd/opencv_apps
     version: indigo
   other/PlotJuggler:
     type: git

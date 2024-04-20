@@ -68,6 +68,9 @@ RUN apt-get install -yqq libpyside2-dev
 RUN apt-get install -yqq python3-sip-dev
 RUN apt-get install -yqq pyqt5-dev
 
+RUN apt-get install -yqq libapriltag-dev
+RUN apt-get install -yqq vim
+
 ENV DEST=/opt/ros/base
 RUN mkdir $DEST -p
 ENV SRC=/opt/src
@@ -137,9 +140,8 @@ RUN catkin build --no-status -j1 rqt
 RUN catkin build --no-status -j1 vdb_mapping*
 RUN catkin build --no-status -j1 jsk_rviz_plugins
 RUN catkin build --no-status -j1 rviz
-RUN catkin build --no-status -j1 plotjuggler
+RUN catkin build --no-status -j1 plotjuggler*
 RUN catkin build --no-status -j1 octomap_server
-# RUN catkin build --no-status -j1 fuse_constraints
 RUN catkin build --no-status -j1 people_tracking_filter
 RUN catkin build --no-status -j1 laser_assembler
 RUN catkin build --no-status -j1 catkin_virtualenv
@@ -159,22 +161,20 @@ RUN catkin build --no-status -j1 rospack
 RUN catkin build --no-status -j1 libnabo
 RUN catkin build --no-status -j1 rqt*
 RUN catkin build --no-status -j1 jsk*
-RUN apt-get install -yqq vim
-RUN apt-get install -yqq libapriltag-dev
 # there's a bug with libapriltag-dev 3.3.0-2.1build1, could patch but skip for now
 # probably they'll update it soon?
 # RUN catkin build --no-status -j1 apriltag_ros
 RUN touch src/other/apriltag_ros/CATKIN_IGNORE
 RUN catkin build --no-status -j1 rtabmap*
-RUN apt-get update -yqq
-RUN apt-get upgrade -yqq
-RUN dpkg -l | grep ceres
-RUN dpkg -l | grep apriltag
-RUN cd src/other/fuse && ls -l && git fetch && git reset --hard origin/cpp17 && git show
 RUN catkin build --no-status -j1 fuse_viz
 RUN catkin build --no-status -j1 fuse*
-RUN cd src/other/rosmon && git fetch && git reset --hard origin/build_2204 && git show && ls -l
 RUN catkin build --no-status -j1 rosmon*
+RUN catkin build --no-status -j1 grid_map*
+RUN catkin build --no-status -j1 rviz*
+RUN catkin build --no-status -j1 octomap*
+RUN catkin build --no-status -j1 opencv_apps
+RUN catkin build --no-status -j1 aruco*
+RUN catkin build --no-status -j1 vimjay
 RUN catkin build --no-status -j1
 
 # rospack list won't work by itself
