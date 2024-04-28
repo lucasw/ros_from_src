@@ -40,7 +40,7 @@ RUN ls -l
 RUN python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
 
 WORKDIR $SRC
-RUN git clone https://github.com/lucasw/catkin_tools.git --branch sanitize_cmake_prefix_path
+RUN git clone https://github.com/catkin/catkin_tools.git
 WORKDIR $SRC/catkin_tools
 RUN python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
 
