@@ -411,7 +411,7 @@ repositories:
   other/wu_ros_tools:
     type: git
     url: git@github.com:lucasw/wu_ros_tools
-    version: kinetic
+    version: noetic
   ros/async_web_server_cpp:
     type: git
     url: git@github.com:lucasw/async_web_server_cpp.git
