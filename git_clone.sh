@@ -19,11 +19,11 @@ git clone https://github.com/ros/rospack
 git clone https://github.com/ros/genmsg
 
 # ros packages, regular catkin build only for these
-git clone https://github.com/ros/ros_comm
-git clone https://github.com/ros/roscpp_core
+git clone https://github.com/ros-o/ros_comm
+git clone https://github.com/ros-o/roscpp_core
 git clone https://github.com/ros/ros_comm_msgs
 git clone https://github.com/ros/message_generation
-git clone https://github.com/ros/gencpp
+git clone https://github.com/ros-o/gencpp
 git clone https://github.com/jsk-ros-pkg/geneus
 git clone https://github.com/RethinkRobotics-opensource/gennodejs
 git clone https://github.com/ros/genlisp

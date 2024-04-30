@@ -24,7 +24,8 @@ python --version | awk  '{print $2}' | cut -d'.' -f1
 # TODO(lucasw) these aren't working
 PYTHON_MAJOR_VERSION=`python --version | awk  '{print $2}' | cut -d'.' -f1`
 PYTHON_MINOR_VERSION=`python --version | awk  '{print $2}' | cut -d'.' -f2`
-OPT_PYTHONPATH=$DEST/lib/python$PYTHON_MAJOR_VERSION.$PYTHON_MINOR_VERSION/site-packages/
+OPT_PYTHONPATH=$DEST/local/lib/python$PYTHON_MAJOR_VERSION.$PYTHON_MINOR_VERSION/dist-packages/
+mkdir -p $OPT_PYTHONPATH
 echo $PYTHONPATH
 export PYTHONPATH=$PYTHONPATH:$OPT_PYTHONPATH
 echo PYTHONPATH=\$PYTHONPATH:$OPT_PYTHONPATH
@@ -33,7 +34,7 @@ echo PYTHONPATH=\$PYTHONPATH:$OPT_PYTHONPATH
 cd $SRC/catkin_pkg
 python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
 ls -l $OPT_PYTHONPATH
-ls -l $OPT_PYTHONPATH/catkin_pkg
+ls -l $OPT_PYTHONPATH/catkin_pkg*
 # python -c "import sys; print(sys.path)"
 python -c "import catkin_pkg; print(catkin_pkg.__version__)"
 python -c "from catkin_pkg.package import parse_package"
@@ -55,6 +56,7 @@ cmake $WS/catkin -DCATKIN_BUILD_BINARY_PACKAGE=ON -DCMAKE_INSTALL_PREFIX=$DEST -
 python -c "import catkin; print(catkin)"
 ls -l $DEST/bin
 PATH=$PATH:$DEST/bin
+PATH=$PATH:$DEST/local/bin
 
 # console_bridge
 mkdir -p $BUILD/console_bridge
@@ -144,7 +146,7 @@ rosdep update
 cd $WS/..
 catkin init
 source $DEST/setup.bash
-catkin config
+catkin config --install --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated -DCATKIN_ENABLE_TESTING=False
 rospack list
 
 # rosdep install --from-paths src --ignore-src -r -s  # do a dry-run first
@@ -154,7 +156,7 @@ echo $CMAKE_PREFIX_PATH
 # TODO(lucasw) put this in WS to begin with
 # TODO(lucasw) was this needed?  Need a bunch of CATKIN_IGNOREs in every package/test dir to make it build
 # ln -s $SRC/ros $WS/ros
-catkin build --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
+catkin build
 source devel/setup.bash
 rospack list
 # TODO(lucasw) run tests
