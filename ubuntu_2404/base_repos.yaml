@@ -358,8 +358,8 @@ repositories:
     version: main
   other/rosboard:
     type: git
-    url: git@github.com:dheera/rosboard.git
-    version: main
+    url: git@github.com:lucasw/rosboard.git
+    version: patch-1
   other/rosfmt:
     type: git
     url: git@github.com:lucasw/rosfmt
