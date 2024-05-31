@@ -512,6 +512,10 @@ repositories:
     type: git
     url: git@github.com:ros-drivers/nmea_msgs
     version: master
+  ros/nodelet_core:
+    type: git
+    url: git@github.com:lucasw/nodelet_core.git
+    version: throttle_looping_time
   ros/octomap_msgs:
     type: git
     url: git@github.com:OctoMap/octomap_msgs.git
