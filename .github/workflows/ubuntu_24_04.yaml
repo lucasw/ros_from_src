@@ -1,4 +1,4 @@
-name: Ubuntu 20.04 Noetic ROS build from source
+name: Ubuntu 24.04 Noetic ROS build from source in docker
 
 on:
   push:
@@ -19,3 +19,6 @@ jobs:
         run: |
           cd ros_from_src
           docker build --build-arg IMAGE=ubuntu:24.04 --build-arg PYTHON_MINOR_VERSION=10 . -t ros2404
+
+          # TODO(lucasw) ubuntu_2404/Dockerfile doesn't work, was depending on the now-removed
+          # apt debian science ros packages
