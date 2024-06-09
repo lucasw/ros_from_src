@@ -24,17 +24,22 @@ python --version | awk  '{print $2}' | cut -d'.' -f1
 # TODO(lucasw) these aren't working
 PYTHON_MAJOR_VERSION=`python --version | awk  '{print $2}' | cut -d'.' -f1`
 PYTHON_MINOR_VERSION=`python --version | awk  '{print $2}' | cut -d'.' -f2`
-OPT_PYTHONPATH=$DEST/local/lib/python$PYTHON_MAJOR_VERSION.$PYTHON_MINOR_VERSION/dist-packages/
-mkdir -p $OPT_PYTHONPATH
-echo $PYTHONPATH
-export PYTHONPATH=$PYTHONPATH:$OPT_PYTHONPATH
-echo PYTHONPATH=\$PYTHONPATH:$OPT_PYTHONPATH
+# ubuntu 20.04?
+OPT_PYTHONPATH0=$DEST/lib/python$PYTHON_MAJOR_VERSION.$PYTHON_MINOR_VERSION/site-packages/
+mkdir -p $OPT_PYTHONPATH0
+echo $PYTHONPATH0
+# ubuntu 24.04 and 22.04?
+OPT_PYTHONPATH1=$DEST/local/lib/python$PYTHON_MAJOR_VERSION.$PYTHON_MINOR_VERSION/dist-packages/
+mkdir -p $OPT_PYTHONPATH1
+echo $PYTHONPATH1
+export PYTHONPATH=$PYTHONPATH:$OPT_PYTHONPATH0:$OPT_PYTHONPATH1
+echo PYTHONPATH=$PYTHONPATH:$OPT_PYTHONPATH0:$OPT_PYTHONPATH1
 
 # catkin_pkg
 cd $SRC/catkin_pkg
 python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
-ls -l $OPT_PYTHONPATH
-ls -l $OPT_PYTHONPATH/catkin_pkg*
+ls -l $OPT_PYTHONPATH0 || ls -l $OPT_PYTHONPATH1
+ls -l $OPT_PYTHONPATH0/catkin_pkg* || ls -l $OPT_PYTHONPATH1/catkin_pkg*
 # python -c "import sys; print(sys.path)"
 python -c "import catkin_pkg; print(catkin_pkg.__version__)"
 python -c "from catkin_pkg.package import parse_package"
