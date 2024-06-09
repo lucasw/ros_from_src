@@ -7,7 +7,9 @@ touch ./clearpath/moose_simulator/CATKIN_IGNORE
 touch ./clearpath/warthog_simulator/CATKIN_IGNORE
 touch ./greenzie/boustrophedon_planner/CATKIN_IGNORE
 touch ./other/anybotics/elevation_mapping/CATKIN_IGNORE
+touch ./other/apriltag_ros/CATKIN_IGNORE  # libapriltag-dev lib/lib cmake issue
 touch ./other/catkin_virtualenv/test_catkin_virtualenv/CATKIN_IGNORE
+touch ./other/catkin_virtualenv/test_catkin_virtualenv_inherited/CATKIN_IGNORE
 # touch ./other/catkin_virtualenv/test_catkin_virtualenv_python2/CATKIN_IGNORE
 touch ./other/depthai-ros-examples/CATKIN_IGNORE
 touch ./other/ffmpeg_image_transport/CATKIN_IGNORE
