@@ -403,7 +403,7 @@ repositories:
   other/vdb/vdb_mapping:
     type: git
     url: git@github.com:lucasw/vdb_mapping
-    version: min_range
+    version: ubuntu_2404
   other/vdb/vdb_mapping_ros:
     type: git
     url: git@github.com:lucasw/vdb_mapping_ros
