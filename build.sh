@@ -32,8 +32,10 @@ echo $PYTHONPATH0
 OPT_PYTHONPATH1=$DEST/local/lib/python$PYTHON_MAJOR_VERSION.$PYTHON_MINOR_VERSION/dist-packages/
 mkdir -p $OPT_PYTHONPATH1
 echo $PYTHONPATH1
-export PYTHONPATH=$PYTHONPATH:$OPT_PYTHONPATH0:$OPT_PYTHONPATH1
-echo PYTHONPATH=$PYTHONPATH:$OPT_PYTHONPATH0:$OPT_PYTHONPATH1
+
+ROS_DEST=$DEST source $WS/../env.sh
+
+# export PYTHONPATH=$PYTHONPATH:$OPT_PYTHONPATH0:$OPT_PYTHONPATH1
 
 # catkin_pkg
 cd $WS/catkin_pkg
@@ -43,7 +45,6 @@ ls -l $OPT_PYTHONPATH0/catkin_pkg* || ls -l $OPT_PYTHONPATH1/catkin_pkg*
 # python -c "import sys; print(sys.path)"
 python -c "import catkin_pkg; print(catkin_pkg.__version__)"
 python -c "from catkin_pkg.package import parse_package"
-
 
 # osrf pycommon
 cd $WS/osrf_pycommon
@@ -107,6 +108,8 @@ cd $BUILD/rospack
 cmake $WS/rospack -DCATKIN_BUILD_BINARY_PACKAGE=ON -DCMAKE_INSTALL_PREFIX=$DEST -DPYTHON_EXECUTABLE=/usr/bin/python -DSETUPTOOLS_DEB_LAYOUT=OFF -Dcmake_modules_DIR=$DEST/share/cmake_modules/cmake/
 make
 make install
+ls -l $DEST/lib
+rospack help
 
 # genmsg
 mkdir -p $BUILD/genmsg
@@ -147,6 +150,9 @@ cd $WS/rosdep
 python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
 rosdep init || true
 rosdep update
+
+touch $WS/rosdep/test/CATKIN_IGNORE
+touch $WS/catkin_pkg/test/CATKIN_IGNORE
 
 # TODO(lucasw) already have a copy of this but needs to be in the workspace
 # find / | grep setup.bash

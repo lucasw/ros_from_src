@@ -1,6 +1,10 @@
 #!/bin/bash
+set -e
+set -x
 
-source env.sh
+ls -l
+ls -l ros/bin
+ROS_DEST=`pwd`/ros source underlay_ws/env.sh
 
 WS=`pwd`/underlay_ws/src
 echo $WS
@@ -10,6 +14,8 @@ echo "#####################"
 pwd
 catkin init
 catkin config --install --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated -DCATKIN_ENABLE_TESTING=False
+echo $PATH
+echo $LD_LIBRARY_PATH
 rospack list
 
 catkin build

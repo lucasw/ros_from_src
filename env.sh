@@ -1,7 +1,8 @@
 #!/usr/bin/bash
-# source ros_from_src/env.sh
-export ROS_DEST=`pwd`/ros
-# export PATH=$PATH:$ROS_DEST/bin
+# ROS_DEST=`pwd`/ros source ros_from_src/env.sh
+# export ROS_DEST=`pwd`/ros
+export PATH=$PATH:$ROS_DEST/bin
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ROS_DEST/lib
 # export PATH=$PATH:$ROS_DEST/local/bin
 
 # python --version | awk  '{print $2}' | cut -d'.' -f1

@@ -32,10 +32,10 @@ COPY git_clone.sh $SRC/ros_from_src
 # RUN ROS_CONSOLE=$ROSCONSOLE $SRC/ros_from_src/git_clone.sh
 RUN $SRC/ros_from_src/git_clone.sh
 
+COPY env.sh underlay_ws
 COPY build.sh $SRC/ros_from_src
 RUN $SRC/ros_from_src/build.sh
 
-COPY env.sh $SRC/ros_from_src
 COPY catkin.sh $SRC/ros_from_src
 RUN $SRC/ros_from_src/catkin.sh
 
