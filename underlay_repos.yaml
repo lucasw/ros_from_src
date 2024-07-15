@@ -23,6 +23,10 @@ repositories:
     type: git
     url: https://github.com/ros/cmake_modules
     version: 0.5-devel
+  common_msgs:
+    type: git
+    url: git@github.com:ros/common_msgs.git
+    version: noetic-devel
   console_bridge:
     type: git
     url: https://github.com/ros/console_bridge
@@ -55,9 +59,9 @@ repositories:
     type: git
     url: git@github.com:ros-o/geometry.git
     version: obese-devel
-  common_msgs:
+  geometry2:
     type: git
-    url: git@github.com:ros/common_msgs.git
+    url: git@github.com:lucasw/geometry2
     version: noetic-devel
   kdl_parser:
     type: git

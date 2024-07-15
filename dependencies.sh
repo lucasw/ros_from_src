@@ -43,4 +43,5 @@ apt-get install -y python3-gnupg
 # apt-get install -y python3-rosunit
 
 apt-get install -y catkin-tools
-apt-get install -y vcstool
+apt-get install -y libbullet-dev
+apt-get install -y vcstool || true  # this is in 24.04 but not 20.04
