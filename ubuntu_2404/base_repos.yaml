@@ -23,10 +23,10 @@ repositories:
     type: git
     url: git@github.com:warthog-cpr/warthog_simulator.git
     version: melodic-devel
-  extra/common_msgs:
-    type: git
-    url: git@github.com:ros/common_msgs.git
-    version: noetic-devel
+  # extra/common_msgs:  # in underlay_ws
+  #   type: git
+  #   url: git@github.com:ros/common_msgs.git
+  #   version: noetic-devel
   # extra/geometry:
   #   type: git
   #   url: git@github.com:ros-o/geometry.git
@@ -236,10 +236,10 @@ repositories:
     type: git
     url: git@github.com:lucasw/fuse
     version: cpp17
-  other/geneus:
-    type: git
-    url: git@github.com:jsk-ros-pkg/geneus.git
-    version: master
+  # other/geneus:  # in underlay_ws
+  #   type: git
+  #   url: git@github.com:jsk-ros-pkg/geneus.git
+  #   version: master
   other/graph_rviz_plugin:
     type: git
     url: git@github.com:lucasw/graph_rviz_plugin
@@ -464,10 +464,10 @@ repositories:
     type: git
     url: git@github.com:ros-geographic-info/geographic_info.git
     version: master
-  ros/geometry2:
-    type: git
-    url: git@github.com:lucasw/geometry2
-    version: noetic_aggregated
+  # ros/geometry2:  # in underlay_ws
+  #   type: git
+  #   url: git@github.com:lucasw/geometry2
+  #   version: noetic_aggregated
   ros/grid_map:
     type: git
     url: git@github.com:lucasw/grid_map
@@ -532,7 +532,7 @@ repositories:
     type: git
     url: git@github.com:lucasw/robot_state_publisher
     version: robot_state_function
-  ros/ros_comm:
+  ros/ros_comm:  # custom overlay with logging mods
     type: git
     url: git@github.com:lucasw/ros_comm
     version: salsa_noetic_aggregated
@@ -548,11 +548,11 @@ repositories:
     type: git
     url: git@github.com:lucasw/ros_tutorials.git
     version: boost_placeholders
-  ros/rosconsole:
+  ros/rosconsole:  # lucasw logging mods
     type: git
     url: git@github.com:lucasw/rosconsole
     version: ubuntu_2210
-  ros/roscpp_core:
+  ros/roscpp_core:  # lucasw fixes
     type: git
     url: git@github.com:lucasw/roscpp_core
     version: duration_out_of_dual_range
@@ -560,7 +560,7 @@ repositories:
     type: git
     url: git@github.com:lucasw/roslint
     version: roslint_rust
-  ros/rospack:
+  ros/rospack:  # debian patches
     type: git
     url: git@github.com:lucasw/rospack
     version: salsa
