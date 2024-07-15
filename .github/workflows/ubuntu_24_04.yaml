@@ -6,7 +6,7 @@ on:
 
 jobs:
   ubuntu2404dockeron2204:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     # env:
     steps:
       - name: git clone git@github.com:lucasw/ros_from_src
@@ -18,7 +18,7 @@ jobs:
       - name: docker build from source 24.04
         run: |
           cd ros_from_src
-          docker build --build-arg IMAGE=ubuntu:24.04 --build-arg PYTHON_MINOR_VERSION=10 . -t ros2404
+          docker build --build-arg IMAGE=ubuntu:24.04 . -t ros2404
 
           # TODO(lucasw) ubuntu_2404/Dockerfile doesn't work, was depending on the now-removed
           # apt debian science ros packages

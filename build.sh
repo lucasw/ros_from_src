@@ -14,6 +14,10 @@ mkdir -p $BUILD
 
 DEST=`pwd`/ros
 
+WS=`pwd`/underlay_ws/src
+echo $WS
+mkdir $WS -p
+
 # python installs
 
 python --version | awk  '{print $2}' | cut -d'.' -f1
@@ -32,7 +36,7 @@ export PYTHONPATH=$PYTHONPATH:$OPT_PYTHONPATH0:$OPT_PYTHONPATH1
 echo PYTHONPATH=$PYTHONPATH:$OPT_PYTHONPATH0:$OPT_PYTHONPATH1
 
 # catkin_pkg
-cd $SRC/catkin_pkg
+cd $WS/catkin_pkg
 python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
 ls -l $OPT_PYTHONPATH0 || ls -l $OPT_PYTHONPATH1
 ls -l $OPT_PYTHONPATH0/catkin_pkg* || ls -l $OPT_PYTHONPATH1/catkin_pkg*
@@ -42,22 +46,25 @@ python -c "from catkin_pkg.package import parse_package"
 
 
 # osrf pycommon
-cd $SRC/osrf_pycommon
+cd $WS/osrf_pycommon
 # TODO(lucasw) install to $DEST
 python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
 
 # catkin tools
-cd $SRC/catkin_tools
+cd $WS/catkin_tools
 python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
 
 # catkin install
 mkdir -p $BUILD/catkin
 cd $BUILD/catkin
 cmake $WS/catkin -DCATKIN_BUILD_BINARY_PACKAGE=ON -DCMAKE_INSTALL_PREFIX=$DEST -DPYTHON_EXECUTABLE=/usr/bin/python -DSETUPTOOLS_DEB_LAYOUT=OFF -DCATKIN_INSTALL_INTO_PREFIX_ROOT=true && make && make install
-python -c "import catkin; print(catkin)"
-ls -l $DEST/bin
+ls -l $DEST/local/bin
 PATH=$PATH:$DEST/bin
 PATH=$PATH:$DEST/local/bin
+which catkin
+catkin --version
+echo $PYTHONPATH
+python -c "import catkin; print(catkin)"
 
 # console_bridge
 mkdir -p $BUILD/console_bridge
@@ -90,7 +97,7 @@ make install
 mkdir -p $BUILD/ros_environment
 pwd
 cd $BUILD/ros_environment
-cmake $SRC/ros_environment -DCATKIN_BUILD_BINARY_PACKAGE=ON -DCMAKE_INSTALL_PREFIX=$DEST -DPYTHON_EXECUTABLE=/usr/bin/python -DSETUPTOOLS_DEB_LAYOUT=OFF
+cmake $WS/ros_environment -DCATKIN_BUILD_BINARY_PACKAGE=ON -DCMAKE_INSTALL_PREFIX=$DEST -DPYTHON_EXECUTABLE=/usr/bin/python -DSETUPTOOLS_DEB_LAYOUT=OFF
 make
 make install
 
@@ -130,13 +137,13 @@ make
 make install
 
 # rospkg
-cd $SRC/rospkg
+cd $WS/rospkg
 python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
 
-cd $SRC/rosdistro
+cd $WS/rosdistro
 python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
 
-cd $SRC/rosdep
+cd $WS/rosdep
 python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
 rosdep init || true
 rosdep update
@@ -144,5 +151,3 @@ rosdep update
 # TODO(lucasw) already have a copy of this but needs to be in the workspace
 # find / | grep setup.bash
 # find / | grep catkin-config.cmake
-
-
