@@ -18,6 +18,7 @@ apt-get install -y libgtest-dev
 apt-get install -y liblog4cxx-dev
 apt-get install -y liblz4-dev lz4
 apt-get install -y libpoco-dev
+apt-get install -y libtinyxml-dev
 apt-get install -y libtinyxml2-dev
 apt-get install -y mawk
 apt-get install -y python-is-python3
@@ -40,3 +41,6 @@ apt-get install -y python3-gnupg
 
 # TODO(lucasw) get this from source later
 # apt-get install -y python3-rosunit
+
+apt-get install -y catkin-tools
+apt-get install -y vcstool

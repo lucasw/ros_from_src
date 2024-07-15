@@ -1,0 +1,117 @@
+repositories:
+  actionlib:
+    type: git
+    url: git@github.com:ros/actionlib.git
+    version: noetic-devel
+  angles:
+    type: git
+    url: git@github.com:ros/angles.git
+    version: master
+  bond_core:
+    type: git
+    url: git@github.com:ros-o/bond_core.git
+    version: obese-devel
+  catkin:
+    type: git
+    url: https://github.com/ros/catkin
+    version: noetic-devel
+  class_loader:
+    type: git
+    url: https://github.com/ros-o/class_loader
+    version: obese-devel
+  cmake_modules:
+    type: git
+    url: https://github.com/ros/cmake_modules
+    version: 0.5-devel
+  console_bridge:
+    type: git
+    url: https://github.com/ros/console_bridge
+    version: master
+  gencpp:
+    type: git
+    url: https://github.com/ros-o/gencpp
+    version: obese-devel
+  geneus:
+    type: git
+    url: https://github.com/jsk-ros-pkg/geneus
+    version: master
+  genlisp:
+    type: git
+    url: https://github.com/ros/genlisp
+    version: kinetic-devel
+  genmsg:
+    type: git
+    url: https://github.com/ros/genmsg
+    version: kinetic-devel
+  gennodejs:
+    type: git
+    url: https://github.com/RethinkRobotics-opensource/gennodejs
+    version: kinetic-devel
+  genpy:
+    type: git
+    url: https://github.com/ros/genpy
+    version: main
+  geometry:
+    type: git
+    url: git@github.com:ros-o/geometry.git
+    version: obese-devel
+  common_msgs:
+    type: git
+    url: git@github.com:ros/common_msgs.git
+    version: noetic-devel
+  kdl_parser:
+    type: git
+    url: git@github.com:ros/kdl_parser.git
+    version: noetic-devel
+  message_generation:
+    type: git
+    url: https://github.com/ros/message_generation
+    version: kinetic-devel
+  message_runtime:
+    type: git
+    url: https://github.com/ros/message_runtime
+    version: kinetic-devel
+  pluginlib:
+    type: git
+    url: https://github.com/ros-o/pluginlib
+    version: obese-devel
+  resource_retriever:
+    type: git
+    url: git@github.com:ros/resource_retriever.git
+    version: kinetic-devel
+  ros:
+    type: git
+    url: https://github.com/ros/ros
+    version: noetic-devel
+  ros_comm:
+    type: git
+    url: https://github.com/ros-o/ros_comm
+    version: obese-devel
+  ros_comm_msgs:
+    type: git
+    url: https://github.com/ros/ros_comm_msgs
+    version: kinetic-devel
+  rosconsole:
+    type: git
+    url: https://github.com/ros-o/rosconsole
+    version: obese-devel
+  rosconsole_bridge:
+    type: git
+    url: git@github.com:ros/rosconsole_bridge.git
+    version: kinetic-devel
+  roscpp_core:
+    type: git
+    url: https://github.com/ros-o/roscpp_core
+    version: obese-devel
+  rospack:
+    type: git
+    url: https://github.com/ros/rospack
+    version: noetic-devel
+  std_msgs:
+    type: git
+    url: https://github.com/ros/std_msgs
+    version: kinetic-devel
+  urdf:
+    type: git
+    url: git@github.com:ros/urdf.git
+    version: melodic-devel

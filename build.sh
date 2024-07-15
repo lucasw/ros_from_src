@@ -12,10 +12,6 @@ BUILD=`pwd`/build
 echo $BUILD
 mkdir -p $BUILD
 
-WS=`pwd`/catkin_ws/src
-echo $WS
-mkdir -p $WS || true
-
 DEST=`pwd`/ros
 
 # python installs
@@ -148,20 +144,5 @@ rosdep update
 # TODO(lucasw) already have a copy of this but needs to be in the workspace
 # find / | grep setup.bash
 # find / | grep catkin-config.cmake
-cd $WS/..
-catkin init
-source $DEST/setup.bash
-catkin config --install --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated -DCATKIN_ENABLE_TESTING=False
-rospack list
 
-# rosdep install --from-paths src --ignore-src -r -s  # do a dry-run first
-# rosdep install --from-paths src --ignore-src -r -y
-CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$DEST:$DEST/lib/cmake
-echo $CMAKE_PREFIX_PATH
-# TODO(lucasw) put this in WS to begin with
-# TODO(lucasw) was this needed?  Need a bunch of CATKIN_IGNOREs in every package/test dir to make it build
-# ln -s $SRC/ros $WS/ros
-catkin build
-source devel/setup.bash
-rospack list
-# TODO(lucasw) run tests
+
