@@ -59,7 +59,7 @@ repositories:
     type: git
     url: git@github.com:ros-o/geometry.git
     version: obese-devel
-  geometry2:
+  geometry2:  # TODO(lucasw) use ros-o
     type: git
     url: git@github.com:lucasw/geometry2
     version: noetic-devel
