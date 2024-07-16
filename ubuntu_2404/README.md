@@ -15,6 +15,12 @@ libvtk9-dev
 sip-dev
 ```
 
+```
+apt-get install
+libassimp-dev
+libogre-1.12-dev
+```
+
 Some packages (like jsk_recognition_msgs) expect ROS_DISTRO to exist, so:
 
 ```
