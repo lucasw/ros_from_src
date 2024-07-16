@@ -151,8 +151,13 @@ python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-v
 rosdep init || true
 rosdep update
 
+# TODO(lucasw) wouldn't need to ignore most of these if the non-catkin packages
+# that have catkin test packages in them were cloned separately
 touch $WS/rosdep/test/CATKIN_IGNORE
 touch $WS/catkin_pkg/test/CATKIN_IGNORE
+touch $WS/catkin_tools/docs/examples/CATKIN_IGNORE
+touch $WS/catkin_tools/tests/CATKIN_IGNORE
+touch $WS/rospkg/test/CATKIN_IGNORE
 
 # TODO(lucasw) already have a copy of this but needs to be in the workspace
 # find / | grep setup.bash
