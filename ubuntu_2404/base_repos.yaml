@@ -484,6 +484,10 @@ repositories:
     type: git
     url: git@github.com:lucasw/image_transport_plugins
     version: enable_pub
+  ros/interactive_markers:
+    type: git
+    url: git@github.com:ros-visualization/interactive_markers.git
+    version: noetic-devel
   ros/joint_state_publisher:
     type: git
     url: git@github.com:lucasw/joint_state_publisher
@@ -556,10 +560,6 @@ repositories:
     type: git
     url: git@github.com:lucasw/roscpp_core
     version: duration_out_of_dual_range
-  ros/roslint:
-    type: git
-    url: git@github.com:lucasw/roslint
-    version: roslint_rust
   ros/rospack:  # debian patches
     type: git
     url: git@github.com:lucasw/rospack
