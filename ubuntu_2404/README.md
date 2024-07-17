@@ -21,6 +21,15 @@ libassimp-dev
 libogre-1.12-dev
 ```
 
+```
+python3-opencv
+python3-pykdl
+```
+
+```
+pip install cmake
+```
+
 Some packages (like jsk_recognition_msgs) expect ROS_DISTRO to exist, so:
 
 ```
