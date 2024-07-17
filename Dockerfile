@@ -39,5 +39,18 @@ RUN $SRC/ros_from_src/build.sh
 COPY catkin.sh $SRC/ros_from_src
 RUN $SRC/ros_from_src/catkin.sh
 
+# WORKDIR $SRC/ros_from_src
+RUN mkdir -p base_ws/src
+COPY ubuntu_2404/base_repos.yaml base_ws/src
+COPY ubuntu_2404/base_git_clone.sh $SRC/ros_from_src
+# RUN ROS_CONSOLE=$ROSCONSOLE $SRC/ros_from_src/git_clone.sh
+RUN $SRC/ros_from_src/base_git_clone.sh
+
+COPY ubuntu_2404/dependencies.sh $SRC/ros_from_src/base_dependencies.sh
+RUN $SRC/ros_from_src/base_dependencies.sh
+
+COPY ubuntu_2404/base_catkin.sh $SRC/ros_from_src
+RUN $SRC/ros_from_src/base_catkin.sh
+
 WORKDIR $WS/..
 # TODO(lucasw) run tests

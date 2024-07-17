@@ -55,6 +55,34 @@ repositories:
     type: git
     url: https://github.com/lucasw/ros_system_monitor
     version: chrony_monitor
+  lucasw/rqt_file_dialog:
+    type: git
+    url: https://github.com/lucasw/rqt_file_dialog
+    version: master
+  lucasw/rqt_tf_echo:
+    type: git
+    url: https://github.com/lucasw/rqt_tf_echo
+    version: master
+  lucasw/rqt_topic_display:
+    type: git
+    url: https://github.com/lucasw/rqt_topic_display
+    version: master
+  lucasw/rviz_camera_stream:
+    type: git
+    url: https://github.com/lucasw/rviz_camera_stream
+    version: noetic-devel
+  lucasw/rviz_interactive_tf:
+    type: git
+    url: https://github.com/lucasw/rviz_interactive_tf
+    version: master
+  lucasw/rviz_lighting:
+    type: git
+    url: https://github.com/lucasw/rviz_lighting
+    version: cpp17
+  lucasw/rviz_ortho_view_controller:
+    type: git
+    url: https://github.com/lucasw/rviz_ortho_view_controller
+    version: master
   lucasw/screengrab_ros:
     type: git
     url: https://github.com/lucasw/screengrab_ros
@@ -124,6 +152,10 @@ repositories:
   #   type: git
   #   url: https://github.com/jsk-ros-pkg/geneus
   #   version: master
+  other/graph_rviz_plugin:
+    type: git
+    url: https://github.com/lucasw/graph_rviz_plugin
+    version: pluginlib_hpp
   other/jsk_common:
     type: git
     url: https://github.com/lucasw/jsk_common
@@ -140,6 +172,10 @@ repositories:
     type: git
     url: https://github.com/jsk-ros-pkg/jsk_roseus
     version: master
+  other/jsk_visualization:
+    type: git
+    url: https://github.com/lucasw/jsk_visualization
+    version: boost_placeholders
   other/libnabo:
     type: git
     url: https://github.com/ethz-asl/libnabo
@@ -204,6 +240,10 @@ repositories:
     type: git
     url: https://github.com/ros/rosbag_snapshot
     version: main
+  other/rqt_ez_publisher:
+    type: git
+    url: https://github.com/lucasw/rqt_ez_publisher
+    version: ubuntu2210
   other/static_transform_mux:
     type: git
     url: https://github.com/tradr-project/static_transform_mux
@@ -276,6 +316,10 @@ repositories:
     type: git
     url: https://github.com/lucasw/image_transport_plugins
     version: enable_pub
+  ros/interactive_markers:
+    type: git
+    url: https://github.com/ros-visualization/interactive_markers
+    version: noetic-devel
   ros/joint_state_publisher:
     type: git
     url: https://github.com/lucasw/joint_state_publisher
@@ -352,6 +396,46 @@ repositories:
     type: git
     url: https://github.com/lucasw/rqt
     version: ubuntu_2210
+  ros/rqt_bag:
+    type: git
+    url: https://github.com/lucasw/rqt_bag
+    version: build_2204
+  ros/rqt_console:
+    type: git
+    url: https://github.com/ros-visualization/rqt_console
+    version: master
+  ros/rqt_graph:
+    type: git
+    url: https://github.com/ros-visualization/rqt_graph
+    version: master
+  ros/rqt_logger_level:
+    type: git
+    url: https://github.com/ros-visualization/rqt_logger_level
+    version: master
+  ros/rqt_plot:
+    type: git
+    url: https://github.com/ros-visualization/rqt_plot
+    version: master
+  ros/rqt_reconfigure:
+    type: git
+    url: https://github.com/ros-visualization/rqt_reconfigure
+    version: master
+  ros/rqt_robot_monitor:
+    type: git
+    url: https://github.com/ros-visualization/rqt_robot_monitor
+    version: ros1
+  ros/rqt_robot_steering:
+    type: git
+    url: https://github.com/lucasw/rqt_robot_steering
+    version: python310
+  ros/rqt_tf_tree:
+    type: git
+    url: https://github.com/ros-visualization/rqt_tf_tree
+    version: master
+  ros/rviz:
+    type: git
+    url: https://github.com/lucasw/rviz
+    version: misc_fixes
   ros/teleop_twist_joy:
     type: git
     url: https://github.com/lucasw/teleop_twist_joy
@@ -370,11 +454,11 @@ repositories:
     version: melodic-devel
   ros/unique_identifier:
     type: git
-    url: https://github.com/ros-geographic-info/unique_identifier
+    url: https://ros-geographic-info/unique_identifier
     version: master
   ros/urdf_geometry_parser:
     type: git
-    url: https://github.com/ros-controls/urdf_geometry_parser
+    url: https://ros-controls/urdf_geometry_parser
     version: kinetic-devel
   ros/urdf_parser_py:
     type: git
@@ -416,3 +500,7 @@ repositories:
     type: git
     url: https://github.com/lucasw/rosparam_shortcuts
     version: cleanup_lint
+  roso/rqt_image_view:
+    type: git
+    url: https://github.com/lucasw/rqt_image_view
+    version: detection2d_image_view
