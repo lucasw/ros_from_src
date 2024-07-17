@@ -25,7 +25,6 @@ touch ./other/jsk_recognition/sound_classification/CATKIN_IGNORE
 touch ./other/jsk_roseus/CATKIN_IGNORE
 touch ./other/jsk_roseus/roseus_msgs/CATKIN_IGNORE
 touch ./other/euslisp-release/CATKIN_IGNORE
-touch ./other/geneus/CATKIN_IGNORE
 # touch ./other/mesh_tools/mesh_msgs_hdf5/CATKIN_IGNORE
 # touch ./other/mesh_tools/hdf5_map_io/CATKIN_IGNORE
 # touch ./other/mesh_tools/rviz_map_plugin/CATKIN_IGNORE
