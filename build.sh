@@ -74,6 +74,7 @@ cd $BUILD/console_bridge
 cmake $WS/console_bridge -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$DEST -DCMAKE_INSTALL_LIBDIR=lib
 make
 make install
+echo "console bridge"
 
 # cmake_modules
 cd $WS
