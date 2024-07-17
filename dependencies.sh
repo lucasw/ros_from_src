@@ -32,6 +32,7 @@ apt-get install -y python3-dev
 apt-get install -y python3-docutils
 apt-get install -y python3-empy
 apt-get install -y python3-pyparsing
+apt-get install -y python3-rospkg
 apt-get install -y python3-setuptools
 apt-get install -y python3-yaml
 
