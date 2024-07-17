@@ -14,7 +14,7 @@ mkdir $WS -p
 # TODO(lucasw) replace these git clones with vcs
 # packages that need to be cmake installed, and are ros packages in a catkin workspace
 cd $WS
-vcs import --input underlay_repos.yaml --retry 5
+vcs import --input underlay_repos.yaml --retry 10
 
 # ROSCONSOLE1=${ROSCONSOLE:-https://github.com/ros-o/rosconsole}
 # git clone $ROSCONSOLE1
