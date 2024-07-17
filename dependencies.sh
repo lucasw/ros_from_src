@@ -22,6 +22,7 @@ apt-get install -y liborocos-kdl-dev
 apt-get install -y libpoco-dev
 apt-get install -y libtinyxml-dev
 apt-get install -y libtinyxml2-dev
+apt-get install -y liburdfdom-dev
 apt-get install -y liburdfdom-headers-dev
 apt-get install -y mawk
 apt-get install -y python-is-python3
