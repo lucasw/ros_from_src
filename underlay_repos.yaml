@@ -130,7 +130,7 @@ repositories:
     url: https://github.com/ros-infrastructure/rosdistro
   roslint:
     type: git
-    url: git@github.com:lucasw/roslint
+    url: https://github.com/lucasw/roslint
     version: roslint_rust
   rospack:
     type: git
