@@ -92,8 +92,8 @@ repositories:
     version: obese-devel
   resource_retriever:
     type: git
-    url: https://github.com/ros/resource_retriever.git
-    version: kinetic-devel
+    url: https://github.com/lucasw/resource_retriever.git
+    version: curl_lib
   ros:
     type: git
     url: https://github.com/ros/ros
