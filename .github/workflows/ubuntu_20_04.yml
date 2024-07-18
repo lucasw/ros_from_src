@@ -20,13 +20,14 @@ jobs:
           mkdir staging
           cd staging
           cp ../ros_from_src/*sh .
-          cp ../ros_from_src/*yaml .
           sudo ./dependencies.sh
           pip install vcstool
 
       - name: local git dependencies
         run: |
           cd staging
+          mkdir -p underlay_ws/src
+          cp ../ros_from_src/*yaml underlay_ws/src
           # override rosconsole in 20.04 for log4cxx compatibility
           ROSCONSOLE=https://github.com/ros/rosconsole ./git_clone.sh
 
