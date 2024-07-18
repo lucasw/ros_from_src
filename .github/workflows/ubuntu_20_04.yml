@@ -17,10 +17,10 @@ jobs:
 
       - name: local apt dependencies
         run: |
-          sudo apt install python3-vcstool
           mkdir staging
           cd staging
           sudo ../ros_from_src/dependencies.sh
+          pip install vcstool
 
       - name: local git dependencies
         run: |
