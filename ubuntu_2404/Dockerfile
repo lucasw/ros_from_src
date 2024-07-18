@@ -168,7 +168,6 @@ RUN touch src/other/apriltag_ros/CATKIN_IGNORE
 RUN catkin build --no-status -j1 rtabmap*
 RUN catkin build --no-status -j1 fuse_viz
 RUN catkin build --no-status -j1 fuse*
-RUN catkin build --no-status -j1 rosmon*
 RUN catkin build --no-status -j1 grid_map*
 RUN catkin build --no-status -j1 rviz*
 RUN catkin build --no-status -j1 octomap*
