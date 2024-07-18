@@ -360,10 +360,6 @@ repositories:
     type: git
     url: git@github.com:lucasw/rosboard.git
     version: patch-1
-  other/rosfmt:
-    type: git
-    url: git@github.com:lucasw/rosfmt
-    version: build_2204
   other/rosmon:
     type: git
     url: git@github.com:lucasw/rosmon

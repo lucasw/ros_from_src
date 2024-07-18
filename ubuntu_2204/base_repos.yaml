@@ -355,10 +355,6 @@ repositories:
     type: git
     url: git@github.com:dheera/rosboard.git
     version: main
-  other/rosfmt:
-    type: git
-    url: git@github.com:lucasw/rosfmt
-    version: build_2204
   other/rosmon:
     type: git
     url: git@github.com:lucasw/rosmon
