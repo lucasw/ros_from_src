@@ -19,22 +19,22 @@ jobs:
         run: |
           mkdir staging
           cd staging
-          cp ../ros_from_src/*sh .
-          sudo ./dependencies.sh
+          mkdir -p underlay_ws/src
+          cp ../ros_from_src/*sh underlay_ws
+          sudo underlay_ws/dependencies.sh
           pip install vcstool
 
       - name: local git dependencies
         run: |
           cd staging
-          mkdir -p underlay_ws/src
           cp ../ros_from_src/*yaml underlay_ws/src
           # override rosconsole in 20.04 for log4cxx compatibility
-          ROSCONSOLE=https://github.com/ros/rosconsole ./git_clone.sh
+          ROSCONSOLE=https://github.com/ros/rosconsole underlay_ws/git_clone.sh
 
       - name: local build
         run: |
           cd staging
-          ./build.sh
+          underlay_ws/build.sh
 
       - name: docker build from source 20.04
         run: |
