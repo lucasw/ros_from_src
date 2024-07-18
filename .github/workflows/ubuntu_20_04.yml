@@ -28,7 +28,7 @@ jobs:
         run: |
           cd staging
           # override rosconsole in 20.04 for log4cxx compatibility
-          ROSCONSOLE=https://github.com/ros/rosconsole git_clone.sh
+          ROSCONSOLE=https://github.com/ros/rosconsole ./git_clone.sh
 
       - name: local build
         run: |
