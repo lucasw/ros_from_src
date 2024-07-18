@@ -17,6 +17,7 @@ jobs:
 
       - name: local apt dependencies
         run: |
+          apt install python3-vcstool
           mkdir staging
           cd staging
           sudo ../ros_from_src/dependencies.sh
