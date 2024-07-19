@@ -18,6 +18,8 @@ WS=`pwd`/underlay_ws/src
 echo $WS
 mkdir $WS -p
 
+mkdir -p $DEST/local/bin
+
 ROS_DEST=$DEST source $WS/../env.sh
 
 # catkin_pkg
