@@ -17,8 +17,7 @@ jobs:
 
       - name: local apt dependencies
         run: |
-
-          apt-get install -y python3-pip
+          sudo apt-get install -y python3-pip
           pip install vcstool
 
           mkdir staging
