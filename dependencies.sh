@@ -2,6 +2,10 @@
 
 # build apt installs
 apt-get update
+
+apt-get install -y python3-pip
+apt-get install -y vcstool || pip install vcstool  # vcs is in apt 24.04 but only pip in 20.04
+
 apt-get install -y build-essential
 apt-get install -y bzip2 libbz2-dev
 apt-get install -y cmake
@@ -49,4 +53,3 @@ apt-get install -y python3-gnupg
 
 apt-get install -y catkin-tools || true  # not available in 20.04
 apt-get install -y libbullet-dev
-apt-get install -y vcstool || true  # this is in 24.04 but not 20.04

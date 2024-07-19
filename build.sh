@@ -42,12 +42,13 @@ python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-v
 mkdir -p $BUILD/catkin
 cd $BUILD/catkin
 cmake $WS/catkin -DCATKIN_BUILD_BINARY_PACKAGE=ON -DCMAKE_INSTALL_PREFIX=$DEST -DPYTHON_EXECUTABLE=/usr/bin/python -DSETUPTOOLS_DEB_LAYOUT=OFF -DCATKIN_INSTALL_INTO_PREFIX_ROOT=true && make && make install
+echo $PATH
 ls -l $DEST/local/bin
-PATH=$PATH:$DEST/bin
-PATH=$PATH:$DEST/local/bin
+ls -l $DEST/bin
 which catkin
-catkin --version
 echo $PYTHONPATH
+# ls -l $DEST/local/lib/python3.8/dist-packages/ || ls -l $DEST/lib/python3.8/site-packages/
+catkin --version
 python -c "import catkin; print(catkin)"
 
 # console_bridge
@@ -132,6 +133,8 @@ python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-v
 
 cd $WS/rosdep
 python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
+echo $PATH
+which rosdep
 rosdep init || true
 rosdep update
 

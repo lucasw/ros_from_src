@@ -1,0 +1,27 @@
+name: Ubuntu 22.04 Noetic ROS build from source in docker
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  ubuntu2204docker:
+    runs-on: ubuntu-22.04
+    # env:
+    steps:
+      - name: git clone git@github.com:lucasw/ros_from_src
+        uses: actions/checkout@v2
+        with:
+          path: ros_from_src
+          submodules: recursive
+
+      # TODO(lucasw) move these 22.04 builds into separate action
+      - name: docker build from source 22.04
+        run: |
+          cd ros_from_src
+          docker build --build-arg IMAGE=ubuntu:22.04 --build-arg PYTHON_MINOR_VERSION=10 . -t ros2204
+
+      - name: docker build from source and debian 22.04
+        run: |
+          cd ros_from_src/ubuntu_2204
+          docker build  . -t ros_debian_2204

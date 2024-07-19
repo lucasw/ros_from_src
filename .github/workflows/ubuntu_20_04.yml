@@ -17,9 +17,6 @@ jobs:
 
       - name: local apt dependencies
         run: |
-          sudo apt-get install -y python3-pip
-          pip install vcstool
-
           mkdir staging
           cd staging
           mkdir -p underlay_ws/src
@@ -46,14 +43,4 @@ jobs:
       - name: docker build from source 20.04
         run: |
           cd ros_from_src
-          docker build --build-arg IMAGE=ubuntu:20.04 --build-arg ROSCONSOLE=https://github.com/ros/rosconsole --build-arg PYTHON_MINOR_VERSION=8 . -t ros2004
-
-      - name: docker build from source 22.04
-        run: |
-          cd ros_from_src
-          docker build --build-arg IMAGE=ubuntu:22.04 --build-arg PYTHON_MINOR_VERSION=10 . -t ros2204
-
-      - name: docker build from source and debian 22.04
-        run: |
-          cd ros_from_src/ubuntu_2204
-          docker build  . -t ros_debian_2204
+          docker build --build-arg IMAGE=ubuntu:20.04 --build-arg SUBDIR=ubuntu_2004 . -t ros2004
