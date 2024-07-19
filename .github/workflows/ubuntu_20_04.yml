@@ -36,6 +36,11 @@ jobs:
           cd staging
           underlay_ws/build.sh
 
+      - name: local catkin build
+        run: |
+          cd staging
+          underlay_ws/catkin.sh
+
       - name: docker build from source 20.04
         run: |
           cd ros_from_src

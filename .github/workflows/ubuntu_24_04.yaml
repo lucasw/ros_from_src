@@ -15,6 +15,32 @@ jobs:
           path: ros_from_src
           submodules: recursive
 
+      - name: local apt dependencies
+        run: |
+          mkdir staging
+          cd staging
+          mkdir -p underlay_ws/src
+          cp ../ros_from_src/*sh underlay_ws
+          sudo underlay_ws/dependencies.sh
+          pip install vcstool
+
+      - name: local git dependencies
+        run: |
+          cd staging
+          cp ../ros_from_src/*yaml underlay_ws/src
+          # override rosconsole in 20.04 for log4cxx compatibility
+          ROSCONSOLE=https://github.com/ros/rosconsole underlay_ws/git_clone.sh
+
+      - name: local build
+        run: |
+          cd staging
+          underlay_ws/build.sh
+
+      - name: local catkin build
+        run: |
+          cd staging
+          underlay_ws/catkin.sh
+
       - name: docker build from source 24.04
         run: |
           cd ros_from_src
