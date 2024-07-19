@@ -47,6 +47,6 @@ apt-get install -y python3-gnupg
 # TODO(lucasw) get this from source later
 # apt-get install -y python3-rosunit
 
-apt-get install -y catkin-tools
+apt-get install -y catkin-tools || true  # not available in 20.04
 apt-get install -y libbullet-dev
 apt-get install -y vcstool || true  # this is in 24.04 but not 20.04

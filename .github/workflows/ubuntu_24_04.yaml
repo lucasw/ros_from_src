@@ -22,7 +22,6 @@ jobs:
           mkdir -p underlay_ws/src
           cp ../ros_from_src/*sh underlay_ws
           sudo underlay_ws/dependencies.sh
-          pip install vcstool
 
       - name: local git dependencies
         run: |
