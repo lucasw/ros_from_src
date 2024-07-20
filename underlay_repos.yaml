@@ -73,8 +73,8 @@ repositories:
     version: obese-devel
   kdl_parser:
     type: git
-    url: https://github.com/ros/kdl_parser.git
-    version: noetic-devel
+    url: https://github.com/ros-o/kdl_parser
+    version: obese-devel
   message_generation:
     type: git
     url: https://github.com/ros/message_generation
@@ -100,8 +100,11 @@ repositories:
     version: noetic-devel
   ros_comm:
     type: git
-    url: https://github.com/ros-o/ros_comm
-    version: obese-devel
+    # TODO(lucasw) got std::shared_mutex log4cxx errors in Ubuntu 22.04 with this version
+    # url: https://github.com/ros-o/ros_comm
+    # version: obese-devel
+    url: https://github.com/lucasw/ros_comm
+    version: salsa_noetic_aggregated
   ros_comm_msgs:
     type: git
     url: https://github.com/ros/ros_comm_msgs
@@ -145,5 +148,7 @@ repositories:
     version: kinetic-devel
   urdf:
     type: git
-    url: https://github.com/ros/urdf.git
-    version: melodic-devel
+    url: https://github.com/ros-o/urdf
+    version: obese-devel
+    # url: https://github.com/lucasw/urdf
+    # version: cmake_cxx_17

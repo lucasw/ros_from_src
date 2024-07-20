@@ -11,6 +11,7 @@ apt-get install -y bzip2 libbz2-dev
 apt-get install -y cmake
 apt-get install -y coreutils
 apt-get install -y git
+apt-get install -y libb64-dev
 apt-get install -y libboost-dev
 apt-get install -y libboost-filesystem-dev
 apt-get install -y libboost-program-options-dev
