@@ -212,10 +212,6 @@ repositories:
     type: git
     url: https://github.com/locusrobotics/tf2_2d
     version: devel
-  other/wu_ros_tools:
-    type: git
-    url: https://github.com/lucasw/wu_ros_tools
-    version: noetic
   ros/audio_common:
     type: git
     url: https://github.com/ros-drivers/audio_common
