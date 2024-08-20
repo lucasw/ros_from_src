@@ -22,6 +22,7 @@ jobs:
           mkdir -p underlay_ws/src
           cp ../ros_from_src/*sh underlay_ws
           sudo underlay_ws/dependencies.sh
+          sudo ../ros_from_src/ubuntu_2404/dependencies.sh
 
       - name: local git dependencies
         run: |
