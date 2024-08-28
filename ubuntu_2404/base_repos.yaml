@@ -140,14 +140,14 @@ repositories:
     type: git
     url: https://github.com/jsk-ros-pkg/jsk_roseus
     version: master
+  people:
+    type: git
+    url: git@github.com:wg-perception/people.git
+    version: melodic
   other/libnabo:
     type: git
     url: https://github.com/ethz-asl/libnabo
     version: master
-  other/lvr2:
-    type: git
-    url: https://github.com/uos/lvr2
-    version: humble
   other/marti_messages:
     type: git
     url: https://github.com/swri-robotics/marti_messages
