@@ -147,7 +147,7 @@ repositories:
   other/lvr2:
     type: git
     url: git@github.com:uos/lvr2
-    version: lvr2
+    version: develop
   other/marti_messages:
     type: git
     url: git@github.com:swri-robotics/marti_messages
