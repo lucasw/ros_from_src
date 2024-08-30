@@ -1,0 +1,23 @@
+name: Ubuntu 20.04 Noetic ROS build from source
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  ubuntu2004:
+    runs-on: ubuntu-20.04
+    # env:
+    steps:
+      - name: git clone git@github.com:lucasw/ros_from_src
+        uses: actions/checkout@v2
+        with:
+          path: ros_from_src
+          submodules: recursive
+
+      # TODO(lucasw) probably could combine 20.04, 22.04, and 24.04 docker builds into a single action yaml
+      # with matrix branches that execute simultaneously
+      - name: docker build from source 20.04
+        run: |
+          cd ros_from_src
+          docker build --build-arg IMAGE=ubuntu:20.04 --build-arg SUBDIR=ubuntu_2004 . -t ros2004
