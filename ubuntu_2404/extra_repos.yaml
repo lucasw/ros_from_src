@@ -319,7 +319,7 @@ repositories:
   other/people:
     type: git
     url: git@github.com:wg-perception/people.git
-    version: melodic
+    version: noetic
   other/pid:
     type: git
     url: git@github.com:lucasw/pid.git

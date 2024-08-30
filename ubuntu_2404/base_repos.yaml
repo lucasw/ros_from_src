@@ -140,10 +140,6 @@ repositories:
     type: git
     url: https://github.com/jsk-ros-pkg/jsk_roseus
     version: master
-  other/people:
-    type: git
-    url: git@github.com:wg-perception/people.git
-    version: noetic
   other/libnabo:
     type: git
     url: https://github.com/ethz-asl/libnabo
