@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  ubuntu2004and2204:
+  ubuntu2004:
     runs-on: ubuntu-20.04
     # env:
     steps:
@@ -27,8 +27,9 @@ jobs:
         run: |
           cd staging
           cp ../ros_from_src/*yaml underlay_ws/src
+          sed -i 's/git@github.com:/https:\/\/github.com\//' underlay_ws/src/underlay_repos.yaml
           # override rosconsole in 20.04 for log4cxx compatibility
-          ROSCONSOLE=https://github.com/ros/rosconsole underlay_ws/git_clone.sh
+          underlay_ws/git_clone.sh
 
       - name: local build
         run: |

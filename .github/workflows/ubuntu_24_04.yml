@@ -28,8 +28,8 @@ jobs:
         run: |
           cd staging
           cp ../ros_from_src/*yaml underlay_ws/src
-          # override rosconsole in 20.04 for log4cxx compatibility
-          ROSCONSOLE=https://github.com/ros/rosconsole underlay_ws/git_clone.sh
+          sed -i 's/git@github.com:/https:\/\/github.com\//' underlay_ws/src/underlay_repos.yaml
+          underlay_ws/git_clone.sh
 
       - name: local build
         run: |
