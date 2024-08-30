@@ -1,7 +1,7 @@
 repositories:
   clearpath/cpr_gazebo:
     type: git
-    url: https://github.com/clearpathrobotics/cpr_gazebo.git
+    url: git@github.com:clearpathrobotics/cpr_gazebo.git
     version: noetic-devel
   clearpath/husky:
     type: git
@@ -577,7 +577,7 @@ repositories:
     version: master
   ros/rqt_reconfigure:
     type: git
-    url: https://github.com/ros-visualization/rqt_reconfigure
+    url: git@github.com:ros-visualization/rqt_reconfigure
     version: master
   ros/rqt_robot_monitor:
     type: git

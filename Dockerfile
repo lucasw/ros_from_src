@@ -32,6 +32,7 @@ RUN $SRC/ros_from_src/base_dependencies.sh
 # WORKDIR $SRC/ros_from_src
 RUN mkdir -p underlay_ws/src
 COPY underlay_repos.yaml underlay_ws/src
+RUN sed -i 's/git@github.com:/https:\/\/github.com\//' underlay_ws/src/underlay_repos.yaml
 COPY git_clone.sh $SRC/ros_from_src
 # RUN ROS_CONSOLE=$ROSCONSOLE $SRC/ros_from_src/git_clone.sh
 RUN $SRC/ros_from_src/git_clone.sh
@@ -46,6 +47,7 @@ RUN $SRC/ros_from_src/catkin.sh
 # WORKDIR $SRC/ros_from_src
 RUN mkdir -p base_ws/src
 COPY ${SUBDIR}/base_repos.yaml base_ws/src
+RUN sed -i 's/git@github.com:/https:\/\/github.com\//' base_ws/src/base_repos.yaml
 COPY ${SUBDIR}/base_git_clone.sh $SRC/ros_from_src
 # RUN ROS_CONSOLE=$ROSCONSOLE $SRC/ros_from_src/git_clone.sh
 RUN $SRC/ros_from_src/base_git_clone.sh
