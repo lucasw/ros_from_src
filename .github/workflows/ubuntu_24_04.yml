@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  ubuntu2404dockeron2204:
+  ubuntu2404:
     runs-on: ubuntu-24.04
     # env:
     steps:
@@ -40,11 +40,3 @@ jobs:
         run: |
           cd staging
           underlay_ws/catkin.sh
-
-      - name: docker build from source 24.04
-        run: |
-          cd ros_from_src
-          docker build --build-arg IMAGE=ubuntu:24.04 --build-arg SUBDIR=ubuntu_2404 . -t ros2404
-
-          # TODO(lucasw) ubuntu_2404/Dockerfile doesn't work, was depending on the now-removed
-          # apt debian science ros packages

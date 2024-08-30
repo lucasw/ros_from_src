@@ -7,7 +7,6 @@ on:
 jobs:
   ubuntu2204docker:
     runs-on: ubuntu-22.04
-    # env:
     steps:
       - name: git clone git@github.com:lucasw/ros_from_src
         uses: actions/checkout@v2

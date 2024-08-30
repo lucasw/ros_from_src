@@ -1,0 +1,23 @@
+name: Ubuntu 24.04 Noetic ROS build from source in docker
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  ubuntu2404docker:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: git clone git@github.com:lucasw/ros_from_src
+        uses: actions/checkout@v4
+        with:
+          path: ros_from_src
+          submodules: recursive
+
+      - name: docker build from source 24.04
+        run: |
+          cd ros_from_src
+          docker build --build-arg IMAGE=ubuntu:24.04 --build-arg SUBDIR=ubuntu_2404 . -t ros2404
+
+          # TODO(lucasw) ubuntu_2404/Dockerfile doesn't work, was depending on the now-removed
+          # apt debian science ros packages
