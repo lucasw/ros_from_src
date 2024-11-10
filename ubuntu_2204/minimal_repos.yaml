@@ -1,0 +1,141 @@
+repositories:
+  lucasw/image_manip:
+    type: git
+    url: https://github.com/lucasw/image_manip
+    version: fix_zero_frame_rate
+  lucasw/tf_demo:
+    type: git
+    url: https://github.com/lucasw/tf_demo
+    version: old_tf_to_new_tf
+  lucasw/topic_state:
+    type: git
+    url: https://github.com/lucasw/topic_state
+    version: master
+  lucasw/transform_point_cloud:
+    type: git
+    url: https://github.com/lucasw/transform_point_cloud.git
+    version: master
+  lucasw/vimjay:
+    type: git
+    url: https://github.com/lucasw/vimjay
+    version: eliminate_build_warnings
+  other/ddynamic_reconfigure:
+    type: git
+    url: https://github.com/ros-o/ddynamic_reconfigure
+    version: obese-devel
+  other/jsk_common_msgs:
+    type: git
+    url: https://github.com/lucasw/jsk_common_msgs
+    version: master
+  # other/message_filters:
+  #   type: git
+  #   url: https://github.com/fkie/message_filters.git
+  #   version: master
+  other/marti_messages:
+    type: git
+    url: https://github.com/swri-robotics/marti_messages.git
+    version: master
+  # other/opencv_apps:
+  #   type: git
+  #   url: https://github.com/ros-perception/opencv_apps.git
+  #   version: indigo
+  ros/camera_info_manager_py:
+    type: git
+    url: https://github.com/lucasw/camera_info_manager_py
+    version: noetic-devel
+  ros/control_msgs:
+    type: git
+    url: https://github.com/ros-controls/control_msgs.git
+    version: kinetic-devel
+  ros/diagnostics:
+    type: git
+    url: git@github.com:ros/diagnostics.git
+    version: noetic-devel
+  ros/ddynamic_reconfigure_python:
+    type: git
+    url: https://github.com/pal-robotics/ddynamic_reconfigure_python
+    version: master
+  ros/filters:
+    type: git
+    url: git@github.com:ros/filters.git
+    version: noetic-devel
+  ros/four_wheel_steering_msgs:
+    type: git
+    url: https://github.com/ros-drivers/four_wheel_steering_msgs.git
+    version: master
+  ros/geographic_info:
+    type: git
+    url: https://github.com/ros-geographic-info/geographic_info.git
+    version: master
+  ros/geometry2:
+    type: git
+    url: https://github.com/lucasw/geometry2
+    version: noetic_aggregated
+  ros/grid_map:
+    type: git
+    url: https://github.com/lucasw/grid_map
+    version: tbb_2021
+  ros/image_common:
+    type: git
+    url: https://github.com/lucasw/image_common
+    version: ubuntu_2210
+  ros/image_pipeline:
+    type: git
+    url: https://github.com/lucasw/image_pipeline
+    version: rgb_in_depth_range
+  ros/joint_state_publisher:
+    type: git
+    url: https://github.com/lucasw/joint_state_publisher
+    version: noetic_aggregated
+  ros/navigation:
+    type: git
+    url: git@github.com:lucasw/navigation
+    version: lucasw_debug
+  ros/nmea_msgs:
+    type: git
+    url: https://github.com/ros-drivers/nmea_msgs
+    version: master
+  ros/octomap_msgs:
+    type: git
+    url: https://github.com/OctoMap/octomap_msgs.git
+    version: melodic-devel
+  ros/robot_state_publisher:
+    type: git
+    url: https://github.com/lucasw/robot_state_publisher
+    version: robot_state_function
+  # ros/ros_comm:
+  #   type: git
+  #   url: https://github.com/lucasw/ros_comm
+  #   version: salsa_noetic_aggregated
+  # ros/rosconsole:
+  #   type: git
+  #   url: https://github.com/lucasw/rosconsole
+  #   version: ubuntu_2210
+  # ros/roscpp_core:
+  #   type: git
+  #   url: https://github.com/lucasw/roscpp_core
+  #   version: duration_out_of_dual_range
+  ros/roslint:
+    type: git
+    url: https://github.com/lucasw/roslint
+    version: roslint_rust
+  ros/unique_identifier:
+    type: git
+    url: https://github.com/ros-geographic-info/unique_identifier.git
+    version: master
+  ros/urdf_geometry_parser:
+    type: git
+    url: https://github.com/ros-controls/urdf_geometry_parser.git
+    version: kinetic-devel
+  ros/urdf_parser_py:
+    type: git
+    url: https://github.com/ros/urdf_parser_py.git
+    version: melodic-devel
+  ros/vision_msgs:
+    type: git
+    url: https://github.com/ros-perception/vision_msgs.git
+    version: noetic-devel
+  ros/xacro:
+    type: git
+    url: https://github.com/lucasw/xacro.git
+    version: cleanup_roslint

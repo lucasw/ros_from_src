@@ -1,0 +1,102 @@
+# docker build . -f Dockerfile.minimal -t ros_from_src_ubuntu_2204_minimal
+# build ros basic packages on top of what's available in debian in 22.04,
+# doesn't build rqt or rviz
+ARG IMAGE=ubuntu:22.04
+FROM ${IMAGE}
+ARG IMAGE
+RUN echo ${IMAGE}
+
+ENV DEBIAN_FRONTEND="noninteractive"
+
+# be able to source files
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
+RUN apt-get update -yqq
+RUN apt-get upgrade -yqq
+RUN apt-get install -yqq apt-utils
+
+# apt installs
+RUN apt-get update && apt-get install -yqq git
+RUN apt-get update && apt-cache search ros-
+RUN apt-get update && apt-cache search catkin
+RUN apt-get update && apt-get install -yqq ros-*
+RUN apt-get update && apt-get install -yqq catkin-lint cython3 libapriltag-dev libceres-dev libfmt-dev libfrei0r-ocaml-dev libgeographic-dev libgmock-dev libgoogle-glog-dev libgst-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev libimage-view-dev liborocos-bfl-dev libpcl-ros-dev libsdl-image1.2-dev libspnav-dev liburdfdom-dev libuvc-dev libv4l-dev libyaml-cpp-dev python-is-python3 python3-tf2-geometry-msgs python3-venv vim curl jq
+RUN apt-get update && apt-get install -yqq libgsl-dev wget freeglut3-dev libcgal-dev libhdf5-dev libturbojpeg0-dev libzmq3-dev
+RUN apt-get -y install ocl-icd-opencl-dev opencl-headers
+RUN apt-get -y install libopenvdb-dev
+
+ENV DEST=/opt/ros/base
+RUN mkdir $DEST -p
+ENV SRC=/opt/src
+RUN mkdir $SRC -p
+
+# TODO(lucasw) turn this into a script to make it easy to use outside of docker
+WORKDIR $SRC
+RUN git clone https://github.com/dirk-thomas/vcstool.git
+WORKDIR $SRC/vcstool
+RUN python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
+
+WORKDIR $SRC
+RUN git clone https://github.com/osrf/osrf_pycommon.git
+WORKDIR $SRC/osrf_pycommon
+RUN ls -l
+RUN python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
+
+WORKDIR $SRC
+RUN git clone https://github.com/catkin/catkin_tools.git
+WORKDIR $SRC/catkin_tools
+RUN python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
+
+WORKDIR $SRC
+RUN python --version | awk  '{print $2}' | cut -d'.' -f1
+RUN python --version | awk  '{print $2}' | cut -d'.' -f2
+# TODO(lucasw) these aren't working
+# RUN export PYTHON_MAJOR_VERSION=`python --version | awk  '{print $2}' | cut -d'.' -f1`
+# RUN export PYTHON_MINOR_VERSION=`python --version | awk  '{print $2}' | cut -d'.' -f2`
+# RUN PYTHON_MINOR_VERSION=`python --version | awk  '{print $2}' | cut -d'.' -f2`
+ARG PYTHON_MAJOR_VERSION=3
+ARG PYTHON_MINOR_VERSION=10
+ENV OPT_PYTHONPATH=$DEST/lib/python$PYTHON_MAJOR_VERSION.$PYTHON_MINOR_VERSION/site-packages/
+RUN echo $PYTHONPATH
+ENV PYTHONPATH=$OPT_PYTHONPATH
+RUN echo $PYTHONPATH
+
+ENV PATH=$DEST/bin:$PATH
+ENV CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$DEST/lib/cmake
+
+# WORKDIR $SRC
+# RUN git clone https://github.com/lucasw/ros_from_src.git
+WORKDIR $SRC/ros_from_src/ubuntu_2204
+COPY minimal_repos.yaml .
+# make git clone work through vcs without git credentials
+RUN sed -i 's/git@github.com:/https:\/\/github.com\//' minimal_repos.yaml
+
+# get packages and build
+ENV WS=/base_catkin_ws/src
+RUN mkdir $WS -p
+WORKDIR $WS
+RUN vcs import --shallow < $SRC/ros_from_src/ubuntu_2204/minimal_repos.yaml
+# COPY ignore.sh $SRC/ros_from_src/ubuntu_2204/
+# RUN $SRC/ros_from_src/ubuntu_2204/ignore.sh
+RUN touch ros/grid_map/grid_map_rviz_plugin/CATKIN_IGNORE
+
+# ENV ROS_DISTRO="noetic"
+RUN echo $CMAKE_PREFIX_PATH
+
+WORKDIR $WS/..
+RUN catkin config --install --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated -Wno-dev -DCMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES=$DEST/include -DCMAKE_LIBRARY_PATH=$DEST/lib
+RUN catkin build --no-status -j1 image_transport
+RUN catkin build --no-status -j1 grid_map_cv
+RUN touch src/ros/grid_map/grid_map_demos/CATKIN_IGNORE
+RUN catkin build --no-status -j1
+
+# rospack list won't work by itself
+# RUN source install/setup.bash && rospack list
+
+# TODO(lucasw) run more tests than this
+RUN ln -s /base_catkin_ws/install /opt/ros/one
+RUN ls -l /opt/ros/one
+# make 'source' work
+SHELL ["/bin/bash", "-c"]
+RUN source /opt/ros/one/setup.sh && rospack list
+# RUN source install/setup.sh && rostest joint_trajectory_controller joint_trajectory_controller.test
