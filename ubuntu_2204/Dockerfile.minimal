@@ -85,6 +85,7 @@ RUN echo $CMAKE_PREFIX_PATH
 
 WORKDIR $WS/..
 RUN catkin config --install --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated -Wno-dev -DCMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES=$DEST/include -DCMAKE_LIBRARY_PATH=$DEST/lib
+RUN catkin build --no-status -j1 robot_localization
 RUN catkin build --no-status -j1 image_transport
 RUN catkin build --no-status -j1 grid_map_cv
 RUN touch src/ros/grid_map/grid_map_demos/CATKIN_IGNORE
