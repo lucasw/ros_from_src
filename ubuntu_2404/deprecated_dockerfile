@@ -1,3 +1,4 @@
+# DEPRECATED, use ../Dockerfile
 # docker build . -t ros_from_src_ubuntu_2404
 ARG IMAGE=ubuntu:24.04
 FROM ${IMAGE}
@@ -22,7 +23,7 @@ RUN apt-get update && apt-get install -yqq catkin-tools vcstool
 RUN apt-get update && apt-get install -yqq libgsl-dev wget freeglut3-dev libcgal-dev libhdf5-dev libturbojpeg0-dev libzmq3-dev
 RUN apt-get -y install ocl-icd-opencl-dev opencl-headers
 RUN apt-get update && apt-get install -yqq cython3 libapriltag-dev libceres-dev libfmt-dev libfrei0r-ocaml-dev libgmock-dev libgoogle-glog-dev
-RUN apt-get update && apt-get install -yqq libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev liborocos-bfl-dev
+RUN apt-get update && apt-get install -yqq libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev # liborocos-bfl-dev
 RUN apt-get update && apt-get install -yqq curl jq
 RUN apt-get update && apt-get install -yqq libyaml-cpp-dev
 RUN apt-get update && apt-get install -yqq python-is-python3 python3-venv
