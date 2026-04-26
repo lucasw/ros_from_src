@@ -288,10 +288,6 @@ repositories:
     type: git
     url: git@github.com:lucasw/mesh_tools
     version: generate_mesh_geometry
-  other/message_filters:
-    type: git
-    url: git@github.com:fkie/message_filters.git
-    version: master
   other/nmea_navsat_driver:
     type: git
     url: git@github.com:ros-drivers/nmea_navsat_driver.git
