@@ -21,8 +21,12 @@ The above should be similar to what is in the github action: .github/workflows/u
 
 To build with docker and another ubuntu version:
 
-    docker build --build-arg IMAGE=ubuntu:21.10 --build-arg ROSCONSOLE=https://github.com/ros/rosconsole --build-arg PYTHON_MINOR_VERSION=9 . -t ros2110
+    docker build --build-arg IMAGE=ubuntu:22.04 --build-arg SUBDIR=ubuntu_2204 --build-arg ROSCONSOLE=https://github.com/ros/rosconsole --build-arg PYTHON_MINOR_VERSION=9 . -t ros_from_src_2204
 
-Build with default Ubuntu 22.04 version:
+Build with default Ubuntu 24.04 version:
 
-    docker build . -t ros2204
+    docker build . -t ros_from_src_ubuntu_2404
+
+run it:
+
+    docker run -it --rm --net host ros_from_src_ubuntu_2404 bash -c "source /base_ws/install/setup.bash && bash"

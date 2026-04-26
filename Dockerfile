@@ -1,8 +1,9 @@
+# docker build . -t ros_from_src_ubuntu_2404
 ARG IMAGE=ubuntu:24.04
 FROM ${IMAGE}
 ARG IMAGE
 RUN echo ${IMAGE}
-ARG SUBDIR
+ARG SUBDIR=ubuntu_2404
 
 ENV DEBIAN_FRONTEND="noninteractive"
 
@@ -55,5 +56,6 @@ RUN $SRC/ros_from_src/base_git_clone.sh
 COPY ${SUBDIR}/base_catkin.sh $SRC/ros_from_src
 RUN $SRC/ros_from_src/base_catkin.sh
 
+RUN source base_ws/install/setup.bash
 WORKDIR $WS/..
 # TODO(lucasw) run tests
