@@ -286,7 +286,7 @@ repositories:
   other/message_filters:
     type: git
     url: git@github.com:fkie/message_filters.git
-    version: master
+    version: ros1
   other/nmea_navsat_driver:
     type: git
     url: git@github.com:ros-drivers/nmea_navsat_driver.git
