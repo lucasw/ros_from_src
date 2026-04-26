@@ -1,4 +1,6 @@
-# docker build . -t ros_from_src_ubuntu_2204
+# docker build . -f Dockerfile.minimal -t ros_from_src_ubuntu_2204_minimal
+# build ros basic packages on top of what's available in debian in 22.04,
+# doesn't build rqt or rviz
 ARG IMAGE=ubuntu:22.04
 FROM ${IMAGE}
 ARG IMAGE
@@ -18,7 +20,7 @@ RUN apt-get update && apt-get install -yqq git
 RUN apt-get update && apt-cache search ros-
 RUN apt-get update && apt-cache search catkin
 RUN apt-get update && apt-get install -yqq ros-*
-RUN apt-get update && apt-get install -yqq catkin-lint cython3 libapriltag-dev libceres-dev libfmt-dev libfrei0r-ocaml-dev libgeographic-dev libgmock-dev libgoogle-glog-dev libgst-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev libimage-view-dev liborocos-bfl-dev libpcl-ros-dev libqt5svg5-dev libqt5websockets5-dev libqt5x11extras5-dev libqwt-qt5-dev libsdl-image1.2-dev libspnav-dev liburdfdom-dev libuvc-dev libv4l-dev libyaml-cpp-dev python-is-python3 python3-tf2-geometry-msgs python3-venv vim curl jq
+RUN apt-get update && apt-get install -yqq catkin-lint cython3 libapriltag-dev libceres-dev libfmt-dev libfrei0r-ocaml-dev libgeographic-dev libgmock-dev libgoogle-glog-dev libgst-dev libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev libimage-view-dev liborocos-bfl-dev libpcl-ros-dev libsdl-image1.2-dev libspnav-dev liburdfdom-dev libuvc-dev libv4l-dev libyaml-cpp-dev python-is-python3 python3-tf2-geometry-msgs python3-venv vim curl jq
 RUN apt-get update && apt-get install -yqq libgsl-dev wget freeglut3-dev libcgal-dev libhdf5-dev libturbojpeg0-dev libzmq3-dev
 RUN apt-get -y install ocl-icd-opencl-dev opencl-headers
 RUN apt-get -y install libopenvdb-dev
@@ -28,6 +30,7 @@ RUN mkdir $DEST -p
 ENV SRC=/opt/src
 RUN mkdir $SRC -p
 
+# TODO(lucasw) turn this into a script to make it easy to use outside of docker
 WORKDIR $SRC
 RUN git clone https://github.com/dirk-thomas/vcstool.git
 WORKDIR $SRC/vcstool
@@ -64,61 +67,34 @@ ENV CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$DEST/lib/cmake
 # WORKDIR $SRC
 # RUN git clone https://github.com/lucasw/ros_from_src.git
 WORKDIR $SRC/ros_from_src/ubuntu_2204
-COPY base_repos.yaml .
+COPY minimal_repos.yaml .
 # make git clone work through vcs without git credentials
-RUN sed -i 's/git@github.com:/https:\/\/github.com\//' base_repos.yaml
+RUN sed -i 's/git@github.com:/https:\/\/github.com\//' minimal_repos.yaml
 
 # get packages and build
 ENV WS=/base_catkin_ws/src
 RUN mkdir $WS -p
 WORKDIR $WS
-RUN vcs import --shallow < $SRC/ros_from_src/ubuntu_2204/base_repos.yaml
-COPY ignore.sh $SRC/ros_from_src/ubuntu_2204/
-RUN $SRC/ros_from_src/ubuntu_2204/ignore.sh
-RUN touch other/catkin_virtualenv/test_catkin_virtualenv_inherited/CATKIN_IGNORE
-RUN touch other/catkin_virtualenv/test_catkin_virtualenv_isolated/CATKIN_IGNORE
-
-RUN mkdir -p $HOME/other/build/openvdb
-WORKDIR other/build/openvdb
-RUN cmake $WS/other/vdb/openvdb/ -DCMAKE_INSTALL_PREFIX=$DEST
-RUN make -j2  # it's a slow build
-RUN make install
+RUN vcs import --shallow < $SRC/ros_from_src/ubuntu_2204/minimal_repos.yaml
+# COPY ignore.sh $SRC/ros_from_src/ubuntu_2204/
+# RUN $SRC/ros_from_src/ubuntu_2204/ignore.sh
+RUN touch ros/grid_map/grid_map_rviz_plugin/CATKIN_IGNORE
 
 # ENV ROS_DISTRO="noetic"
 RUN echo $CMAKE_PREFIX_PATH
 
 WORKDIR $WS/..
 RUN catkin config --install --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated -Wno-dev -DCMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES=$DEST/include -DCMAKE_LIBRARY_PATH=$DEST/lib
-# split these up so can take advantage of docker layers, otherwise one failure
-# means a huge rebuild
-# RUN catkin build --no-status -j1 fuse_core
-# disabling this because it is too slow to build
-# RUN catkin build --no-status -j1 rtabmap_ros
-RUN catkin build --no-status -j1 vdb_mapping*
-RUN catkin build --no-status -j1 jsk_rviz_plugins
-RUN catkin build --no-status -j1 rviz
-RUN catkin build --no-status -j1 plotjuggler
-RUN catkin build --no-status -j1 rqt
-RUN catkin build --no-status -j1 octomap_server
-RUN catkin build --no-status -j1 libuvc_camera
-# RUN catkin build --no-status -j1 fuse_constraints
-RUN catkin build --no-status -j1 people_tracking_filter
-RUN catkin build --no-status -j1 laser_assembler
-RUN catkin build --no-status -j1 catkin_virtualenv
-RUN catkin build --no-status -j1 nmea_navsat_driver
-RUN catkin build --no-status -j1 grid_map_visualization
-RUN catkin build --no-status -j1 stereo_image_proc
-RUN catkin build --no-status -j1 jsk_topic_tools
-RUN catkin build --no-status -j1 jsk_interactive_marker
-# RUN catkin build --no-status -j1 test_catkin_virtualenv_inherited
-# RUN catkin build --no-status -j1 test_catkin_virtualenv_py3_isolated
+RUN catkin build --no-status -j1 robot_localization
+RUN catkin build --no-status -j1 image_transport
+RUN catkin build --no-status -j1 grid_map_cv
+RUN touch src/ros/grid_map/grid_map_demos/CATKIN_IGNORE
 RUN catkin build --no-status -j1
 
 # rospack list won't work by itself
 # RUN source install/setup.bash && rospack list
 
 # TODO(lucasw) run more tests than this
-RUN catkin build joint_trajectory_controller --no-status --no-deps --catkin-make-args tests
 RUN ln -s /base_catkin_ws/install /opt/ros/one
 RUN ls -l /opt/ros/one
 # make 'source' work

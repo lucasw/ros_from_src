@@ -12,49 +12,44 @@ BUILD=`pwd`/build
 echo $BUILD
 mkdir -p $BUILD
 
-WS=`pwd`/catkin_ws/src
-echo $WS
-mkdir -p $WS || true
-
 DEST=`pwd`/ros
 
-# python installs
+WS=`pwd`/underlay_ws/src
+echo $WS
+mkdir $WS -p
 
-python --version | awk  '{print $2}' | cut -d'.' -f1
-# TODO(lucasw) these aren't working
-PYTHON_MAJOR_VERSION=`python --version | awk  '{print $2}' | cut -d'.' -f1`
-PYTHON_MINOR_VERSION=`python --version | awk  '{print $2}' | cut -d'.' -f2`
-OPT_PYTHONPATH=$DEST/lib/python$PYTHON_MAJOR_VERSION.$PYTHON_MINOR_VERSION/site-packages/
-echo $PYTHONPATH
-export PYTHONPATH=$PYTHONPATH:$OPT_PYTHONPATH
-echo PYTHONPATH=\$PYTHONPATH:$OPT_PYTHONPATH
+mkdir -p $DEST/local/bin
+
+ROS_DEST=$DEST source $WS/../env.sh
 
 # catkin_pkg
-cd $SRC/catkin_pkg
+cd $WS/catkin_pkg
 python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
-ls -l $OPT_PYTHONPATH
-ls -l $OPT_PYTHONPATH/catkin_pkg
 # python -c "import sys; print(sys.path)"
 python -c "import catkin_pkg; print(catkin_pkg.__version__)"
 python -c "from catkin_pkg.package import parse_package"
 
-
 # osrf pycommon
-cd $SRC/osrf_pycommon
+cd $WS/osrf_pycommon
 # TODO(lucasw) install to $DEST
 python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
 
 # catkin tools
-cd $SRC/catkin_tools
+cd $WS/catkin_tools
 python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
 
 # catkin install
 mkdir -p $BUILD/catkin
 cd $BUILD/catkin
 cmake $WS/catkin -DCATKIN_BUILD_BINARY_PACKAGE=ON -DCMAKE_INSTALL_PREFIX=$DEST -DPYTHON_EXECUTABLE=/usr/bin/python -DSETUPTOOLS_DEB_LAYOUT=OFF -DCATKIN_INSTALL_INTO_PREFIX_ROOT=true && make && make install
-python -c "import catkin; print(catkin)"
+echo $PATH
+ls -l $DEST/local/bin
 ls -l $DEST/bin
-PATH=$PATH:$DEST/bin
+which catkin
+echo $PYTHONPATH
+# ls -l $DEST/local/lib/python3.8/dist-packages/ || ls -l $DEST/lib/python3.8/site-packages/
+catkin --version
+python -c "import catkin; print(catkin)"
 
 # console_bridge
 mkdir -p $BUILD/console_bridge
@@ -63,6 +58,7 @@ cd $BUILD/console_bridge
 cmake $WS/console_bridge -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$DEST -DCMAKE_INSTALL_LIBDIR=lib
 make
 make install
+echo "console bridge"
 
 # cmake_modules
 cd $WS
@@ -87,7 +83,7 @@ make install
 mkdir -p $BUILD/ros_environment
 pwd
 cd $BUILD/ros_environment
-cmake $SRC/ros_environment -DCATKIN_BUILD_BINARY_PACKAGE=ON -DCMAKE_INSTALL_PREFIX=$DEST -DPYTHON_EXECUTABLE=/usr/bin/python -DSETUPTOOLS_DEB_LAYOUT=OFF
+cmake $WS/ros_environment -DCATKIN_BUILD_BINARY_PACKAGE=ON -DCMAKE_INSTALL_PREFIX=$DEST -DPYTHON_EXECUTABLE=/usr/bin/python -DSETUPTOOLS_DEB_LAYOUT=OFF
 make
 make install
 
@@ -97,6 +93,8 @@ cd $BUILD/rospack
 cmake $WS/rospack -DCATKIN_BUILD_BINARY_PACKAGE=ON -DCMAKE_INSTALL_PREFIX=$DEST -DPYTHON_EXECUTABLE=/usr/bin/python -DSETUPTOOLS_DEB_LAYOUT=OFF -Dcmake_modules_DIR=$DEST/share/cmake_modules/cmake/
 make
 make install
+ls -l $DEST/lib
+rospack help
 
 # genmsg
 mkdir -p $BUILD/genmsg
@@ -127,34 +125,27 @@ make
 make install
 
 # rospkg
-cd $SRC/rospkg
+cd $WS/rospkg
 python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
 
-cd $SRC/rosdistro
+cd $WS/rosdistro
 python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
 
-cd $SRC/rosdep
+cd $WS/rosdep
 python3 setup.py install --prefix=$DEST --record install_manifest.txt --single-version-externally-managed
+echo $PATH
+which rosdep
 rosdep init || true
 rosdep update
+
+# TODO(lucasw) wouldn't need to ignore most of these if the non-catkin packages
+# that have catkin test packages in them were cloned separately
+touch $WS/rosdep/test/CATKIN_IGNORE
+touch $WS/catkin_pkg/test/CATKIN_IGNORE
+touch $WS/catkin_tools/docs/examples/CATKIN_IGNORE
+touch $WS/catkin_tools/tests/CATKIN_IGNORE
+touch $WS/rospkg/test/CATKIN_IGNORE
 
 # TODO(lucasw) already have a copy of this but needs to be in the workspace
 # find / | grep setup.bash
 # find / | grep catkin-config.cmake
-cd $WS/..
-catkin init
-source $DEST/setup.bash
-catkin config
-rospack list
-
-# rosdep install --from-paths src --ignore-src -r -s  # do a dry-run first
-# rosdep install --from-paths src --ignore-src -r -y
-CMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH:$DEST:$DEST/lib/cmake
-echo $CMAKE_PREFIX_PATH
-# TODO(lucasw) put this in WS to begin with
-# TODO(lucasw) was this needed?  Need a bunch of CATKIN_IGNOREs in every package/test dir to make it build
-# ln -s $SRC/ros $WS/ros
-catkin build --cmake-args -DCMAKE_BUILD_TYPE=Release -Wno-deprecated
-source devel/setup.bash
-rospack list
-# TODO(lucasw) run tests

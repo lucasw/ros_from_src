@@ -1,16 +1,16 @@
-name: Ubuntu 20.04 Noetic ROS build from source
+name: Ubuntu 24.04 Noetic ROS build from source in docker
 
 on:
   push:
   workflow_dispatch:
 
 jobs:
-  ubuntu2004:
-    runs-on: ubuntu-20.04
+  ubuntu2404:
+    runs-on: ubuntu-24.04
     # env:
     steps:
       - name: git clone git@github.com:lucasw/ros_from_src
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           path: ros_from_src
           submodules: recursive
@@ -22,13 +22,13 @@ jobs:
           mkdir -p underlay_ws/src
           cp ../ros_from_src/*sh underlay_ws
           sudo underlay_ws/dependencies.sh
+          sudo ../ros_from_src/ubuntu_2404/dependencies.sh
 
       - name: local git dependencies
         run: |
           cd staging
           cp ../ros_from_src/*yaml underlay_ws/src
           sed -i 's/git@github.com:/https:\/\/github.com\//' underlay_ws/src/underlay_repos.yaml
-          # override rosconsole in 20.04 for log4cxx compatibility
           underlay_ws/git_clone.sh
 
       - name: local build

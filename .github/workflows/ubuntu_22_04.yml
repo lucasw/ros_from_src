@@ -210,9 +210,6 @@ jobs:
 
           touch other/fuse/CATKIN_IGNORE
 
-          touch other/lvr2/CATKIN_IGNORE
-          touch other/mesh_tools/CATKIN_IGNORE
-
           touch other/rtabmap/CATKIN_IGNORE
           touch other/rtabmap_ros/CATKIN_IGNORE
 

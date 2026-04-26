@@ -1,0 +1,154 @@
+repositories:
+  # TODO(lucasw) separate the ros catkin packages from cmake/python packages
+  actionlib:
+    type: git
+    url: git@github.com:ros/actionlib.git
+    version: noetic-devel
+  angles:
+    type: git
+    url: git@github.com:ros/angles.git
+    version: master
+  bond_core:
+    type: git
+    url: git@github.com:ros-o/bond_core.git
+    version: obese-devel
+  catkin:
+    type: git
+    url: git@github.com:ros-o/catkin
+    version: obese-devel
+  catkin_pkg:
+    type: git
+    url: git@github.com:ros-infrastructure/catkin_pkg
+    # version: noetic-devel
+  catkin_tools:
+    type: git
+    url: git@github.com:catkin/catkin_tools
+  class_loader:
+    type: git
+    url: git@github.com:ros-o/class_loader
+    version: obese-devel
+  cmake_modules:
+    type: git
+    url: git@github.com:ros/cmake_modules
+    version: 0.5-devel
+  common_msgs:
+    type: git
+    url: git@github.com:ros/common_msgs.git
+    version: noetic-devel
+  console_bridge:
+    type: git
+    url: git@github.com:ros/console_bridge
+    version: master
+  gencpp:
+    type: git
+    url: git@github.com:ros-o/gencpp
+    version: obese-devel
+  geneus:
+    type: git
+    url: git@github.com:jsk-ros-pkg/geneus
+    version: master
+  genlisp:
+    type: git
+    url: git@github.com:ros/genlisp
+    version: kinetic-devel
+  genmsg:
+    type: git
+    url: git@github.com:ros/genmsg
+    version: kinetic-devel
+  gennodejs:
+    type: git
+    url: git@github.com:RethinkRobotics-opensource/gennodejs
+    version: kinetic-devel
+  genpy:
+    type: git
+    url: git@github.com:ros/genpy
+    version: main
+  geometry:
+    type: git
+    url: git@github.com:ros-o/geometry.git
+    version: obese-devel
+  geometry2:
+    type: git
+    url: git@github.com:ros-o/geometry2
+    version: obese-devel
+  kdl_parser:
+    type: git
+    url: git@github.com:ros-o/kdl_parser
+    version: obese-devel
+  message_generation:
+    type: git
+    url: git@github.com:ros/message_generation
+    version: kinetic-devel
+  message_runtime:
+    type: git
+    url: git@github.com:ros/message_runtime
+    version: kinetic-devel
+  osrf_pycommon:
+    type: git
+    url: git@github.com:osrf/osrf_pycommon
+  pluginlib:
+    type: git
+    url: git@github.com:ros-o/pluginlib
+    version: obese-devel
+  resource_retriever:
+    type: git
+    url: git@github.com:lucasw/resource_retriever
+    version: curl_lib
+  ros:
+    type: git
+    url: git@github.com:ros/ros
+    version: noetic-devel
+  ros_comm:
+    type: git
+    # TODO(lucasw) got std::shared_mutex log4cxx errors in Ubuntu 22.04 with this version
+    # url: git@github.com:ros-o/ros_comm
+    # version: obese-devel
+    url: git@github.com:lucasw/ros_comm
+    version: salsa_noetic_aggregated
+  ros_comm_msgs:
+    type: git
+    url: git@github.com:ros/ros_comm_msgs
+    version: kinetic-devel
+  ros_environment:
+    type: git
+    url: git@github.com:ros-o/ros_environment
+  rosconsole:
+    type: git
+    url: git@github.com:ros-o/rosconsole
+    version: obese-devel
+  rosconsole_bridge:
+    type: git
+    url: git@github.com:ros/rosconsole_bridge
+    version: kinetic-devel
+  roscpp_core:
+    type: git
+    url: git@github.com:ros-o/roscpp_core
+    version: obese-devel
+  rosdep:
+    type: git
+    url: git@github.com:lucasw/rosdep
+    version: disable_root_etc_ros
+  rosdistro:
+    type: git
+    url: git@github.com:ros-infrastructure/rosdistro
+  roslint:
+    type: git
+    url: git@github.com:lucasw/roslint
+    version: roslint_rust
+  rospack:
+    type: git
+    url: git@github.com:ros/rospack
+    version: noetic-devel
+  rospkg:
+    type: git
+    url: git@github.com:ros-infrastructure/rospkg
+  std_msgs:
+    type: git
+    url: git@github.com:ros/std_msgs
+    version: kinetic-devel
+  urdf:
+    type: git
+    url: git@github.com:ros-o/urdf
+    version: obese-devel
+    # url: git@github.com:lucasw/urdf
+    # version: cmake_cxx_17
